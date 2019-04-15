@@ -1,5 +1,7 @@
 package fr.eni_ecole.auction.beans;
 
+import java.util.ArrayList;
+
 public class Utilisateur {
 
 	private int noUtilisateur;
@@ -14,6 +16,10 @@ public class Utilisateur {
 	private String motDePasse;
 	private String credit;
 	private String administrateur;
+	ArrayList<ArticleVendu> articlesVendu;
+	ArrayList<ArticleVendu> articlesAchete;
+
+	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
