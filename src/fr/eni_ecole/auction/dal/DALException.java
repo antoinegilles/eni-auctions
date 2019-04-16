@@ -1,4 +1,4 @@
-package fr.eni_ecole.auction.dal;
+package fr.eni_ecole.jee.dal;
 
 /**
  * Classe gerant les exceptions de type DALException
