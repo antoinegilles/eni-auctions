@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>TP Web - Formations</title>
+  <meta charset="ISO-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/theme/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/theme/css/style.css">
+  <script src="<%=request.getContextPath() %>/theme/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="jumbotron text-center">
+		<h1>TP Web - Formations</h1>
+		<p>Centre de formation</p>
+	</div>
+	  
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9">
+				<h3>Liste des formations</h3>				

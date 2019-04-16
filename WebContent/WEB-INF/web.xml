@@ -9,4 +9,23 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>ListerArticles</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.ListerArticles</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListerArticles</servlet-name>
+    <url-pattern>/articles</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Articles</servlet-name>
+    <jsp-file>/WEB-INF/article/articles.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Articles</servlet-name>
+    <url-pattern>/articlesPage</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

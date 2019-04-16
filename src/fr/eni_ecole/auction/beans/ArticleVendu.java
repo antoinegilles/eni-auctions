@@ -15,7 +15,16 @@ public class ArticleVendu {
 	public Utilisateur utilisateur;
 	public Categorie categorie;
 	public Retrait retrait;
-
+	
+	
+	
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres) {
+	
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+	}
 	
 	public int getNoArticle() {
 		return noArticle;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- Definition du pool de connexions -->
+    <Resource 
+      	name="jdbc/auction" 
+      	type="javax.sql.DataSource" 
+      	
+      	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      	url="jdbc:sqlserver://localhost:1433;databasename=ENCHERES"
+      	username="sa"
+      	password="Pa$$w0rd"
+      	
+      	maxActive="5"
+		initialSize="1"
+		removeAbandoned="true"
+		removeAbandonedTimeout="15"
+    />
+
+</Context>
