@@ -1,7 +1,7 @@
 package fr.eni_ecole.auction.dal;
 
 /**
- * Reference toutes les methodes <strong>CRUD</strong> du metier Enchere
+ * Reference toutes les méthodes <strong>CRUD</strong> du metier Enchere
  * <ul><li>lister : <em>lister toutes les encheres</em></li>
  * <li>rechercher : <em>rechercher une enchere par son identifiant</em></li>
  * <li>ajouter : <em>ajouter une enchere</em></li>
