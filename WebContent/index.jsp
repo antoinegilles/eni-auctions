@@ -24,7 +24,7 @@
 	    </div>
 	    <div class="col-sm">
 	<a href="">S'inscrire</a>
-	<a href="">Se connecter</a>
+	<a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
 	    </div>
 	  </div>
 	</div>
