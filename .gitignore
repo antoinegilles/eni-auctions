@@ -1,0 +1,14 @@
+# ignore itellij files
+.idea/
+
+# ignore local libs
+lib/
+
+# ignore local builds
+build/
+
+# ignore local iml
+*.iml
+
+# ignore local classpath
+*.classpath

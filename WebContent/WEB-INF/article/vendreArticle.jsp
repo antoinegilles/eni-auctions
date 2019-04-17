@@ -1,10 +1,12 @@
+<%@ page import ="java.util.*, java.text.*" %>
+<%@page import="fr.eni_ecole.auction.beans.Categorie"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Accueil</title>
+<title>ENI-Encheres</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -24,12 +26,7 @@
 	    </div>
 	    <div class="col-sm">
 	<a href="">S'inscrire</a>
-	<br>
 	<a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-	<br>
-	<a href="<%=request.getContextPath() %>/ListerArticles">Liste les enchères en cours</a>
-	<br>
-	<a href="<%=request.getContextPath() %>/VendreArticle">Vendre un article</a><br />
 	    </div>
 	  </div>
 	</div>
@@ -59,45 +56,64 @@
 		</form>
 	</div>
 	
-	
 <div class="container">
-<div class="row">
-	<div class="col-sm">
-		<div class="article1">
-			<div class="container">
-		  <div class="row">
-		    <div class="col-sm">
-		  		<img src="images/dinosaur.jpg" alt="image article" class="left">
+		<div class="row">
+			<div class="col-sm-9">
+				<form method="post" action="<%=request.getContextPath() %>/VendreArticle">
+				  	<div class="form-group">
+				    	<label for="nomArticle">Article :</label>
+				    	<input type="text" id="nomArticle" name="nomArticle">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="description">Description :</label>
+				    	<input type="text" id="description" name="description">
+				  	</div>
+				  	
+				  	<%
+		
+		List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("liste");
+	%>
+	
+	Catégories :		
+<span class="custom-dropdown custom-dropdown--white">
+    <select class="custom-dropdown__select custom-dropdown__select--white" id="categorie" name="categorie">
+  <% 	for(Categorie categorie : listeCategories) {
+	%>
+     <option value="<%=categorie.getNoCategorie() %>" ><%=categorie.getLibelle() %></option>
+    <% } %>
+     </select>	
+  </span>
+  
+	
+				  	<div class="form-group">
+				    	<label for="photoArticle">Photo de l'article :</label>
+				    	<input type="text" id="photoArticle" name="photoArticle">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="misePrix">Mise à prix :</label>
+				    	<input type="text" id="misePrix" name="misePrix">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="debutEnchere">Début de l'enchère :</label>
+				    	<input type="text" id="debutEnchere" name="debutEnchere">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="finEnchere">Fin de l'enchère :</label>
+				    	<input type="text" id="finEnchere" name="finEnchere">
+				  	</div>
+				  	
+				  	<button type="submit" class="btn btn-default">Enregistrer</button>
+				</form>
 			</div>
-		    <div class="col-sm">
-				<p>Pc pour Gamer pour travailler</p>
-				<p>Prix : 30 euros</p>
-				<p>Fin de l'enchere : 10/25/6354</p>
-				<p>Vendeur : Jojo45</p>
-		    </div>
-		  </div>
 		</div>
+	  	<div class="row">
+			<div class="footer col-sm-12">
+		  		<p>Copyright (c) TP Eni Ecole</p>
+			</div>
 		</div>
 	</div>
-<div class="col-sm">
-		<div class="article1">
-			<div class="container">
-		  <div class="row">
-		    <div class="col-sm">
-		  		<img src="images/dinosaur.jpg" alt="image article" class="left">
-			</div>
-		    <div class="col-sm">
-				<p>Pc pour Gamer pour travailler</p>
-				<p>Prix : 30 euros</p>
-				<p>Fin de l'enchere : 10/25/6354</p>
-				<p>Vendeur : Jojo45</p>
-		    </div>
-		  </div>
-		</div>
-		</div>
-	</div>
-</div>
-</div>
+	
+	
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -129,14 +145,3 @@
 }
 </style>
 </html>
-
-
-
-
-
-
-
-
-
-
-
