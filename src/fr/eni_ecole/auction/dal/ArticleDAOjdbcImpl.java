@@ -29,10 +29,12 @@ public class ArticleDAOjdbcImpl {
 //		une date et une heure d’ouverture de l’enchère, 
 //		une date et une heure de fin d’enchères 
 //		et les modalités du retrait : adresse (par défaut celle du vendeur).
+
 	
 	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
 	private static final String LISTER_ENCHERES_COURS="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus WHERE no_categorie=? AND nom_article=? AND GETDATE() < date_debut_encheres;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
+
 	
 	
 	/**
@@ -144,5 +146,7 @@ public class ArticleDAOjdbcImpl {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 	}
+	
+	
 
 }
