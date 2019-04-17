@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.util.AccesBase;
 
 /**
@@ -27,7 +28,6 @@ public class ArticleDAOjdbcImpl {
 //		une date et une heure d’ouverture de l’enchère, 
 //		une date et une heure de fin d’enchères 
 //		et les modalités du retrait : adresse (par défaut celle du vendeur).
-	
 	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) \r\n" + 
 			"VALUES ('PC','PC occassion','1776-7-4 04:13:54','1776-7-4 04:13:54',150,0,3,4);";
@@ -103,5 +103,7 @@ public class ArticleDAOjdbcImpl {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 	}
+	
+	
 
 }

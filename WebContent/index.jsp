@@ -53,7 +53,7 @@
 			</div>
 		</form>
 	</div>
-	<a href="<%=request.getContextPath() %>/articles">Nos articles</a><br />
+	
 	
 <div class="container">
 <div class="row">
@@ -124,3 +124,14 @@
 }
 </style>
 </html>
+
+
+
+
+
+
+
+
+
+
+
