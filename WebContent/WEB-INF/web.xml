@@ -40,7 +40,23 @@
     <servlet-name>Articles</servlet-name>
     <url-pattern>/articlesPage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ConfirmationVendreArticles</servlet-name>
+    <jsp-file>/WEB-INF/article/confirmationVendreArticle.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmationVendreArticles</servlet-name>
+    <url-pattern>/confirmationVendreArticles</url-pattern>
+  </servlet-mapping>
   
+  <servlet>
+    <servlet-name>ConfirmationEncheresCours</servlet-name>
+    <jsp-file>/WEB-INF/article/confirmationEncheresCours.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmationEncheresCours</servlet-name>
+    <url-pattern>/confirmationEncheresCours</url-pattern>
+  </servlet-mapping>
    <servlet>
     <servlet-name>accesUser</servlet-name>
     <jsp-file>/WEB-INF/UserProfile/accesUser.jsp</jsp-file>
@@ -50,5 +66,4 @@
     <servlet-name>accesUser</servlet-name>
     <url-pattern>/accesUser</url-pattern>
   </servlet-mapping>
-   
 </web-app>
