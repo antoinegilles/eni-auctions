@@ -5,6 +5,14 @@ public class Categorie {
 	private int noCategorie;
 	private String libelle;
 	
+	
+	
+
+	public Categorie(int noCategorie, String libelle) {
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+	}
+	
 	public int getNoCategorie() {
 		return noCategorie;
 	}

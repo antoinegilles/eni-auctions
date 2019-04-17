@@ -14,7 +14,7 @@ public class Utilisateur {
 	private int codePostal;
 	private String ville;
 	private String motDePasse;
-	private String credit;
+	private int credit;
 	private String administrateur;
 	ArrayList<ArticleVendu> articlesVendu;
 	ArrayList<ArticleVendu> articlesAchete;
@@ -80,10 +80,10 @@ public class Utilisateur {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public String getCredit() {
+	public int getCredit() {
 		return credit;
 	}
-	public void setCredit(String credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 	public String getAdministrateur() {
