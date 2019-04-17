@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>eni-encheres - <%= request.getAttribute("title") %></title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme/css/style.css">
+    </head>
+<body>
+    <header>
+        <div class="main-title">
+            <a href="<%=request.getContextPath()%>/"><h3>ENI-Enchères</h3></a>
+        </div>
+
+        <div class="page-title">
+            <% if (request.getAttribute("title") != null) { %>
+            <h1><%= request.getAttribute("title") %></h1>
+            <% } %>
+        </div>
+
+        <div class="navigation">
+            <% if (request.getSession() != null) { %>
+                <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
+                <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
+            <% } else { %>
+                <a href="<%=request.getContextPath() %>/encheres">Enchères</a>
+                <a href="<%=request.getContextPath() %>/sell">Vendre un article</a>
+                <a href="<%=request.getContextPath() %>/profile">Mon profil</a>
+                <a href="<%=request.getContextPath() %>/disconnect">Déconnexion</a>
+            <% } %>
+        </div>
+    </header>
+    <main>

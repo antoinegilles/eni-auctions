@@ -1,129 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Accueil</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+         pageEncoding="UTF-8"%>
+<%
+    request.setAttribute("title", "Liste des enchères");
+    String[] searchCategories = {"Test", "gandalf", "420"};
+%>
+<%@include file="fragments/Head.jspf" %>
 
-<body>
-<div class="jumbotron">
-	<div class="container">
-	  <div class="row">
-	    <div class="col-sm">
-	ENI-Encheres
-	    </div>
-	    <div class="col-sm">
-	    </div>
-	    <div class="col-sm">
-	    </div>
-	     <div class="col-sm">
-	    </div>
-	    <div class="col-sm">
-	<a href="">S'inscrire</a>
-	<a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-	    </div>
-	  </div>
-	</div>
-	
-	<h2 class="title">Liste des enchères</h2>
-</div>	
-	
-	<div>
-		<form>
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">Filtres :</label>		   
-		    <input type="text" class="form-control inputSizeFiltre" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nom de l'article" >
-		  </div>
-		  	<div class="container container2">
-		  		<div class="row" >
-		  			<div class="col-sm">
-		  				Categorie : 
-					</div>
-					<div class="form-group col-sm">
-						<input type="text" class="form-control inputCategorieSize" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="nom de l'article" >
-					</div>
-				<div class="col-sm">
-					<button type="button" class="btn btn-light">Rechercher</button>
-				</div>
-			</div>
-			</div>
-		</form>
-	</div>
-	
-	
-<div class="container">
-<div class="row">
-	<div class="col-sm">
-		<div class="article1">
-			<div class="container">
-		  <div class="row">
-		    <div class="col-sm">
-		  		<img src="images/dinosaur.jpg" alt="image article" class="left">
-			</div>
-		    <div class="col-sm">
-				<p>Pc pour Gamer pour travailler</p>
-				<p>Prix : 30 euros</p>
-				<p>Fin de l'enchere : 10/25/6354</p>
-				<p>Vendeur : Jojo45</p>
-		    </div>
-		  </div>
-		</div>
-		</div>
-	</div>
-<div class="col-sm">
-		<div class="article1">
-			<div class="container">
-		  <div class="row">
-		    <div class="col-sm">
-		  		<img src="images/dinosaur.jpg" alt="image article" class="left">
-			</div>
-		    <div class="col-sm">
-				<p>Pc pour Gamer pour travailler</p>
-				<p>Prix : 30 euros</p>
-				<p>Fin de l'enchere : 10/25/6354</p>
-				<p>Vendeur : Jojo45</p>
-		    </div>
-		  </div>
-		</div>
-		</div>
-	</div>
+<form>
+    <div class="search-filters">
+        <div class="input-group search">
+            <label for="search-filter">Filtres :</label>
+            <div>
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-filter" placeholder="Le nom de l'article contient" ></div>
+        </div>
+        <div class="input-group">
+            <label for="category-filter">Catégorie :</label>
+            <select id="category-filter" placeholder="Le nom de l'article contient" >
+                <option value="">TOUTES</option>
+                <% for (String category : searchCategories) { %>
+                    <option value="<%=category %>"><%=category %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="filter-type-choice">
+            <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" id="radio-achats-choice"> <label for="radio-achats-choice">Achats</label>
+                <div class="checkbox-list">
+                    <div>
+                        <input type="checkbox" id="achat-open" name="achats" value="open">
+                        <label for="achat-open">enchères ouvertes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="achat-ongoing" name="achats" value="ongoing">
+                        <label for="achat-ongoing">mes enchères en cours</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="achat-won" name="achats" value="won">
+                        <label for="achat-won">mes enchères remportées</label>
+                    </div>
+                </div>
+            </div>
+            <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Achats</label>
+                <div class="checkbox-list">
+                    <div>
+                        <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
+                        <label for="sells-ongoing">mes ventes en cours</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="sells-open" name="ventes" value="waiting">
+                        <label for="sells-open">enchères non débutés</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="sells-won" name="ventes" value="finished">
+                        <label for="sells-won">mes ventes terminées</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="submit-search">
+        <button type="submit">Rechercher</button>
+    </div>
+</form>
+
+<div class="shop-view">
+    <% for (int i = 0; i < 5; i++) {%>
+    <article>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Llama_lying_down.jpg"
+             alt="image article">
+
+        <div class="article-body">
+            <p class="article-title">Pc pour Gamer pour travailler</p>
+            <p class="article-seller">Vendeur : Jojo45</p>
+            <p>Prix : 30 euros</p>
+            <p>Fin de l'enchere : 10/25/6354</p>
+        </div>
+    </article>
+    <% } %>
 </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-
-<style>
-.title{
-	text-align:center;
-}
-
-
-.container2
-{
-    display: flex;
-    justify-content: flex-start;
-    margin-left: inherit;
-}
-.inputSizeFiltre{
-	width: 30%;
-}
-.article1{
-	margin-top:5em;
-	border: black 3px solid;
-    width: 60%;
-}
-.left {
- float: left;
-}
-</style>
-</html>
+<%@include file="fragments/Bottom.jspf"%>
 
 
 

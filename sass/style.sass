@@ -1,0 +1,132 @@
+$T0: #E0F2F1
+$T1: #B2DFDB
+$T2: #80CBC4
+$T3: #4DB6AC
+$T4: #26A69A
+$T5: #009688
+$T6: #00897B
+$T7: #00796B
+$T8: #00695C
+$T9: #004D40
+
+body
+  padding: 0
+  margin: 0
+  font-family: 'Open Sans', sans-serif
+  header
+    height: 80px
+    background-color: $T4
+    display: flex
+    justify-content: space-between
+    .main-title
+      padding: 10px 0 0 10px
+      a
+        text-decoration: none
+        h3
+          color: $T0
+          margin: 0
+          cursor: pointer
+    .page-title
+      text-align: center
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      h1
+        color: white
+    .navigation
+      display: flex
+      justify-content: flex-end
+      a
+        width: 140px
+        text-align: center
+        text-decoration: none
+        color: #E0F2F1
+        font-weight: 500
+        line-height: 5
+        &:hover
+          cursor: pointer
+          background-color: $T5
+  main
+    form
+      display: flex
+      margin-bottom: 20px
+      padding-bottom: 20px
+      background-color: $T1
+      .submit-search
+        flex: 1 0 50%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        button
+          font-family: 'Open Sans', sans-serif
+          width: 40%
+          margin: 0 auto
+          border-radius: 3px
+          border: transparent 0px solid
+          color: white
+          padding: 30px
+          font-size: 16px
+          background-color: $T5
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6)
+          cursor: pointer
+      .search-filters
+        flex: 0 0 50%
+        display: flex
+        flex-direction: column
+        margin-left: 20px
+        .filter-type-choice
+          display: flex
+          .checkbox-list
+            margin-left: 10px
+        .input-group
+          padding: 5px 0
+          margin: 5px 0
+          cursor: pointer
+          label
+            margin-right: 10px
+          &.search
+            display: flex
+            flex-direction: column
+            .search-icon
+              transform: translateX(150%)
+              border-right: 1px solid #009688
+              height: 30px
+              line-height: 2
+              padding-right: 5px
+            input
+              height: 30px
+              width: 30vw
+              font-size: 20px
+              border: 1px solid $T5
+              padding-left: 40px
+              border-radius: 12px
+    .shop-view
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-evenly
+      article
+        width: 40%
+        margin: 15px 0
+        padding: 0
+        border: 0 solid transparent
+        border-radius: 6px
+        box-shadow: 0 0 10px rgba(0,0,0,0.4)
+        img
+          width: 100%
+          margin: 0
+          padding: 0
+          border: 0 solid transparent
+          border-top-left-radius: 6px
+          border-top-right-radius: 6px
+          min-height: 40px
+        .article-body
+          padding: 5px
+          font-size: 12px
+          .article-seller .article-title
+            font-weight: 700
+          .article-title
+            font-size: 20px
+            color: $T5
+            margin: 0
+          .article-seller
+            margin-top: 0
