@@ -24,8 +24,11 @@
 	    </div>
 	    <div class="col-sm">
 	<a href="">S'inscrire</a>
+	<br>
 	<a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-	<a href="<%=request.getContextPath() %>/articles">Nos articles</a><br />
+	<br>
+	<a href="<%=request.getContextPath() %>/ListerArticles">Liste les enchères en cours</a>
+	<br>
 	<a href="<%=request.getContextPath() %>/VendreArticle">Vendre un article</a><br />
 	    </div>
 	  </div>

@@ -14,14 +14,6 @@
     <servlet-name>connexion</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>ListerArticles</servlet-name>
-    <servlet-class>fr.eni_ecole.auction.servlet.ListerArticles</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ListerArticles</servlet-name>
-    <url-pattern>/articles</url-pattern>
-  </servlet-mapping>
   
   <servlet>
     <servlet-name>Articles</servlet-name>
@@ -39,5 +31,14 @@
   <servlet-mapping>
     <servlet-name>ConfirmationVendreArticles</servlet-name>
     <url-pattern>/confirmationVendreArticles</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ConfirmationEncheresCours</servlet-name>
+    <jsp-file>/WEB-INF/article/confirmationEncheresCours.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmationEncheresCours</servlet-name>
+    <url-pattern>/confirmationEncheresCours</url-pattern>
   </servlet-mapping>
 </web-app>

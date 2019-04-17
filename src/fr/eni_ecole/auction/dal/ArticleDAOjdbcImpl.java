@@ -30,7 +30,8 @@ public class ArticleDAOjdbcImpl {
 //		une date et une heure de fin d’enchères 
 //		et les modalités du retrait : adresse (par défaut celle du vendeur).
 	
-	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus;";
+	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
+	private static final String LISTER_ENCHERES_COURS="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus WHERE no_categorie=? AND nom_article=? AND GETDATE() < date_debut_encheres;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
 	
 	
@@ -69,6 +70,42 @@ public class ArticleDAOjdbcImpl {
 		return listeArticlesVendus;
 	}
 	
+	/**
+	 * Methode permettant d'obtenir une liste des formations
+	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public static ArrayList<ArticleVendu> listerEncheresEnCours(String categorie, String article) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<ArticleVendu> listeArticlesEncheresCours = new ArrayList<ArticleVendu>();
+
+		cnx=AccesBase.getConnection();
+		try{
+			pstmt=cnx.prepareStatement(LISTER_ENCHERES_COURS);
+			ArticleVendu unarticle;
+			pstmt.setString(1, categorie);
+			pstmt.setString(2, article);
+			rs=pstmt.executeQuery();
+			while (rs.next()){
+				unarticle = new ArticleVendu(
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"),
+						rs.getDate("date_fin_encheres")
+						
+			);
+					listeArticlesEncheresCours.add(unarticle);
+		}
+		}catch (SQLException e){
+			throw new DALException("probleme methode rechercher()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+		
+		return listeArticlesEncheresCours;
+	}
 	
 	/**
 	 * Méthode permettant d'ajouter une article
