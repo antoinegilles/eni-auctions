@@ -31,4 +31,13 @@
     <servlet-name>Articles</servlet-name>
     <url-pattern>/articlesPage</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ConfirmationVendreArticles</servlet-name>
+    <jsp-file>/WEB-INF/article/confirmationVendreArticle.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmationVendreArticles</servlet-name>
+    <url-pattern>/confirmationVendreArticles</url-pattern>
+  </servlet-mapping>
 </web-app>

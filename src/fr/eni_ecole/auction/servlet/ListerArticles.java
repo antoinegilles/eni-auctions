@@ -2,6 +2,7 @@ package fr.eni_ecole.auction.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
+import fr.eni_ecole.auction.beans.Categorie;
 import fr.eni_ecole.auction.dal.ArticleDAOjdbcImpl;
+import fr.eni_ecole.auction.dal.CategorieDAOjdbcImpl;
 import fr.eni_ecole.auction.dal.DALException;
 
 
@@ -24,11 +27,12 @@ import fr.eni_ecole.auction.dal.DALException;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try{ 
 			
-			// Récupérer la liste des formation en BDD
-			ArrayList<ArticleVendu> articles = ArticleDAOjdbcImpl.lister();
+			// Récupérer la liste des articles en BDD
+			List<ArticleVendu> articles = ArticleDAOjdbcImpl.lister();
 			
-			// Placer les formations dans le contexte de requete			
+			// Placer les articlesVendus dans le contexte de requete			
 			request.setAttribute("listeArticlesVendus", articles);
+			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/articlesPage");
 			dispatcher.forward(request,response);
 		

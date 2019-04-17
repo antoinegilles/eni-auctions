@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.util.AccesBase;
+import fr.eni_ecole.auction.util.ManipDate;
 
 /**
  * Reference toutes les méthodes <strong>CRUD</strong> du metier Enchere
@@ -29,8 +31,7 @@ public class ArticleDAOjdbcImpl {
 //		et les modalités du retrait : adresse (par défaut celle du vendeur).
 	
 	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus;";
-	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) \r\n" + 
-			"VALUES ('PC','PC occassion','1776-7-4 04:13:54','1776-7-4 04:13:54',150,0,3,4);";
+	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
 	
 	
 	/**
@@ -72,9 +73,10 @@ public class ArticleDAOjdbcImpl {
 	/**
 	 * Méthode permettant d'ajouter une article
 	 * @param articleVendu : un objet de type ArticleVendu
+	 * @return 
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public static void ajouter(ArticleVendu articleVendu) throws DALException{
+	public static void ajouter(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException{
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 
@@ -82,14 +84,16 @@ public class ArticleDAOjdbcImpl {
 		try{
 			cnx.setAutoCommit(false);
 			pstmt=cnx.prepareStatement(AJOUTER_ARTICLE);
-			pstmt.setString(1, articleVendu.getNomArticle());
-			pstmt.setString(2, articleVendu.getDescription());
-			pstmt.setDate(3, new java.sql.Date(articleVendu.getDateDebutEncheres().getTime()));
-			pstmt.setDate(4, new java.sql.Date(articleVendu.getDateFinEncheres().getTime()));
-			pstmt.setInt(5, articleVendu.getMisAPrix());
-			pstmt.setInt(6, articleVendu.getPrixVente());
-			pstmt.setInt(7, 3);
-			pstmt.setInt(8, 1);
+			
+			pstmt.setString(1, nomArticle); //nomArticle
+			pstmt.setString(2, description); //description
+			pstmt.setDate(3, ManipDate.dateUtilVersSQL(debutEnchere)); //debutEnchere
+			pstmt.setDate(4, ManipDate.dateUtilVersSQL(finEnchere)); //finEnchere
+			pstmt.setInt(5, misePrix); //misePrix
+			pstmt.setInt(6, 0); //prixVente
+			pstmt.setInt(7, 8); //utilisateur inconnu en base
+			pstmt.setString(8, categorie); //categorie
+			
 			pstmt.executeUpdate();
 			cnx.commit();
 		}catch(SQLException e){
