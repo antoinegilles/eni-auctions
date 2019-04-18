@@ -5,8 +5,7 @@
     String[] searchCategories = {"Test", "gandalf", "420"};
 %>
 <%@include file="fragments/Head.jspf" %>
-
-<form>
+<form class="horizontal colorized sticky titled">
     <div class="search-filters">
         <div class="input-group search">
             <label for="search-filter">Filtres :</label>

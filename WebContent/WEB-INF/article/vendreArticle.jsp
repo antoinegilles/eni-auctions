@@ -1,147 +1,110 @@
 <%@ page import ="java.util.*, java.text.*" %>
-<%@page import="fr.eni_ecole.auction.beans.Categorie"%>
+<%@ page import="fr.eni_ecole.auction.beans.Categorie"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ENI-Encheres</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+		 pageEncoding="UTF-8"%>
 
-<body>
-<div class="jumbotron">
-	<div class="container">
-	  <div class="row">
-	    <div class="col-sm">
-	ENI-Encheres
-	    </div>
-	    <div class="col-sm">
-	    </div>
-	    <div class="col-sm">
-	    </div>
-	     <div class="col-sm">
-	    </div>
-	    <div class="col-sm">
-	<a href="">S'inscrire</a>
-	<a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-	    </div>
-	  </div>
+<%
+	request.setAttribute("title", "Nouvelle vente");
+%>
+
+<%@include file="../../fragments/Head.jspf"%>
+
+<script>
+	function updatePreview() {
+		var preview  = document.querySelector('#preview-img');
+		var input  = document.querySelector('#photoArticle');
+
+		while (preview.firstChild) {
+			preview.removeChild(preview.firstChild)
+		}
+
+		if (input.files.length === 0) {
+			var noImg = document.createElement('img');
+			noImg.src = "https://cdn.shopify.com/s/files/1/1380/9193/t/3/assets/no-image.svg?2375582141201571545";
+			preview.appendChild(noImg);
+		} else {
+			var picture = document.createElement('img');
+			picture.src = window.URL.createObjectURL(input.files[0]);
+			preview.appendChild(picture);
+		}
+	}
+</script>
+
+<div class="divider">
+	<div class="shop-view detail-image">
+		<article>
+			<div class="preview-img" id="preview-img">
+				<img src="https://cdn.shopify.com/s/files/1/1380/9193/t/3/assets/no-image.svg?2375582141201571545">
+			</div>
+
+			<div class="article-body">
+				<p class="article-title"><div class="false-info" style="width: 91%"></div></p>
+				<p class="article-seller"><div class="false-info" style="width: 22%"></div></p>
+				<p><div class="false-info" style="width: 44%"></div></p>
+				<p><div class="false-info" style="width: 63%"></div></p>
+			</div>
+		</article>
 	</div>
-	
-	<h2 class="title">Liste des enchères</h2>
-</div>	
-	
-	<div>
-		<form>
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">Filtres :</label>		   
-		    <input type="text" class="form-control inputSizeFiltre" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nom de l'article" >
-		  </div>
-		  	<div class="container container2">
-		  		<div class="row" >
-		  			<div class="col-sm">
-		  				Categorie : 
-					</div>
-					<div class="form-group col-sm">
-						<input type="text" class="form-control inputCategorieSize" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="nom de l'article" >
-					</div>
-				<div class="col-sm">
-					<button type="button" class="btn btn-light">Rechercher</button>
-				</div>
-			</div>
-			</div>
-		</form>
-	</div>
-	
-<div class="container">
-		<div class="row">
-			<div class="col-sm-9">
-				<form method="post" action="<%=request.getContextPath() %>/VendreArticle">
-				  	<div class="form-group">
-				    	<label for="nomArticle">Article :</label>
-				    	<input type="text" id="nomArticle" name="nomArticle">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="description">Description :</label>
-				    	<input type="text" id="description" name="description">
-				  	</div>
-				  	
-				  	<%
-		
-		List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("liste");
-	%>
-	
-	Catégories :		
-<span class="custom-dropdown custom-dropdown--white">
-    <select class="custom-dropdown__select custom-dropdown__select--white" id="categorie" name="categorie">
-  <% 	for(Categorie categorie : listeCategories) {
-	%>
-     <option value="<%=categorie.getNoCategorie() %>" ><%=categorie.getLibelle() %></option>
-    <% } %>
-     </select>	
-  </span>
-  
-	
-				  	<div class="form-group">
-				    	<label for="photoArticle">Photo de l'article :</label>
-				    	<input type="text" id="photoArticle" name="photoArticle">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="misePrix">Mise à prix :</label>
-				    	<input type="text" id="misePrix" name="misePrix">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="debutEnchere">Début de l'enchère :</label>
-				    	<input type="text" id="debutEnchere" name="debutEnchere">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="finEnchere">Fin de l'enchère :</label>
-				    	<input type="text" id="finEnchere" name="finEnchere">
-				  	</div>
-				  	
-				  	<button type="submit" class="btn btn-default">Enregistrer</button>
-				</form>
-			</div>
+
+	<form method="post" class="titled" action="<%=request.getContextPath() %>/VendreArticle">
+		<div class="title">
+			<p>Informations</p>
 		</div>
-	  	<div class="row">
-			<div class="footer col-sm-12">
-		  		<p>Copyright (c) TP Eni Ecole</p>
-			</div>
+		<table>
+			<tr class="input-group">
+				<td><label for="nomArticle">Article :</label></td>
+				<td><input type="text" id="nomArticle" name="nomArticle" required></td>
+			</tr>
+
+
+			<tr class="input-group">
+				<td><label for="description">Description :</label></td>
+				<td><textarea type="text" id="description" name="description" rows="5" style="width: 100%;" required></textarea></td>
+			</tr>
+
+			<tr class="input-group">
+				<td><label for="categorie"> Catégories : </label></td>
+				<td><select class="custom-dropdown__select custom-dropdown__select--white" id="categorie" name="categorie">
+					<% 	List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("liste");
+						for(Categorie categorie : listeCategories) { %>
+					<option value="<%=categorie.getNoCategorie() %>" ><%=categorie.getLibelle() %></option>
+					<% } %>
+				</select></td>
+			</tr>
+
+			<tr class="input-group">
+				<td><label for="photoArticle">Photo de l'article :</label></td>
+				<td class="uploadFile">
+					<input type="file" id="photoArticle" name="photoArticle"
+						   accept="image/png, image/jpeg" onchange="updatePreview()">
+					<label for="photoArticle"><i class="fas fa-cloud-upload-alt"></i> Uploader</label>
+				</td>
+			</tr>
+
+			<tr class="input-group">
+				<td><label for="misePrix">Mise à prix :</label></td>
+				<td><input type="text" id="misePrix" name="misePrix" required></td>
+			</tr>
+
+			<tr class="input-group">
+				<td><label for="debutEnchere">Début de l'enchère :</label></td>
+				<td><input type="date" id="debutEnchere" name="debutEnchere" required></td>
+			</tr>
+
+			<tr class="input-group">
+				<td><label for="finEnchere">Fin de l'enchère :</label></td>
+				<td><input type="date" id="finEnchere" name="finEnchere" required></td>
+			</tr>
+
+		</table>
+
+
+		<div class="buttons">
+			<button type="submit">Enregistrer</button>
+			<a href="<%=request.getContextPath()%>/"><button type="button">Annuler</button></a>
 		</div>
-	</div>
-	
-	
+	</form>
+</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-
-<style>
-.title{
-	text-align:center;
-}
-
-
-.container2
-{
-    display: flex;
-    justify-content: flex-start;
-    margin-left: inherit;
-}
-.inputSizeFiltre{
-	width: 30%;
-}
-.article1{
-	margin-top:5em;
-	border: black 3px solid;
-    width: 60%;
-}
-.left {
- float: left;
-}
-</style>
-</html>
+<%@include file="../../fragments/Bottom.jspf"%>
