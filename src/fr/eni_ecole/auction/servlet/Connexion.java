@@ -45,7 +45,6 @@ public class Connexion extends HttpServlet {
 			//stockage de l'information saisie dans le formulaire
 			mail = request.getParameter("identifiant");
 			motdepasse = request.getParameter("motdepasse");
-			System.out.println(mail + " " + motdepasse);
 			try {
 				// Valider l'authentification par rapport aux informations de la base
 				user = UserDAOjdbclmpl.selectUser(mail, motdepasse);
@@ -56,7 +55,7 @@ public class Connexion extends HttpServlet {
 					// Placer le bean dans le contexte de session
 					request.getSession().setAttribute("UserConnecte", user);
 					//redirection vers l'espace animateur
-					this.getServletContext().getRequestDispatcher("/accesUser").forward(request, response);
+					this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 				}
 				// ...sinon
 				else {

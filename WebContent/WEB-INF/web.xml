@@ -40,7 +40,6 @@
     <servlet-name>ConfirmationVendreArticles</servlet-name>
     <url-pattern>/confirmationVendreArticles</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ConfirmationEncheresCours</servlet-name>
     <jsp-file>/WEB-INF/article/confirmationEncheresCours.jsp</jsp-file>
@@ -49,7 +48,7 @@
     <servlet-name>ConfirmationEncheresCours</servlet-name>
     <url-pattern>/confirmationEncheresCours</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>accesUser</servlet-name>
     <jsp-file>/WEB-INF/UserProfile/accesUser.jsp</jsp-file>
   </servlet>
@@ -65,4 +64,25 @@
     <servlet-name>inscription</servlet-name>
     <url-pattern>/inscription</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>controleur permettant d'invalider la session et de revenir à la page d'accueil</description>
+    <display-name>Deconnexion</display-name>
+    <servlet-name>Deconnexion</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.Deconnexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Deconnexion</servlet-name>
+    <url-pattern>/deconnexion</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description>Profil du user</description>
+    <display-name>Profil</display-name>
+    <servlet-name>Profil</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.Profil</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Profil</servlet-name>
+    <url-pattern>/profil</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.util.AccesBase;
@@ -42,11 +43,11 @@ public class ArticleDAOjdbcImpl {
 	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public static ArrayList<ArticleVendu> lister() throws DALException {
+	public static List<ArticleVendu> lister() throws DALException {
 		Connection cnx=null;
 		Statement stmt=null;
 		ResultSet rs=null;
-		ArrayList<ArticleVendu> listeArticlesVendus = new ArrayList<ArticleVendu>();
+		List<ArticleVendu> listeArticlesVendus = new ArrayList<ArticleVendu>();
 
 		cnx=AccesBase.getConnection();
 		try{
