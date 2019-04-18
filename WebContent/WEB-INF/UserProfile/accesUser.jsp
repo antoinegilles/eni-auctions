@@ -1,11 +1,28 @@
 <%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
 		
-
-		<% 
+	<% 
 		// récuperer l'attribut animateur placé dans le contexte de session
 		Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); 
 		%>
 		
-		<p>User : <%= a.getPrenom()%>&nbsp;<%=a.getNom()%></p>
+		<h1>Votre Profil</h1>
+		
+		<p>Prenom : <%= a.getPrenom()%></p>
+		<p>Nom : <%= a.getNom()%></p>
+		<p>Pseudo : <%= a.getPseudo()%></p>
+		<p>Email : <%= a.getEmail()%></p>
+		<p>Telephone : <%= a.getTelephone()%></p>
+		<p>Rue : <%= a.getRue()%></p>
+		<p>Code Postal : <%= a.getCodePostal()%></p>
+		<p>Ville : <%= a.getVille()%></p>
+		<p>Mot de passe : <%= a.getMotDePasse()%></p>
+		<p>Credit : <%= a.getCredit()%></p>
+	
+
+	
+
+
+		
+		
 
 		
