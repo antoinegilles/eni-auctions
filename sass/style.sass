@@ -13,6 +13,9 @@ body
   padding: 0
   margin: 0
   font-family: 'Open Sans', sans-serif
+  .false-info
+    height: 12px
+    background-color: rgba(0,0,0, 0.4)
   header
     height: 80px
     background-color: $T4
@@ -49,26 +52,92 @@ body
   main
     form
       display: flex
-      margin-bottom: 20px
-      padding-bottom: 20px
-      background-color: $T1
+      flex-direction: column
+      margin: 20px
+      padding: 0 0 20px 0
+      border: solid 0px $T5
+      border-top-width: 50px
+      box-shadow: 0px 0px 4px rgba(0,0,0,0.5)
+      &.titled
+        border-top-width: 0
+        .title
+          height: 50px
+          background-color: $T5
+          font-size: 16px
+          text-transform: uppercase
+          padding: 0 0 0 15px
+          margin: 0
+          color: white
+          display: flex
+          flex-direction: column
+          justify-content: center
+          p
+            margin-top: 14px
+      &.colorized
+        background-color: $T1
+      &.horizontal
+        flex-direction: row
+      &.sticky
+        margin: 0 0 20px 0
+        padding: 0 0 20px 0
+      &.padded
+        padding: 20px
+      table
+        border: none
+        border-spacing: 5px 22px
+        margin: 20px
+        tr
+          border: none
+          td
+            border: none
+            &:first-child
+              width: fit-content
+            &:last-child
+              width: auto
+      input, select, button
+        font-family: 'Open Sans', sans-serif
+        border-radius: 3px
+        border: transparent 0px solid
+        transition: ease-in-out 0.2s
+      input, select
+        border-bottom: solid 2px $T5
+        border-bottom-left-radius: 0
+        border-bottom-right-radius: 0
+        padding-bottom: 2px
+        &:focus
+          outline: none
+          padding-bottom: 8px
+      .uploadFile
+        input
+          border-bottom: none
+          display: none
+      button, .uploadFile>label
+        width: -moz-fit-content
+        color: white
+        width: fit-content
+        border: transparent 0px solid
+        border-radius: 0
+        padding: 10px
+        background-color: $T5
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.6)
+        cursor: pointer
+        &:hover
+          background-color: $T4
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.4)
       .submit-search
         flex: 1 0 50%
         display: flex
         flex-direction: column
         justify-content: center
         button
-          font-family: 'Open Sans', sans-serif
           width: 40%
           margin: 0 auto
-          border-radius: 3px
-          border: transparent 0px solid
-          color: white
           padding: 30px
           font-size: 16px
-          background-color: $T5
-          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6)
-          cursor: pointer
+      .buttons
+        width: 100%
+        display: flex
+        justify-content: space-evenly
       .search-filters
         flex: 0 0 50%
         display: flex
@@ -130,3 +199,15 @@ body
             margin: 0
           .article-seller
             margin-top: 0
+    .divider
+      width: 100%
+      display: flex
+      justify-content: space-evenly
+    .detail-image
+      width: 26%
+      flex-direction: column
+      justify-content: center
+      Article
+        width: 100%
+        .preview-img
+          width: 100%
