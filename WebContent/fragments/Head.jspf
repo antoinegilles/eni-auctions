@@ -25,6 +25,8 @@
             <% if (request.getSession() != null) { %>
                 <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
                 <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
+                <a href="<%=request.getContextPath() %>/ListerArticles">Liste les enchères en cours</a>
+				<a href="<%=request.getContextPath() %>/VendreArticle">Vendre un article</a><br />
             <% } else { %>
                 <a href="<%=request.getContextPath() %>/encheres">Enchères</a>
                 <a href="<%=request.getContextPath() %>/sell">Vendre un article</a>
