@@ -37,7 +37,7 @@
 
 
                 <div class="user-head-infos">
-                    <img src="http://media.wisejelly.com/2018/12/Anonym-e1491994623630.jpg" class="profile-picture">
+                    <img src="/WebContent/theme/img/Anonym.jpg" class="profile-picture">
                     <p><%= a.getPseudo()%></p>
                     <p><%= a.getCredit()%> <i class="fas fa-coins"></i></p>
                 </div>

@@ -21,7 +21,7 @@
 
 		if (input.files.length === 0) {
 			var noImg = document.createElement('img');
-			noImg.src = "https://cdn.shopify.com/s/files/1/1380/9193/t/3/assets/no-image.svg?2375582141201571545";
+			noImg.src = "theme/img/no-img.jpg";
 			preview.appendChild(noImg);
 		} else {
 			var picture = document.createElement('img');
@@ -35,7 +35,7 @@
 	<div class="shop-view detail-image">
 		<article>
 			<div class="preview-img" id="preview-img">
-				<img src="https://cdn.shopify.com/s/files/1/1380/9193/t/3/assets/no-image.svg?2375582141201571545">
+				<img src="/theme/img/no-img.jpg">
 			</div>
 
 			<div class="article-body">
