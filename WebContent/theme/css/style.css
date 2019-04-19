@@ -1,7 +1,31 @@
 body {
   padding: 0;
   margin: 0;
+  min-height: 100vh;
   font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+body footer {
+  bottom: 0;
+  height: 40px;
+  overflow: hidden;
+  background-color: #26A69A;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body footer ul {
+  font-size: 12px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+body footer ul li {
+  margin: 0 10px;
 }
 body .false-info {
   height: 12px;
@@ -72,7 +96,18 @@ body header .navigation a:hover {
   background-color: #4DB6AC;
   color: white;
 }
-body main form {
+body main .error-box {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: #EF5350;
+  color: white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+body main .error-box p {
+  margin: 0;
+}
+body main form, body main .infos {
   display: flex;
   flex-direction: column;
   margin: 20px;
@@ -81,10 +116,13 @@ body main form {
   border-top-width: 50px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
 }
-body main form.titled {
+body main form b, body main .infos b {
+  color: #009688;
+}
+body main form.titled, body main .infos.titled {
   border-top-width: 0;
 }
-body main form.titled .title {
+body main form.titled .title, body main .infos.titled .title {
   height: 50px;
   background-color: #009688;
   font-size: 16px;
@@ -96,60 +134,76 @@ body main form.titled .title {
   flex-direction: column;
   justify-content: center;
 }
-body main form.titled .title p {
+body main form.titled .title p, body main .infos.titled .title p {
   margin-top: 14px;
 }
-body main form.colorized {
+body main form.colorized, body main .infos.colorized {
   background-color: #B2DFDB;
 }
-body main form.horizontal {
+body main form.horizontal, body main .infos.horizontal {
   flex-direction: row;
 }
-body main form.sticky {
+body main form.sticky, body main .infos.sticky {
   margin: 0 0 20px 0;
   padding: 0 0 20px 0;
 }
-body main form.padded {
+body main form.centered, body main .infos.centered {
+  width: fit-content;
+  margin: 30px auto;
+}
+body main form.centered .input-group, body main .infos.centered .input-group {
+  text-align: center;
+}
+body main form.padded, body main .infos.padded {
   padding: 20px;
 }
-body main form table {
+body main form .body, body main .infos .body {
+  padding: 30px 20px;
+}
+body main form .body .input-group, body main .infos .body .input-group {
+  margin: 20px 0;
+}
+body main form table, body main .infos table {
   border: none;
   border-spacing: 5px 22px;
   margin: 20px;
 }
-body main form table tr {
+body main form table tr, body main .infos table tr {
   border: none;
 }
-body main form table tr td {
+body main form table tr td, body main .infos table tr td {
   border: none;
 }
-body main form table tr td:first-child {
+body main form table tr td:first-child, body main .infos table tr td:first-child {
   width: fit-content;
 }
-body main form table tr td:last-child {
+body main form table tr td:last-child, body main .infos table tr td:last-child {
   width: auto;
 }
-body main form input, body main form select, body main form button {
+body main form input, body main form select, body main form button, body main .infos input, body main .infos select, body main .infos button {
   font-family: "Open Sans", sans-serif;
   border-radius: 3px;
   border: transparent 0px solid;
   transition: ease-in-out 0.2s;
 }
-body main form input, body main form select {
+body main form input, body main form select, body main .infos input, body main .infos select {
   border-bottom: solid 2px #009688;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   padding-bottom: 2px;
+  margin-bottom: 6px;
 }
-body main form input:focus, body main form select:focus {
+body main form input:focus, body main form select:focus, body main .infos input:focus, body main .infos select:focus {
   outline: none;
+  box-shadow: 0 0 4px #00897B;
   padding-bottom: 8px;
+  margin-bottom: 0px;
 }
-body main form .uploadFile input {
+body main form .uploadFile input, body main .infos .uploadFile input {
   border-bottom: none;
   display: none;
 }
-body main form button, body main form .uploadFile > label {
+body main form button, body main form .uploadFile > label, body main .infos button, body main .infos .uploadFile > label {
   width: -moz-fit-content;
   color: white;
   width: fit-content;
@@ -160,65 +214,77 @@ body main form button, body main form .uploadFile > label {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
   cursor: pointer;
 }
-body main form button:hover, body main form .uploadFile > label:hover {
+body main form button:hover, body main form .uploadFile > label:hover, body main .infos button:hover, body main .infos .uploadFile > label:hover {
   background-color: #26A69A;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
-body main form .submit-search {
+body main form .submit-search, body main .infos .submit-search {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-body main form .submit-search button {
+body main form .submit-search button, body main .infos .submit-search button {
   width: 40%;
   margin: 0 auto;
   padding: 30px;
   font-size: 16px;
 }
-body main form .buttons {
+body main form .buttons, body main .infos .buttons {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
-body main form .search-filters {
+body main form .buttons button, body main .infos .buttons button {
+  margin: 0 15px;
+}
+body main form .buttons button.red, body main .infos .buttons button.red {
+  background-color: #EF5350;
+}
+body main form .search-filters, body main .infos .search-filters {
   flex: 0 0 50%;
   display: flex;
   flex-direction: column;
   margin-left: 20px;
 }
-body main form .search-filters .filter-type-choice {
+body main form .search-filters .filter-type-choice, body main .infos .search-filters .filter-type-choice {
   display: flex;
 }
-body main form .search-filters .filter-type-choice .checkbox-list {
+body main form .search-filters .filter-type-choice .checkbox-list, body main .infos .search-filters .filter-type-choice .checkbox-list {
   margin-left: 10px;
 }
-body main form .search-filters .input-group {
+body main form .search-filters .input-group, body main .infos .search-filters .input-group {
   padding: 5px 0;
   margin: 5px 0;
   cursor: pointer;
 }
-body main form .search-filters .input-group label {
+body main form .search-filters .input-group label, body main .infos .search-filters .input-group label {
   margin-right: 10px;
 }
-body main form .search-filters .input-group.search {
+body main form .search-filters .input-group.search, body main .infos .search-filters .input-group.search {
   display: flex;
   flex-direction: column;
+  transform: translateX(-30px);
+  margin-top: 10px;
 }
-body main form .search-filters .input-group.search .search-icon {
+body main form .search-filters .input-group.search .search-icon, body main .infos .search-filters .input-group.search .search-icon {
   transform: translateX(150%);
   border-right: 1px solid #009688;
   height: 30px;
   line-height: 2;
   padding-right: 5px;
 }
-body main form .search-filters .input-group.search input {
+body main form .search-filters .input-group.search input, body main .infos .search-filters .input-group.search input {
   height: 30px;
   width: 30vw;
   font-size: 20px;
   border: 1px solid #009688;
   padding-left: 40px;
-  border-radius: 12px;
+  border-radius: 4px;
+  padding-bottom: 5px;
+}
+body main form .search-filters .input-group.search input:focus, body main .infos .search-filters .input-group.search input:focus {
+  padding-bottom: 5px;
 }
 body main .shop-view {
   display: flex;
@@ -226,7 +292,7 @@ body main .shop-view {
   justify-content: space-evenly;
 }
 body main .shop-view article {
-  width: 40%;
+  width: 33.4%;
   margin: 15px 0;
   padding: 0;
   border: 0 solid transparent;

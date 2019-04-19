@@ -21,7 +21,7 @@
 
 		if (input.files.length === 0) {
 			var noImg = document.createElement('img');
-			noImg.src = "theme/img/no-img.jpg";
+			noImg.src = "theme/img/no-image.jpg";
 			preview.appendChild(noImg);
 		} else {
 			var picture = document.createElement('img');
@@ -35,7 +35,7 @@
 	<div class="shop-view detail-image">
 		<article>
 			<div class="preview-img" id="preview-img">
-				<img src="/theme/img/no-img.jpg">
+				<img src="theme/img/no-image.jpg">
 			</div>
 
 			<div class="article-body">

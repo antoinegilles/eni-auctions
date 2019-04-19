@@ -7,13 +7,11 @@
 <%@ page import ="java.util.*, java.text.*" %>
 <%
     request.setAttribute("title", "Liste des enchères");
-    String[] searchCategories = {"Test", "gandalf", "420"};
 %>
 <%@include file="fragments/Head.jspf" %>
 <form class="horizontal colorized sticky titled"  method="get" action="<%=request.getContextPath() %>/">
     <div class="search-filters">
         <div class="input-group search">
-            <label for="search-filter">Filtres :</label>
             <div>
             <i class="fas fa-search search-icon"></i>
             <input type="text" id="article" name="article" placeholder="Le nom de l'article contient" ></div>
@@ -48,7 +46,7 @@
                 </div>
             </div>
             <div class="radio-checkbox-filters">
-                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Achats</label>
+                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Ventes</label>
                 <div class="checkbox-list">
                     <div>
                         <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
