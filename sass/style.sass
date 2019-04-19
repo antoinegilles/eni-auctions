@@ -15,7 +15,9 @@ body
   font-family: 'Open Sans', sans-serif
   .false-info
     height: 12px
-    background-color: rgba(0,0,0, 0.4)
+    background-color: rgba(0, 0, 0, 0.6)
+    border: transparent
+    border-radius: 5px
   header
     height: 80px
     background-color: $T4
@@ -39,16 +41,33 @@ body
     .navigation
       display: flex
       justify-content: flex-end
+      .user-head-infos
+        display: flex
+        flex-direction: column
+        justify-content: center
+        background-color: transparent
+        transition: ease-in-out 0.2s
+        padding: 5px 20px
+        &:hover
+          background-color: $T3
+        .profile-picture
+          width: 44px
+        p
+          font-size: 12px
+          color: white
+          margin: 0
       a
-        width: 140px
+        width: 110px
         text-align: center
         text-decoration: none
         color: #E0F2F1
         font-weight: 500
         line-height: 5
+        transition: ease-in-out 0.2s
         &:hover
           cursor: pointer
-          background-color: $T5
+          background-color: $T3
+          color: white
   main
     form
       display: flex
@@ -125,7 +144,7 @@ body
           background-color: $T4
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.4)
       .submit-search
-        flex: 1 0 50%
+        flex: 1 0 auto
         display: flex
         flex-direction: column
         justify-content: center
