@@ -1,6 +1,8 @@
 <%@page import="fr.eni_ecole.auction.beans.ArticleVendu"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
+
 <%@page import="fr.eni_ecole.auction.beans.Categorie"%>
 <%@ page import ="java.util.*, java.text.*" %>
 <%
@@ -8,8 +10,7 @@
     String[] searchCategories = {"Test", "gandalf", "420"};
 %>
 <%@include file="fragments/Head.jspf" %>
-
-<form method="get" action="<%=request.getContextPath() %>/">
+<form class="horizontal colorized sticky titled"  method="get" action="<%=request.getContextPath() %>/">
     <div class="search-filters">
         <div class="input-group search">
             <label for="search-filter">Filtres :</label>
@@ -74,10 +75,10 @@
 
 <div class="shop-view">
     <%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");%>
-	<h2>Les Enchères en cours :</h2>	
-	
+	<h2>Les Enchères en cours :</h2>
+
 	<% for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
-    
+
     <form method="get" action="<%=request.getContextPath() %>/DetailVente">
     <article>
         <!--  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Llama_lying_down.jpg"

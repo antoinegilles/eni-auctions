@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.InscriptionDAOjdbclmpl;
+import fr.eni_ecole.auction.dal.UserDAOjdbclmpl;
 
 
 @WebServlet("/Inscription")
@@ -95,12 +97,26 @@ public class Inscription extends HttpServlet {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
 				request.setAttribute("erreur", "Confirmation du mot de passe non renseigné. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
+			}else if (UserDAOjdbclmpl.selectPseudo(pseudo) != null) {
+				request.setAttribute("erreur", "le pseudo existe déja xD ...");
+				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}
 			else if (confirmation.equals(mdp)){
-			// Ajoute un article
+				/* Création ou récupération de la session */
+				HttpSession session = request.getSession();
+
+				/* Mise en session d'une chaîne de caractères */
+				String exemple = "abc";
+				session.setAttribute( "chaine", exemple );
+
+				/* Récupération de l'objet depuis la session */
+				String chaine = (String) session.getAttribute( "chaine" );
+				System.out.println(session);
+				
+				
 			InscriptionDAOjdbclmpl.inscrire(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, true);
-			//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index");
-			//dispatcher.forward(request,response);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request,response);
 			}else {
 				request.setAttribute("erreur", "les deux mot de passe ne sont pas renseignés. Veuillez les re-saisir :O ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);

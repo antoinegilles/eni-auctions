@@ -9,9 +9,9 @@ public class Utilisateur {
 	private String nom;
 	private String prenom;
 	private String email;
-	private int telephone;
+	private String telephone;
 	private String rue;
-	private int codePostal;
+	private String codePostal;
 	private String ville;
 	private String motDePasse;
 	private int credit;
@@ -50,11 +50,11 @@ public class Utilisateur {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(int telephone) {
-		this.telephone = telephone;
+	public void setTelephone(String string) {
+		this.telephone = string;
 	}
 	public String getRue() {
 		return rue;
@@ -62,10 +62,10 @@ public class Utilisateur {
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
-	public int getCodePostal() {
+	public String getCodePostal() {
 		return codePostal;
 	}
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 	public String getVille() {

@@ -14,7 +14,7 @@ import fr.eni_ecole.auction.util.AccesBase;
 import fr.eni_ecole.auction.util.ManipDate;
 
 /**
- * Reference toutes les méthodes <strong>CRUD</strong> du metier Enchere
+ * Reference toutes les mï¿½thodes <strong>CRUD</strong> du metier Enchere
  * <li>ajouter : <em>ajouter une enchere</em></li>
 
  * @author moujdari2018
@@ -24,12 +24,12 @@ import fr.eni_ecole.auction.util.ManipDate;
 
 public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
-//	En tant qu’utilisateur, je peux vendre un article sur la plateforme ENI-Enchères. 
-//	Pour cela je donne les informations sur l’article vendu : 
-//		nom, description et catégorie j’indique un prix de départ (en points), 
-//		une date et une heure d’ouverture de l’enchère, 
-//		une date et une heure de fin d’enchères 
-//		et les modalités du retrait : adresse (par défaut celle du vendeur).
+//	En tant quï¿½utilisateur, je peux vendre un article sur la plateforme ENI-Enchï¿½res. 
+//	Pour cela je donne les informations sur lï¿½article vendu : 
+//		nom, description et catï¿½gorie jï¿½indique un prix de dï¿½part (en points), 
+//		une date et une heure dï¿½ouverture de lï¿½enchï¿½re, 
+//		une date et une heure de fin dï¿½enchï¿½res 
+//		et les modalitï¿½s du retrait : adresse (par dï¿½faut celle du vendeur).
 
 	
 	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
@@ -41,14 +41,14 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
 	/**
 	 * Methode permettant d'obtenir une liste des formations
-	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
+	 * @return <font color="green">La liste peut ï¿½tre vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
 	public List<ArticleVendu> listerLesArticles() throws DALException {
 		Connection cnx=null;
 		Statement stmt=null;
 		ResultSet rs=null;
-		ArrayList<ArticleVendu> listeArticlesVendus = new ArrayList<ArticleVendu>();
+		List<ArticleVendu> listeArticlesVendus = new ArrayList<ArticleVendu>();
 
 		cnx=AccesBase.getConnection();
 		try{
@@ -76,7 +76,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
 	/**
 	 * Methode permettant d'obtenir une liste des formations
-	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
+	 * @return <font color="green">La liste peut ï¿½tre vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
 	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException {
@@ -113,7 +113,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	}
 	
 	/**
-	 * Méthode permettant d'ajouter une article
+	 * Mï¿½thode permettant d'ajouter une article
 	 * @param articleVendu : un objet de type ArticleVendu
 	 * @return 
 	 * @throws DALException : propage une exception de type DALException
@@ -152,7 +152,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
 	/**
 	 * Methode permettant d'obtenir une liste des formations
-	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
+	 * @return <font color="green">La liste peut ï¿½tre vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
 	public ArticleVendu DetailVente(String detailVente) throws DALException {
@@ -173,7 +173,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
 						rs.getInt("prix_initial")
-						
+
 			);
 				return unarticle;
 		}
