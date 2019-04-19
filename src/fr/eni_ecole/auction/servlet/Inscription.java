@@ -120,8 +120,7 @@ public class Inscription extends HttpServlet {
 				
 				
 				inscriptionManager.inscrire(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, true);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-			dispatcher.forward(request,response);
+				response.sendRedirect(request.getContextPath()+"/");
 			}else {
 				request.setAttribute("erreur", "les deux mot de passe ne sont pas renseignés. Veuillez les re-saisir :O ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);

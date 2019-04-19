@@ -5,9 +5,11 @@
 		Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); 
 		%>
 		
-		<h1>Votre Profil</h1>
 		
-		<p>Prenom : <%= a.getPrenom()%></p>
+		<h1>Votre Profil</h1>
+		<a href="<%=request.getContextPath() %>/updateProfil">Modifier vos informations</a>
+			
+		<p>Prenom : <%= a.getPrenom()%></p>		
 		<p>Nom : <%= a.getNom()%></p>
 		<p>Pseudo : <%= a.getPseudo()%></p>
 		<p>Email : <%= a.getEmail()%></p>

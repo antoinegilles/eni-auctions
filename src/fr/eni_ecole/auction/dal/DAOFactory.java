@@ -37,5 +37,6 @@ public abstract class DAOFactory {
 		}
 		return inscriptionDAO;
 	}
+	
 }
 	
