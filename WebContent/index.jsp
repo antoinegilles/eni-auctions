@@ -13,7 +13,6 @@
 <form class="horizontal colorized sticky titled"  method="get" action="<%=request.getContextPath() %>/">
     <div class="search-filters">
         <div class="input-group search">
-            <label for="search-filter">Filtres :</label>
             <div>
             <i class="fas fa-search search-icon"></i>
             <input type="text" id="article" name="article" placeholder="Le nom de l'article contient" ></div>

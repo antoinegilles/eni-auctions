@@ -38,7 +38,7 @@
 
 
                 <div class="user-head-infos">
-                    <img src="/WebContent/theme/img/Anonym.jpg" class="profile-picture">
+                    <img src="theme/img/Anonym.jpg" class="profile-picture">
                     <p><%= a.getPseudo()%></p>
                     <p><%= a.getCredit()%> <i class="fas fa-coins"></i></p>
                 </div>

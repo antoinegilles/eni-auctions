@@ -143,6 +143,7 @@ body main form input, body main form select {
 }
 body main form input:focus, body main form select:focus {
   outline: none;
+  box-shadow: 0 0 4px #00897B;
   padding-bottom: 8px;
 }
 body main form .uploadFile input {
@@ -204,6 +205,8 @@ body main form .search-filters .input-group label {
 body main form .search-filters .input-group.search {
   display: flex;
   flex-direction: column;
+  transform: translateX(-30px);
+  margin-top: 10px;
 }
 body main form .search-filters .input-group.search .search-icon {
   transform: translateX(150%);
@@ -218,7 +221,11 @@ body main form .search-filters .input-group.search input {
   font-size: 20px;
   border: 1px solid #009688;
   padding-left: 40px;
-  border-radius: 12px;
+  border-radius: 4px;
+  padding-bottom: 5px;
+}
+body main form .search-filters .input-group.search input:focus {
+  padding-bottom: 5px;
 }
 body main .shop-view {
   display: flex;
@@ -226,7 +233,7 @@ body main .shop-view {
   justify-content: space-evenly;
 }
 body main .shop-view article {
-  width: 40%;
+  width: 33.4%;
   margin: 15px 0;
   padding: 0;
   border: 0 solid transparent;

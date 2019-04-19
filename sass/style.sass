@@ -125,6 +125,7 @@ body
         padding-bottom: 2px
         &:focus
           outline: none
+          box-shadow: 0 0 4px $T6
           padding-bottom: 8px
       .uploadFile
         input
@@ -175,6 +176,8 @@ body
           &.search
             display: flex
             flex-direction: column
+            transform: translateX(-30px)
+            margin-top: 10px
             .search-icon
               transform: translateX(150%)
               border-right: 1px solid #009688
@@ -187,13 +190,16 @@ body
               font-size: 20px
               border: 1px solid $T5
               padding-left: 40px
-              border-radius: 12px
+              border-radius: 4px
+              padding-bottom: 5px
+              &:focus
+                padding-bottom: 5px
     .shop-view
       display: flex
       flex-wrap: wrap
       justify-content: space-evenly
       article
-        width: 40%
+        width: 33.4%
         margin: 15px 0
         padding: 0
         border: 0 solid transparent
