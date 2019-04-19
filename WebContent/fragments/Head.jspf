@@ -27,6 +27,7 @@
             <% if (request.getSession().getAttribute("UserConnecte") == null) { %>
                 <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
                 <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
+
             <% } else { 
                  Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); %>
 

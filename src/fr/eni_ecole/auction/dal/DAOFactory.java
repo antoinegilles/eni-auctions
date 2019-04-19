@@ -4,6 +4,8 @@ public abstract class DAOFactory {
 	
 	private static ArticleDAOjdbcImpl articleDAO;
 	private static CategorieDAOjdbcImpl categorieDAO;
+	private static UserDAOjdbclmpl userDAO;
+	private static InscriptionDAOjdbclmpl inscriptionDAO;
 	
 	public static ArticleDAOjdbcImpl getArticleDAO()
 	{
@@ -19,6 +21,21 @@ public abstract class DAOFactory {
 			categorieDAO =  new CategorieDAOjdbcImpl();
 		}
 		return categorieDAO;
+	}
+	
+	public static UserDAOjdbclmpl getUserDAO()
+	{
+		if(userDAO == null) {
+			userDAO =  new UserDAOjdbclmpl();
+		}
+		return userDAO;
+	}
+	public static InscriptionDAOjdbclmpl getInscriptionDAO()
+	{
+		if(inscriptionDAO == null) {
+			inscriptionDAO =  new InscriptionDAOjdbclmpl();
+		}
+		return inscriptionDAO;
 	}
 }
 	
