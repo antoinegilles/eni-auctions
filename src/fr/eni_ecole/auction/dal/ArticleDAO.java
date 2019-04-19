@@ -9,5 +9,5 @@ public interface ArticleDAO {
 	public List<ArticleVendu> listerLesArticles() throws DALException;
 	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException;
 	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException;
-	public ArticleVendu DetailVente(String detailVente) throws DALException;
+	public ArticleVendu detailVente(int detailVente) throws DALException;
 }

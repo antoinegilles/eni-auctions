@@ -10,7 +10,7 @@ import fr.eni_ecole.auction.util.AccesBase;
 
 public class UserDAOjdbclmpl implements UserDAO {
 
-	private static final String GETUSER="SELECT prenom, nom, pseudo,email,rue,telephone,code_postal,ville,mot_de_passe,credit   FROM UTILISATEURS where email=? and mot_de_passe=?;";
+	private static final String GETUSER="SELECT prenom, nom, pseudo,email,rue,telephone,code_postal,ville,mot_de_passe,credit FROM UTILISATEURS where email=? and mot_de_passe=?;";
 	private static final String GETPSEUDO="SELECT pseudo FROM UTILISATEURS where pseudo=?;";
 	private static final String GETPRENOM="SELECT prenom FROM UTILISATEURS where prenom=?;";
 

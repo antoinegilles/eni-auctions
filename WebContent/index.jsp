@@ -71,13 +71,33 @@
         <button type="submit">Rechercher</button>
     </div>
 </form>
+<%-- 
+<div class="input-group">
+       
+     
+        <%List<ArticleVendu> listeDesArticles = (ArrayList<ArticleVendu>) request.getAttribute("listeDesArticles");
+          for(ArticleVendu unarticle : listeDesArticles) { %>
+        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
+           <img src="theme/img/llama.jpg" alt="image article">
+
+            <div class="article-body">
+                <p class="article-title">Nom de l'aticle : <%=unarticle.getNomArticle() %></p>
+                <p class="article-seller">Vendeur : Jojo45</p>
+                <p>Prix : <%=unarticle.getMisAPrix() %></p>
+                <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
+                <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
+            </div>
+        </article>
+	<% } %> 
+            
+        </div> --%>
 
 
 <div class="shop-view">
 
-    <%List<ArticleVendu> listeArticles = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
+    <%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
 
-    for(ArticleVendu unarticle : listeArticles) { %>
+    for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
         <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
            <img src="theme/img/llama.jpg" alt="image article">
 

@@ -30,9 +30,9 @@ public class ArticleManager {
 		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
 	}
 	
-	public ArticleVendu DetailVente(String detailVente) throws DALException
+	public ArticleVendu detailVente(int detailVente) throws DALException
 	{
-		return articleDAO.DetailVente(detailVente);
+		return articleDAO.detailVente(detailVente);
 	}
 	
 

@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
+import fr.eni_ecole.auction.beans.Categorie;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.util.AccesBase;
 import fr.eni_ecole.auction.util.ManipDate;
 
@@ -32,9 +34,12 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 //		et les modalit�s du retrait : adresse (par d�faut celle du vendeur).
 
 	
-	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
-	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus WHERE no_article=?";
-	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres AND av.no_utilisateur= 3;";
+	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus";
+	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo, rue, code_postal, ville, libelle \r\n" + 
+			"FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur \r\n" + 
+			"INNER JOIN categories c ON c.no_categorie = av.no_categorie \r\n" + 
+			"WHERE no_article=?";
+	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
 
 	
@@ -157,7 +162,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	 * @return <font color="green">La liste peut �tre vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public ArticleVendu DetailVente(String detailVente) throws DALException {
+	public ArticleVendu detailVente(int idArticle) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -165,20 +170,34 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		cnx=AccesBase.getConnection();
 		try{
 			pstmt=cnx.prepareStatement(SELECT_BY_ID_ARTICLE);
-			ArticleVendu unarticle;
-			pstmt.setString(1, detailVente);
+			
+			ArticleVendu unArticle;
+			Utilisateur unUtilisateur;
+			Categorie uneCategorie;
+			
+			pstmt.setInt(1, idArticle);
 			rs=pstmt.executeQuery();
 			while (rs.next()){
-				unarticle = new ArticleVendu(
+				unArticle = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial")
-
-			);
-				return unarticle;
+						rs.getInt("prix_initial"));
+						
+				unUtilisateur = new Utilisateur(
+						rs.getString("pseudo"),
+						rs.getString("rue"),
+						rs.getString("code_postal"),
+						rs.getString("ville"));
+				
+				uneCategorie = new Categorie(
+						rs.getString("libelle"));
+				
+				unArticle.setUtilisateur(unUtilisateur);
+				unArticle.setCategorie(uneCategorie);
+				return unArticle;
 		}
 		}catch (SQLException e){
 			throw new DALException("probleme methode rechercher()",e);

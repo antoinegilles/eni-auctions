@@ -33,19 +33,24 @@ import fr.eni_ecole.auction.dal.DALException;
 		try{
 			categorieManager = new CategorieManager();
 			articleManager = new ArticleManager();
-			// lister les catégories dans la page d'accueil
+			
+			// Lister les catégories dans la page d'accueil
 				List<Categorie> listeCategories =  categorieManager.listerLesCategories();
 				request.setAttribute("liste", listeCategories);
 				
-				String categorie = "%" + request.getParameter("categorie") + "%";
-				String article = "%" + request.getParameter("article") + "%";
+				String categorie = (request.getParameter("categorie") == null)? "%%" : "%" + request.getParameter("categorie") + "%";
+				String article = (request.getParameter("article") == null)? "%%" : "%" + request.getParameter("article") + "%";
 				
-				//TODO if le string article est null
+			// Liste des articles dans la page d'accueil
+			// List<ArticleVendu> listeDesArticles = articleManager.listerLesArticles();
 				
-				// Liste des articles enchères en cours
+			// Placer des articles dans le contexte de requete			
+			//	request.setAttribute("listeDesArticles", listeDesArticles);
+				
+			// Liste des articles enchères en cours
 				List<ArticleVendu> listeArticlesEncheresCours = articleManager.listerLesArticlesEncheresEnCours(categorie, article);
 				
-				// Placer des articles enchères en cours dans le contexte de requete			
+			// Placer des articles enchères en cours dans le contexte de requete			
 				request.setAttribute("listeArticlesEncheresCours", listeArticlesEncheresCours);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
