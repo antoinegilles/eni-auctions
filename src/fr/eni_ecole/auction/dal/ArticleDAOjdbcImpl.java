@@ -32,9 +32,9 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 //		et les modalit�s du retrait : adresse (par d�faut celle du vendeur).
 
 	
-	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
-	private static final String SELECT_BY_ID_ARTICLE="SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus WHERE no_article=?";
-	private static final String LISTER_ENCHERES_COURS="SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av, utilisateurs u WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie=? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres AND av.no_utilisateur= 3;";
+	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
+	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus WHERE no_article=?";
+	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres AND av.no_utilisateur= 3;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
 
 	
@@ -57,11 +57,12 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			ArticleVendu article;
 			while (rs.next()){
 				article = new ArticleVendu(
+									rs.getInt("no_article"),
 									rs.getString("nom_article"),
 									rs.getString("description"),
 									rs.getDate("date_debut_encheres"),
-									rs.getDate("date_fin_encheres")
-									
+									rs.getDate("date_fin_encheres"),
+									rs.getInt("prix_initial")
 						);
 				listeArticlesVendus.add(article);
 			}
@@ -94,6 +95,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			rs=pstmt.executeQuery();
 			while (rs.next()){
 				unarticle = new ArticleVendu(
+						rs.getInt("no_article"),
 						rs.getString("nom_article"),
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
@@ -168,6 +170,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			rs=pstmt.executeQuery();
 			while (rs.next()){
 				unarticle = new ArticleVendu(
+						rs.getInt("no_article"),
 						rs.getString("nom_article"),
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),

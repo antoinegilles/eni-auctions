@@ -34,12 +34,10 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticle = null;
 	
-				String detailVente = request.getParameter("detailVente");
-				
-				//TODO if le string article est null
+				String id = request.getParameter("id");
 				
 				// Liste des articles enchères en cours
-				detailArticle = articleManager.DetailVente(detailVente);
+				detailArticle = articleManager.DetailVente(id);
 				
 				// Placer des articles enchères en cours dans le contexte de requete			
 				request.setAttribute("detailArticle", detailArticle);
@@ -53,5 +51,7 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 			dispatcher.forward(request,response);
 		}
 		
-	} 
+	}
+	
+	
  }

@@ -14,7 +14,8 @@
 
 
 <form method="get" action="<%=request.getContextPath() %>/Encherir">
-        <%ArticleVendu unArticle = new ArticleVendu("PC Gamer pour travailler","---------",new Date(1776-07-04),new Date(1776-07-04));%>
+       <%-- <%ArticleVendu unArticle = new ArticleVendu("PC Gamer pour travailler","---------",new Date(1776-07-04),new Date(1776-07-04));%> --%>
+         <%ArticleVendu unArticle = (ArticleVendu) request.getAttribute("detailArticle");  %>
             
 		<%=unArticle.getNomArticle() %><br> 
 		Description : <%=unArticle.getDescription() %><br> 

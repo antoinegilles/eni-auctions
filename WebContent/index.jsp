@@ -74,10 +74,11 @@
 
 
 <div class="shop-view">
+
     <%List<ArticleVendu> listeArticles = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
 
     for(ArticleVendu unarticle : listeArticles) { %>
-        <article onclick="window.location.assign('DetailVente')">
+        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
            <img src="theme/img/llama.jpg" alt="image article">
 
             <div class="article-body">
