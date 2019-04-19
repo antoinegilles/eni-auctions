@@ -5,10 +5,9 @@ body {
   font-family: "Open Sans", sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 body footer {
-  bottom: 0;
+  margin-top: auto;
   height: 40px;
   overflow: hidden;
   background-color: #26A69A;
