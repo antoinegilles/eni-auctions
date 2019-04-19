@@ -9,10 +9,33 @@ $T7: #00796B
 $T8: #00695C
 $T9: #004D40
 
+$error: #EF5350
+
 body
   padding: 0
   margin: 0
+  min-height: 100vh
   font-family: 'Open Sans', sans-serif
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  footer
+    bottom: 0
+    height: 40px
+    overflow: hidden
+    background-color: $T4
+    color: white
+    display: flex
+    flex-direction: column
+    justify-content: center
+    ul
+      font-size: 12px
+      list-style: none
+      padding: 0
+      display: flex
+      justify-content: center
+      li
+        margin: 0 10px
   .false-info
     height: 12px
     background-color: rgba(0, 0, 0, 0.6)
@@ -69,7 +92,16 @@ body
           background-color: $T3
           color: white
   main
-    form
+    .error-box
+      width: 100%
+      padding: 10px
+      text-align: center
+      background-color: $error
+      color: white
+      box-shadow: 0 0 4px rgba(0,0,0,0.5)
+      p
+        margin: 0
+    form, .infos
       display: flex
       flex-direction: column
       margin: 20px
@@ -77,6 +109,8 @@ body
       border: solid 0px $T5
       border-top-width: 50px
       box-shadow: 0px 0px 4px rgba(0,0,0,0.5)
+      b
+        color: $T5
       &.titled
         border-top-width: 0
         .title
@@ -99,8 +133,17 @@ body
       &.sticky
         margin: 0 0 20px 0
         padding: 0 0 20px 0
+      &.centered
+        width: fit-content
+        margin: 30px auto
+        .input-group
+          text-align: center
       &.padded
         padding: 20px
+      .body
+        padding: 30px 20px
+        .input-group
+          margin: 20px 0
       table
         border: none
         border-spacing: 5px 22px
@@ -123,10 +166,12 @@ body
         border-bottom-left-radius: 0
         border-bottom-right-radius: 0
         padding-bottom: 2px
+        margin-bottom: 6px
         &:focus
           outline: none
           box-shadow: 0 0 4px $T6
           padding-bottom: 8px
+          margin-bottom: 0px
       .uploadFile
         input
           border-bottom: none
@@ -157,7 +202,11 @@ body
       .buttons
         width: 100%
         display: flex
-        justify-content: space-evenly
+        justify-content: center
+        button
+          margin: 0 15px
+          &.red
+            background-color: $error
       .search-filters
         flex: 0 0 50%
         display: flex
