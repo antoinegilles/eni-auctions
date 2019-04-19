@@ -79,11 +79,11 @@
 
 	<% for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
 
-    <form method="get" action="<%=request.getContextPath() %>/DetailVente">
     <article>
-        <!--  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Llama_lying_down.jpg"
-             alt="image article">-->
-
+        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Llama_lying_down.jpg"
+             alt="image article"> -->
+			
+		<a href="<%=request.getContextPath() %>/DetailVente?id=<%=unarticle.getNoArticle() %>">Nom de l'aticle : <%=unarticle.getNomArticle() %></a>
         <div class="article-body">
             <button type="submit" id="detailVente" name="detailVente">Nom de l'aticle : <%=unarticle.getNomArticle() %></button>
             <p class="article-seller">Vendeur : Jojo45</p>
@@ -92,8 +92,7 @@
             <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
         </div>
     </article>
-    	</form>
-	<% } %>
+	<%}%>
 </div>
 <%@include file="fragments/Bottom.jspf"%>
 

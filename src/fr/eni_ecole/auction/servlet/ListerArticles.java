@@ -37,8 +37,8 @@ import fr.eni_ecole.auction.dal.DALException;
 				List<Categorie> listeCategories =  categorieManager.listerLesCategories();
 				request.setAttribute("liste", listeCategories);
 				
-				String categorie = request.getParameter("categorie");
-				String article = request.getParameter("article");
+				String categorie = "%" + request.getParameter("categorie") + "%";
+				String article = "%" + request.getParameter("article") + "%";
 				
 				//TODO if le string article est null
 				

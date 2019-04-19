@@ -17,6 +17,20 @@ public class ArticleVendu {
 	public Retrait retrait;
 	
 	
+	
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int misAPrix) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.misAPrix = misAPrix;
+	}
+
+
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
 			int misAPrix, String pseudo) {
 		this.nomArticle = nomArticle;
