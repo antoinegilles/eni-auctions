@@ -183,9 +183,5 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 		return null;
-		
-		
 	}
-	
-
 }

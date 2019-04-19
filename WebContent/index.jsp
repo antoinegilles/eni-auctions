@@ -84,7 +84,7 @@
              alt="image article">-->
 
         <div class="article-body">
-            <button type="submit" id="<%=unarticle.getNomArticle() %>" name="<%=unarticle.getNomArticle() %>">Nom de l'aticle : <%=unarticle.getNomArticle() %></button>
+            <button type="submit" id="detailVente" name="detailVente">Nom de l'aticle : <%=unarticle.getNomArticle() %></button>
             <p class="article-seller">Vendeur : Jojo45</p>
             <p>Prix : <%=unarticle.getMisAPrix() %></p>
             <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
