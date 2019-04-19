@@ -14,6 +14,7 @@ import fr.eni_ecole.auction.beans.Categorie;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.DALException;
+import fr.eni_ecole.auction.dal.DAOFactory;
 
 
 /**
@@ -21,34 +22,29 @@ import fr.eni_ecole.auction.dal.DALException;
  * @author moujdari2018
  *
  */
-@WebServlet("/ListerArticles")
+@WebServlet("/DetailVente")
 
- public class ListerArticles extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+ public class DetailVente extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
    
-   	private CategorieManager categorieManager;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try{
-			categorieManager = new CategorieManager();
 			articleManager = new ArticleManager();
-			// lister les catégories dans la page d'accueil
-				List<Categorie> listeCategories =  categorieManager.listerLesCategories();
-				request.setAttribute("liste", listeCategories);
-				
-				String categorie = request.getParameter("categorie");
-				String article = request.getParameter("article");
+			ArticleVendu detailArticle = null;
+	
+				String detailVente = request.getParameter("detailVente");
 				
 				//TODO if le string article est null
 				
 				// Liste des articles enchères en cours
-				List<ArticleVendu> listeArticlesEncheresCours = articleManager.listerLesArticlesEncheresEnCours(categorie, article);
+				detailArticle = articleManager.DetailVente(detailVente);
 				
 				// Placer des articles enchères en cours dans le contexte de requete			
-				request.setAttribute("listeArticlesEncheresCours", listeArticlesEncheresCours);
+				request.setAttribute("detailArticle", detailArticle);
 			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
 		
 		}catch (DALException e){
