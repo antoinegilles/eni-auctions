@@ -21,16 +21,16 @@
 	</div>
 	<div class="row justify-content-around">
 		<form action="<%=request.getContextPath() %>/Connexion" method="post">
-				  	<div class="form-group">
-				    	<label for="identifiant">Email :</label>
-				    	<input type="email" class="form-control" id="identifiant" name="identifiant">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="motdepasse">Mot de passe :</label>
-				    	<input type="password" class="form-control" id="motdepasse" name="motdepasse">
-				  	</div>
-				  	<button type="submit" class="btn btn-default">se connecter</button>
-				</form>
+			<div class="form-group">
+				<label for="identifiant">Email :</label>
+				<input type="email" class="form-control" id="identifiant" name="identifiant">
+			</div>
+			<div class="form-group">
+				<label for="motdepasse">Mot de passe :</label>
+				<input type="password" class="form-control" id="motdepasse" name="motdepasse">
+			</div>
+			<button type="submit" class="btn btn-default">se connecter</button>
+		</form>
 	</div>
 </div>	
 	
