@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.util.AccesBase;
@@ -21,7 +22,7 @@ import fr.eni_ecole.auction.util.ManipDate;
  *
  */
 
-public class ArticleDAOjdbcImpl {
+public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
 //	En tant qu’utilisateur, je peux vendre un article sur la plateforme ENI-Enchères. 
 //	Pour cela je donne les informations sur l’article vendu : 
@@ -32,7 +33,8 @@ public class ArticleDAOjdbcImpl {
 
 	
 	private static final String LISTER="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus";
-	private static final String LISTER_ENCHERES_COURS="SELECT nom_article, description, date_debut_encheres, date_fin_encheres FROM articles_vendus WHERE no_categorie=? AND nom_article=? AND GETDATE() < date_debut_encheres;";
+	private static final String SELECT_BY_ID_ARTICLE="SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus WHERE no_article=?";
+	private static final String LISTER_ENCHERES_COURS="SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av, utilisateurs u WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie=? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres AND av.no_utilisateur= 3;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
 
 	
@@ -42,7 +44,7 @@ public class ArticleDAOjdbcImpl {
 	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public static ArrayList<ArticleVendu> lister() throws DALException {
+	public List<ArticleVendu> listerLesArticles() throws DALException {
 		Connection cnx=null;
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -77,7 +79,7 @@ public class ArticleDAOjdbcImpl {
 	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public static ArrayList<ArticleVendu> listerEncheresEnCours(String categorie, String article) throws DALException {
+	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -95,7 +97,8 @@ public class ArticleDAOjdbcImpl {
 						rs.getString("nom_article"),
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
-						rs.getDate("date_fin_encheres")
+						rs.getDate("date_fin_encheres"),
+						rs.getInt("prix_initial")
 						
 			);
 					listeArticlesEncheresCours.add(unarticle);
@@ -115,7 +118,7 @@ public class ArticleDAOjdbcImpl {
 	 * @return 
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public static void ajouter(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException{
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 
@@ -147,6 +150,42 @@ public class ArticleDAOjdbcImpl {
 		}
 	}
 	
+	/**
+	 * Methode permettant d'obtenir une liste des formations
+	 * @return <font color="green">La liste peut être vide mais jamais <font color="red"><code>null</code></font></font>
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public ArticleVendu DetailVente(String detailVente) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+
+		cnx=AccesBase.getConnection();
+		try{
+			pstmt=cnx.prepareStatement(SELECT_BY_ID_ARTICLE);
+			ArticleVendu unarticle;
+			pstmt.setString(1, detailVente);
+			rs=pstmt.executeQuery();
+			while (rs.next()){
+				unarticle = new ArticleVendu(
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"),
+						rs.getDate("date_fin_encheres"),
+						rs.getInt("prix_initial")
+						
+			);
+				return unarticle;
+		}
+		}catch (SQLException e){
+			throw new DALException("probleme methode rechercher()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+		return null;
+		
+		
+	}
 	
 
 }

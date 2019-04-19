@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>detailVente.jsp</title>
 </head>
 <body>
-<h1>Confirmation ajoutée en base de donnée</h1>
+<h2>detailVente.jsp</h2>
 </body>
 </html>
