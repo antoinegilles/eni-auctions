@@ -16,7 +16,7 @@
 <% } %>
 
 <%
-	// r�cuperer l'attribut animateur plac�s dans le contexte de session
+	// rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
 	Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 %>
 
@@ -69,11 +69,11 @@
 				<td><input value="<%= a.getPseudo()%>" type="text" id="pseudo" name="pseudo"></td>
 			</tr>
 			<tr class="input-group">
-				<td><label for="prenom">Prénom : </label>
+				<td><label for="prenom">PrÃ©nom : </label>
 				<td><input value="<%= a.getPrenom()%>" type="text" id="prenom" name="prenom"></td>
 			</tr>
 			<tr class="input-group ">
-				<td><label for="telephone">Téléphone : </label></td>
+				<td><label for="telephone">TÃ©lÃ©phone : </label></td>
 				<td><input value="<%= a.getTelephone() %>" type="text" id="telephone" name="telephone"></td>
 			</tr>
 			<tr class="input-group ">
