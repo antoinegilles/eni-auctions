@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni_ecole.auction.bll.InscriptionManager;
+import fr.eni_ecole.auction.bll.UserManager;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.InscriptionDAOjdbclmpl;
 import fr.eni_ecole.auction.dal.UserDAOjdbclmpl;
@@ -41,7 +43,10 @@ public class Inscription extends HttpServlet {
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville"); 
 			String mdp = request.getParameter("mdp"); 
-			String confirmation = request.getParameter("confirmation"); 
+			String confirmation = request.getParameter("confirmation");
+			InscriptionManager inscriptionManager = new InscriptionManager();
+			UserManager userManager = new UserManager() ;
+
 
 
 
@@ -97,7 +102,7 @@ public class Inscription extends HttpServlet {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
 				request.setAttribute("erreur", "Confirmation du mot de passe non renseigné. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
-			}else if (UserDAOjdbclmpl.selectPseudo(pseudo) != null) {
+			}else if (userManager.selectPseudo(pseudo) != null) {
 				request.setAttribute("erreur", "le pseudo existe déja xD ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}
@@ -114,7 +119,7 @@ public class Inscription extends HttpServlet {
 				System.out.println(session);
 				
 				
-			InscriptionDAOjdbclmpl.inscrire(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, true);
+				inscriptionManager.inscrire(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, true);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request,response);
 			}else {

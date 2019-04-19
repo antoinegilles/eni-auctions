@@ -30,10 +30,10 @@
             <% } else {
             Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); %>
             <p>Bonjour : <%= a.getPrenom()%>&nbsp;<%=a.getNom()%>&nbsp;<%=a.getEmail()%></p>
-				    <p>Votre crédit est : <%= a.getCredit()%></p
+				    <p>Votre crédit est : <%= a.getCredit()%></p>
                 <a href="<%=request.getContextPath() %>/ListerArticles">Enchères</a>
                 <a href="<%=request.getContextPath() %>/VendreArticle">Vendre un article</a>
-                <a href="<%=request.getContextPath() %>/profile">Mon profil</a>
+                <a href="<%=request.getContextPath() %>/profil">Mon profil</a>
                 <a href="<%=request.getContextPath() %>/deconnexion">Déconnexion</a>
             <% } %>
         </div>

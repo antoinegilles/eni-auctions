@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.util.AccesBase;
 
-public class UserDAOjdbclmpl {
+public class UserDAOjdbclmpl implements UserDAO {
 
 	private static final String GETUSER="SELECT prenom, nom, pseudo,email,rue,telephone,code_postal,ville,mot_de_passe,credit   FROM UTILISATEURS where email=? and mot_de_passe=?;";
 	private static final String GETPSEUDO="SELECT pseudo FROM UTILISATEURS where pseudo=?;";
 	private static final String GETPRENOM="SELECT prenom FROM UTILISATEURS where prenom=?;";
 
-	public static Utilisateur selectUser( String email, String password) throws DALException {
+	public Utilisateur selectUser( String email, String password) throws DALException {
 		Connection cnx=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -53,7 +53,7 @@ public class UserDAOjdbclmpl {
 	}
 
 
-	public static Utilisateur selectPseudo( String pseudo) throws DALException {
+	public Utilisateur selectPseudo( String pseudo) throws DALException {
 		Connection cnx=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -76,7 +76,7 @@ public class UserDAOjdbclmpl {
 		return utilisateur;
 	}
 
-	public static Utilisateur selectPrenom( String prenom) throws DALException {
+	public Utilisateur selectPrenom( String prenom) throws DALException {
 		Connection cnx=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
