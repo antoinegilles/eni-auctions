@@ -1,7 +1,7 @@
 <%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
 		
 	<% 
-		// récuperer l'attribut animateur placé dans le contexte de session
+		// récuperer l'attribut animateur placés dans le contexte de session
 		Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); 
 		%>
 		

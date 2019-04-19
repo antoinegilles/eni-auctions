@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 import fr.eni_ecole.auction.util.AccesBase;
 
-public class InscriptionDAOjdbclmpl {
+public class InscriptionDAOjdbclmpl implements InscriptionDAO  {
 
 private static final String AJOUTER_USER="INSERT INTO UTILISATEURS (pseudo, nom, prenom,"
 		+ " email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) \r\n" + 
 			"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
 
-public static void inscrire(String pseudo, String nom, String prenom, String email, String telephone,
+public void inscrire(String pseudo, String nom, String prenom, String email, String telephone,
 		String rue, String codePostal, String ville, String mdp, int Credit, boolean Administrateur) throws DALException{
 	Connection cnx=null;
 	PreparedStatement pstmt=null;

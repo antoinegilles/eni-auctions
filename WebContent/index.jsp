@@ -74,25 +74,22 @@
 
 
 <div class="shop-view">
-    <%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");%>
-	<h2>Les Enchères en cours :</h2>
 
-	<% for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
+    <%List<ArticleVendu> listeArticles = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
 
-    <article>
-        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Llama_lying_down.jpg"
-             alt="image article"> -->
-			
-		<a href="<%=request.getContextPath() %>/DetailVente?id=<%=unarticle.getNoArticle() %>">Nom de l'aticle : <%=unarticle.getNomArticle() %></a>
-        <div class="article-body">
-            <button type="submit" id="detailVente" name="detailVente">Nom de l'aticle : <%=unarticle.getNomArticle() %></button>
-            <p class="article-seller">Vendeur : Jojo45</p>
-            <p>Prix : <%=unarticle.getMisAPrix() %></p>
-            <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
-            <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
-        </div>
-    </article>
-	<%}%>
+    for(ArticleVendu unarticle : listeArticles) { %>
+        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
+           <img src="theme/img/llama.jpg" alt="image article">
+
+            <div class="article-body">
+                <p class="article-title">Nom de l'aticle : <%=unarticle.getNomArticle() %></p>
+                <p class="article-seller">Vendeur : Jojo45</p>
+                <p>Prix : <%=unarticle.getMisAPrix() %></p>
+                <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
+                <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
+            </div>
+        </article>
+	<% } %>
 </div>
 <%@include file="fragments/Bottom.jspf"%>
 

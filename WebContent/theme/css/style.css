@@ -5,7 +5,9 @@ body {
 }
 body .false-info {
   height: 12px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  border: transparent;
+  border-radius: 5px;
 }
 body header {
   height: 80px;
@@ -37,17 +39,38 @@ body header .navigation {
   display: flex;
   justify-content: flex-end;
 }
+body header .navigation .user-head-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: transparent;
+  transition: ease-in-out 0.2s;
+  padding: 5px 20px;
+}
+body header .navigation .user-head-infos:hover {
+  background-color: #4DB6AC;
+}
+body header .navigation .user-head-infos .profile-picture {
+  width: 44px;
+}
+body header .navigation .user-head-infos p {
+  font-size: 12px;
+  color: white;
+  margin: 0;
+}
 body header .navigation a {
-  width: 140px;
+  width: 110px;
   text-align: center;
   text-decoration: none;
   color: #E0F2F1;
   font-weight: 500;
   line-height: 5;
+  transition: ease-in-out 0.2s;
 }
 body header .navigation a:hover {
   cursor: pointer;
-  background-color: #009688;
+  background-color: #4DB6AC;
+  color: white;
 }
 body main form {
   display: flex;
@@ -142,7 +165,7 @@ body main form button:hover, body main form .uploadFile > label:hover {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 body main form .submit-search {
-  flex: 1 0 50%;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
