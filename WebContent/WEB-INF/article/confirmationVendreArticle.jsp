@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Confirmation ajoutée</h1>
+<h1>Confirmation ajoutée en base de donnée</h1>
 </body>
 </html>

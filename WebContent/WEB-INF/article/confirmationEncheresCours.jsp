@@ -3,7 +3,7 @@
 <%@ page import ="java.util.*, java.text.*" %>
 
 <body>
-<h1>Confirmation ajoutée</h1>
+<h1>Confirmation des Enchères en cours</h1>
 	
 	<%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");%>
 	Article :	

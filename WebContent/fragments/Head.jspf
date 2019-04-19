@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
-    
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +27,7 @@
             <% if (request.getSession().getAttribute("UserConnecte") == null) { %>
                 <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
                 <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-            <% } else { 
+            <% } else {
             Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); %>
             <p>Bonjour : <%= a.getPrenom()%>&nbsp;<%=a.getNom()%>&nbsp;<%=a.getEmail()%></p>
 				    <p>Votre crédit est : <%= a.getCredit()%></p

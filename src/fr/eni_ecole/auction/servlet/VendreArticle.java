@@ -1,7 +1,6 @@
 package fr.eni_ecole.auction.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni_ecole.auction.beans.Categorie;
-import fr.eni_ecole.auction.dal.ArticleDAOjdbcImpl;
-import fr.eni_ecole.auction.dal.CategorieDAOjdbcImpl;
+import fr.eni_ecole.auction.bll.ArticleManager;
+import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.util.ManipDate;
 
@@ -28,11 +27,15 @@ import fr.eni_ecole.auction.util.ManipDate;
  public class VendreArticle extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
    
+   private ArticleManager articleManager;
+   private CategorieManager categorieManager;
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
 		// lister les categories
 					try {
-						List<Categorie> listeCategories =  CategorieDAOjdbcImpl.lister();
+						categorieManager = new CategorieManager();
+						List<Categorie> listeCategories =  categorieManager.listerLesCategories();
 						request.setAttribute("liste", listeCategories);
 					} catch (DALException e) {
 						// TODO Auto-generated catch block
@@ -48,7 +51,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//ArticleVendu unArticleVendu =null;
 		try{ 
-			
+			articleManager = new ArticleManager();
 			String nomArticle = request.getParameter("nomArticle");
 			String description = request.getParameter("description");
 			String categorie = request.getParameter("categorie"); 
@@ -57,7 +60,8 @@ import fr.eni_ecole.auction.util.ManipDate;
 			Date finEnchere = ManipDate.stringVersUtil(request.getParameter("finEnchere"));
 			
 			// Ajoute un article
-			ArticleDAOjdbcImpl.ajouter(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
+			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
+			
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/confirmationVendreArticles");
 			dispatcher.forward(request,response);
