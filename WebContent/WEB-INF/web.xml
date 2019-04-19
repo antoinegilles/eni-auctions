@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>ListerArticles</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <servlet-name>Connexion</servlet-name>
     <servlet-class>fr.eni_ecole.auction.servlet.Connexion</servlet-class>
@@ -17,7 +16,6 @@
     <servlet-name>connexion</servlet-name>
     <jsp-file>/WEB-INF/connexion/connexion.jsp</jsp-file>
   </servlet>
-
   <servlet>
     <servlet-name>Articles</servlet-name>
     <jsp-file>/WEB-INF/article/articles.jsp</jsp-file>
@@ -30,12 +28,10 @@
     <servlet-name>ListerArticles</servlet-name>
     <servlet-class>fr.eni_ecole.auction.servlet.ListerArticles</servlet-class>
   </servlet>
-
   <servlet-mapping>
     <servlet-name>ListerArticles</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>ConfirmationVendreArticles</servlet-name>
     <jsp-file>/WEB-INF/article/confirmationVendreArticle.jsp</jsp-file>
@@ -78,7 +74,7 @@
     <servlet-name>Deconnexion</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description>Profil du user</description>
     <display-name>Profil</display-name>
     <servlet-name>Profil</servlet-name>
@@ -88,8 +84,6 @@
     <servlet-name>Profil</servlet-name>
     <url-pattern>/profil</url-pattern>
   </servlet-mapping>
-
-
   <servlet>
     <servlet-name>detailVente</servlet-name>
     <jsp-file>/WEB-INF/article/detailVente.jsp</jsp-file>
@@ -98,8 +92,6 @@
     <servlet-name>detailVente</servlet-name>
     <url-pattern>/detailVente</url-pattern>
   </servlet-mapping>
-
-
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
@@ -112,5 +104,24 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/theme/img/*</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+    <servlet-name>updateProfil</servlet-name>
+    <url-pattern>/updateProfil</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateProfil</servlet-name>
+    <jsp-file>/WEB-INF/UserProfile/updateProfil.jsp</jsp-file>
+  </servlet>
+ 
+ <servlet>
+    <description>Update du Profil du user</description>
+    <display-name>UpdateProfilUser</display-name>
+    <servlet-name>UpdateProfilUser</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.UpdateProfilUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateProfilUser</servlet-name>
+    <url-pattern>/updateProfilUser</url-pattern>
+  </servlet-mapping>
+ 
 </web-app>
