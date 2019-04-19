@@ -21,7 +21,7 @@ public class ManipDate {
 	 * @return true si c'est bien formaté, false sinon.
 	 */
 	private static boolean verifDate(String laDate){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		boolean bValue= true;
 		java.util.Date dateTmp = null;
 
@@ -64,7 +64,7 @@ public class ManipDate {
 		java.util.Date date=null;
 		if (laDate != null && verifDate(laDate)){
 			try{
-				date = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
+				date = new SimpleDateFormat("yyyy-MM-dd").parse(laDate);
 			}catch (Exception e){
 				throw new Exception("Date non valide !");
 			}

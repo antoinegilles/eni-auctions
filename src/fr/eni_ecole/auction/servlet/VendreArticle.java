@@ -49,7 +49,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ArticleVendu unArticleVendu =null;
+	
 		try{ 
 			articleManager = new ArticleManager();
 			String nomArticle = request.getParameter("nomArticle");
@@ -63,8 +63,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
 			
 			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/confirmationVendreArticles");
-			dispatcher.forward(request,response);
+			response.sendRedirect(request.getContextPath() + "/");
 		
 		}catch (DALException e){
 			request.setAttribute("erreur", e);

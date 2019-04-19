@@ -18,8 +18,35 @@ public class Utilisateur {
 	private String administrateur;
 	ArrayList<ArticleVendu> articlesVendu;
 	ArrayList<ArticleVendu> articlesAchete;
-
 	
+	public Utilisateur() {
+	}
+
+	public Utilisateur(String pseudo, String rue, String codePostal, String ville) {
+		super();
+		this.pseudo = pseudo;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, String administrateur) {
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+	}
+
+
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}

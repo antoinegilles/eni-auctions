@@ -14,20 +14,21 @@
 
 
 <form method="get" action="<%=request.getContextPath() %>/Encherir">
-       <%-- <%ArticleVendu unArticle = new ArticleVendu("PC Gamer pour travailler","---------",new Date(1776-07-04),new Date(1776-07-04));%> --%>
+       
          <%ArticleVendu unArticle = (ArticleVendu) request.getAttribute("detailArticle");  %>
             
 		<%=unArticle.getNomArticle() %><br> 
 		Description : <%=unArticle.getDescription() %><br> 
-		Catégorie : <br> 
+		Catégorie : <%=unArticle.getCategorie().getLibelle() %><br> 
 		Meilleur offre : <br> 
-		Mise à prix: <br> 
-        Fin de l'enchère : <br> 
-        Retrait : <br> 
+		Mise à prix: <%=unArticle.getPrixVente() %><br> <br> 
+        Fin de l'enchère : <%=unArticle.getDateFinEncheres() %><br> <br> 
+        Retrait : <%=unArticle.getUtilisateur().getRue() %><br>
+        	<%=unArticle.getUtilisateur().getCodePostal() %> <%=unArticle.getUtilisateur().getVille() %><br> 
         
-        Vendeur : <br> 
+        Vendeur : <%=unArticle.getUtilisateur().getPseudo() %> <br>
         
-        Ma proposition :  <br> 
+        Ma proposition : <input type="text" id="proposition" name="proposition"></div> <br> 
         <br> 
        <button type="submit">Enchérir</button>
     </div>

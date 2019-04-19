@@ -16,7 +16,16 @@ public class ArticleVendu {
 	public Categorie categorie;
 	public Retrait retrait;
 	
-	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, Utilisateur utilisateur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.misAPrix = misAPrix;
+	}
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
@@ -106,6 +115,29 @@ public class ArticleVendu {
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
-	
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
 	
 }
