@@ -164,7 +164,7 @@ body main form .body .input-group, body main .infos .body .input-group {
 }
 body main form table, body main .infos table {
   border: none;
-  border-spacing: 5px 22px;
+  border-spacing: 20px 22px;
   margin: 20px;
 }
 body main form table tr, body main .infos table tr {
