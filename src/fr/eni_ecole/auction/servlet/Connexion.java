@@ -34,19 +34,20 @@ public class Connexion extends HttpServlet {
 		String motdepasse = null;
 		UserManager userManager;
 		
-		// Controle des informations en recupération :
-		// si tous les champs ne sont pas renseignés, revenir sur la page du formulaire
+		// Controle des informations en recupï¿½ration :
+		// si tous les champs ne sont pas renseignï¿½s, revenir sur la page du formulaire
 		if ((request.getParameter("identifiant").length()== 0)  
 				|| (request.getParameter("identifiant").isEmpty())){
 			// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-			request.setAttribute("erreur", "email non renseigné. Veuillez le saisir ...");
+			request.setAttribute("erreur", "email non renseignÃ©. Veuillez le saisir ...");
 			//redirection vers la page de login
 			this.getServletContext().getRequestDispatcher("/connexion").forward(request, response);
 		} else if ((request.getParameter("motdepasse").length() == 0) 
 				|| (request.getParameter("motdepasse").isEmpty())) {
 			// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-			request.setAttribute("erreur", "mot de passe non renseigné. Veuillez le saisir ...");
+			request.setAttribute("erreur", "mot de passe non renseignï¿½. Veuillez le saisir ...");
 			this.getServletContext().getRequestDispatcher("/connexion").forward(request, response);
+
 		} else {
 			//stockage de l'information saisie dans le formulaire
 			mail = request.getParameter("identifiant");
@@ -55,9 +56,9 @@ public class Connexion extends HttpServlet {
 				userManager = new UserManager();
 				// Valider l'authentification par rapport aux informations de la base
 				user = userManager.selectUser(mail, motdepasse);
-				// Si l'authentification est réussie...
+				// Si l'authentification est rï¿½ussie...
 				if (user != null) {
-					// Invalider la session en cours dans le cas où c'est un autre profil qui est déjà connecté
+					// Invalider la session en cours dans le cas oï¿½ c'est un autre profil qui est dï¿½jï¿½ connectï¿½
 					// request.getSession().invalidate();
 					// Placer le bean dans le contexte de session
 					request.getSession().setAttribute("UserConnecte", user);
@@ -66,18 +67,17 @@ public class Connexion extends HttpServlet {
 				}
 				// ...sinon
 				else {
-					// animateur n'est pas trouvé dans la BDD, on place l'erreur dans le contexte de requete 
+					// animateur n'est pas trouvï¿½ dans la BDD, on place l'erreur dans le contexte de requete 
 					// pour pouvoir afficher le message d'erreur sur la page login
-					request.setAttribute("erreur", "mail et/ou mot de passe incorrect(s). Veuillez corriger ...");
-					// Retourner à l'écran d'authentification				
+					request.setAttribute("erreur", "mail et/ou mot de passe incorrect(s). Veuillez corriger ...");	
 					this.getServletContext().getRequestDispatcher("/connexion").forward(request, response);
-					
+
 				}
 			} catch (DALException e) {
-				// Placer l'objet représentant l'exception dans le contexte de requete
+				// Placer l'objet reprï¿½sentant l'exception dans le contexte de requete
 				request.setAttribute("erreur", e);
-				// Passer la main à la page de présentation des erreurs
-				this.getServletContext().getRequestDispatcher("/erreurPage").forward(request, response);
+				// Passer la main ï¿½ la page de prï¿½sentation des erreurs
+				//this.getServletContext().getRequestDispatcher("/erreurPage").forward(request, response);
 			}
 		}
 	}

@@ -4,6 +4,8 @@
 <%@ page import="java.util.Locale" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 
 <%
     request.setAttribute("title", "Détail vente");
@@ -11,12 +13,11 @@
 
 <%@include file="../../fragments/Head.jspf"%>
 
-<%
-    if(request.getAttribute("erreur") != null) { %>
-<div class="error-box">
-    <p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
-</div>
-<% } %>
+<c:if test="${requestScope['erreur'] != null }">
+	<div class="error-box">
+		<p><i class="fas fa-exclamation-circle"></i> ${requestScope['erreur'].toString()}</p>
+	</div>
+</c:if>
 
 <%
     // rÃ¯Â¿Â½cuperer l'attribut animateur placÃ¯Â¿Â½s dans le contexte de session

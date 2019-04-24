@@ -7,63 +7,58 @@
 %>
 
 <%@include file="../../fragments/Head.jspf"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-<%
-	// rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
-	Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 
-%>
-<%
-	if(request.getAttribute("erreur") != null) { %>
+<c:if test="${requestScope['erreur'] != null }">
 	<div class="error-box">
-		<p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
+		<p><i class="fas fa-exclamation-circle"></i> ${requestScope['erreur'].toString()}</p>
 	</div>
-		Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
-	
-<% } %>
+</c:if>
 
-<form class="titled" action="<%=request.getContextPath() %>/updateProfilUser" method="get">
+
+<form class="titled" action="${pageContext.request.contextPath }/updateProfilUser" method="get">
 	<p class="title">Modifier le profil</p>
 	<div class="divider">
 
 		<table>
 			<tr class="input-group">
 				<td><label for="pseudo">Pseudo : </label></td>
-				<td><input value="<%= a.getPseudo()%>" type="text" id="pseudo" name="pseudo"></td>
+				<td><input value="${sessionScope.UserConnecte.pseudo}" type="text" id="pseudo" name="pseudo"></td>
 			</tr>
 			<tr class="input-group">
 				<td><label for="prenom">Prénom : </label>
-				<td><input value="<%= a.getPrenom()%>" type="text" id="prenom" name="prenom"></td>
+				<td><input value="${sessionScope.UserConnecte.prenom}" type="text" id="prenom" name="prenom"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="telephone">Téléphone : </label></td>
-				<td><input value="<%= a.getTelephone() %>" type="text" id="telephone" name="telephone"></td>
+				<td><input value="${sessionScope.UserConnecte.telephone}" type="text" id="telephone" name="telephone"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="codePostal">Code postal : </label></td>
-				<td><input value="<%= a.getCodePostal() %>" type="text" id="codePostal" name="codePostal"></td>
+				<td><input value="${sessionScope.UserConnecte.codePostal}" type="text" id="codePostal" name="codePostal"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="mdp">Nouveau mot de passe : </label></td>
-				<td><input value="<%= a.getMotDePasse()%>" type="password" id="mdp" name="mdp"></td>
+				<td><input value="${sessionScope.UserConnecte.motDePasse}" type="password" id="mdp" name="mdp"></td>
 			</tr>
 		</table>
 		<table>
 			<tr class="input-group ">
 				<td><label for="nom">Nom : </label></td>
-				<td><input value="<%= a.getNom() %>" type="text" id="nom" name="nom"></td>
+				<td><input value="${sessionScope.UserConnecte.nom}" type="text" id="nom" name="nom"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="email">Mail : </label></td>
-				<td><input value="<%= a.getEmail() %>" type="email" id="email" name="email"></td>
+				<td><input value="${sessionScope.UserConnecte.email}" type="email" id="email" name="email"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="rue">Rue : </label></td>
-				<td><input value="<%= a.getRue() %>" type="text" id="rue" name="rue"></td>
+				<td><input value="${sessionScope.UserConnecte.rue}" type="text" id="rue" name="rue"></td>
 			</tr>
 			<tr class="input-group ">
 				<td><label for="ville">Ville : </label></td>
-				<td><input value="<%= a.getVille() %>" type="text" id="ville" name="ville"></td>
+				<td><input value="${sessionScope.UserConnecte.ville}" type="text" id="ville" name="ville"></td>
 			</tr>
 			<tr class="input-group" style="visibility: hidden">
 				<td><label></label></td>
@@ -74,7 +69,7 @@
 	<div class="buttons">
 
 		<button  type="submit" class="btn btn-dark">Modifier</button>
-		<a href="<%=request.getContextPath() %>/suppression"><button type="button" class="red">Supprimer le compte</button></a>
+		<a href="${pageContext.request.contextPath }/suppression"><button type="button" class="red">Supprimer le compte</button></a>
 
 	</div>
 </form>

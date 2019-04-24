@@ -6,10 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni_ecole.auction.beans.Utilisateur;
-import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.UserManager;
 import fr.eni_ecole.auction.dal.DALException;
 
@@ -63,7 +61,7 @@ public class UpdateProfilUser extends HttpServlet {
 				}else {
 					System.out.println("pseudo existe deja");
 					request.setAttribute("erreur", "Le pseudo existe deja xD ! Change le :O");
-					//this.getServletContext().getRequestDispatcher("/updateProfilUser").forward(request, response);
+					this.getServletContext().getRequestDispatcher("/updateProfil").forward(request, response);
 
 					}
 				}else {
