@@ -27,5 +27,9 @@ private UserDAO userDAO;
 			String rue, String codePostal, String ville, String mdp) throws DALException{
 		return;
 	};
+	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException{
+		userDAO.updateUserCredit(unUtilisateur);
+		
+	};
 
 }

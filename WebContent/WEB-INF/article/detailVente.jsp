@@ -19,7 +19,7 @@
 <% } %>
 
 <%
-    // rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
+    // rÃ¯Â¿Â½cuperer l'attribut animateur placÃ¯Â¿Â½s dans le contexte de session
     Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 %>
 
@@ -79,7 +79,7 @@
         <table>
             <tr>
                 <td><input type="number" id="proposition" name="proposition" min="<%=minPrice %>" value="<%=minPrice %>" required></td>
-                <td><button type="submit">Enchérir</button></td>
+                <td><button type="submit">EnchÃ©rir</button></td>
             </tr>
         </table>
     </form>
