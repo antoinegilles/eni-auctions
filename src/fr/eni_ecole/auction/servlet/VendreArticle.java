@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,7 +25,7 @@ import fr.eni_ecole.auction.util.ManipDate;
  */
 @WebServlet("/VendreArticle")
 
- public class VendreArticle extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+ public class VendreArticle extends HttpServlet {
    static final long serialVersionUID = 1L;
    
    private ArticleManager articleManager;

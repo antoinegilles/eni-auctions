@@ -9,7 +9,11 @@ public interface UserDAO {
 	public  Utilisateur selectPrenom( String prenom) throws DALException;
 	public  Utilisateur updateUser(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String mdp) throws DALException;
+
 	public Utilisateur deleteUser(String pseudo, String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp,int credit)  throws DALException ;
+
+	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException;
+
 
 
 }
