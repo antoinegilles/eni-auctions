@@ -27,9 +27,9 @@ public class ArticleManager {
 		return articleDAO.listerLesEncheresEnCours(categorie, article);
 	}
 	
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, String imagePath) throws DALException, BusinessException
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException, BusinessException
 	{
-		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, imagePath);
+		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, noUtilisateur, imagePath);
 	}
 	
 	public ArticleVendu detailVente(int detailVente) throws DALException, BusinessException

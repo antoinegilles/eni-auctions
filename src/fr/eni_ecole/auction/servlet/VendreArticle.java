@@ -77,7 +77,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 
 			
 			// Ajoute un article
-			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, imagePath);
+			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, connectedUser.getNoUtilisateur(), imagePath);
 			
 			
 			response.sendRedirect(request.getContextPath() + "/");
