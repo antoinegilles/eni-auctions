@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.dal.ArticleDAO;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
@@ -25,16 +26,18 @@ public class ArticleManager {
 		return articleDAO.listerLesEncheresEnCours(categorie, article);
 	}
 	
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, String imagePath) throws DALException
 	{
-		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
+		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, imagePath);
 	}
 	
 	public ArticleVendu detailVente(int detailVente) throws DALException
 	{
 		return articleDAO.detailVente(detailVente);
 	}
-	
 
-	
+
+	public int countArticlesForUser(Utilisateur user) throws DALException {
+		return articleDAO.countArticlesForUser(user);
+	}
 }

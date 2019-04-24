@@ -34,16 +34,16 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 //		et les modalit�s du retrait : adresse (par d�faut celle du vendeur).
 
 	
-	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus";
-	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo, rue, code_postal, ville, libelle \r\n" + 
+	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path FROM articles_vendus";
+	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo, rue, code_postal, ville, libelle \r\n" +
 			"FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur \r\n" + 
 			"INNER JOIN categories c ON c.no_categorie = av.no_categorie \r\n" + 
 			"WHERE no_article=?";
-	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
-	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
+	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
+	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, img_path) VALUES (?,?,?,?,?,?,?,?,?);";
+	private static final String SELECT_COUNT_USER_ARTICLE = "SELECT COUNT(av.no_article) AS 'count' FROM articles_vendus av INNER JOIN utilisateurs u ON u.no_utilisateur = av.no_utilisateur WHERE u.no_utilisateur = ? ;";
 
-	
-	
+
 	/**
 	 * Methode permettant d'obtenir une liste des formations
 	 * @return <font color="green">La liste peut �tre vide mais jamais <font color="red"><code>null</code></font></font>
@@ -67,7 +67,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 									rs.getString("description"),
 									rs.getDate("date_debut_encheres"),
 									rs.getDate("date_fin_encheres"),
-									rs.getInt("prix_initial")
+									rs.getInt("prix_initial"),
+									rs.getString("img_path")
 						);
 				listeArticlesVendus.add(article);
 			}
@@ -105,7 +106,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial")
+						rs.getInt("prix_initial"),
+						rs.getString("img_path")
 						
 			);
 					listeArticlesEncheresCours.add(unarticle);
@@ -125,7 +127,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	 * @return 
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException {
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, String imagePath) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 
@@ -142,6 +144,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			pstmt.setInt(6, 0); //prixVente
 			pstmt.setInt(7, 8); //utilisateur inconnu en base
 			pstmt.setString(8, categorie); //categorie
+			pstmt.setString(9, imagePath); //categorie
 			
 			pstmt.executeUpdate();
 			cnx.commit();
@@ -184,7 +187,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial"));
+						rs.getInt("prix_initial"),
+						rs.getString("img_path"));
 						
 				unUtilisateur = new Utilisateur(
 						rs.getString("pseudo"),
@@ -205,5 +209,33 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 		return null;
+	}
+
+
+	/**
+	 * Methode permettant d'obtenir le nombre d'article pour un utilisateur
+	 * @return nombre d'articles détenus par un utilisateur
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public int countArticlesForUser(Utilisateur user) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+
+		cnx=AccesBase.getConnection();
+		try{
+			pstmt=cnx.prepareStatement(SELECT_COUNT_USER_ARTICLE);
+
+			pstmt.setInt(1, user.getNoUtilisateur());
+			rs=pstmt.executeQuery();
+			while (rs.next()){
+				return rs.getInt("count");
+			}
+		}catch (SQLException e){
+			throw new DALException("probleme methode rechercher()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+		return -1;
 	}
 }
