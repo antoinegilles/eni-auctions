@@ -1,6 +1,8 @@
 <%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+		 
 
 <%
 	request.setAttribute("title", "Profil");
@@ -8,19 +10,12 @@
 
 <%@include file="../../fragments/Head.jspf"%>
 
-<%
-	if(request.getAttribute("erreur") != null) { %>
-<div class="error-box">
-	<p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
-</div>
-<% } %>
+<c:if test="${requestScope['erreur'] != null }">
+	<div class="error-box">
+		<p><i class="fas fa-exclamation-circle"></i> ${requestScope['erreur'].toString()}</p>
+	</div>
+</c:if>
 
-<%
-	// rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
-	Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
-	request.getSession().getAttribute("UserConnecte");
-
-%>
 
 <div class="centered titled infos">
 	<p class="title">Votre Profil</p>
@@ -28,39 +23,39 @@
 	<table>
 		<tr>
 			<td><b>Prenom :</b></td>
-			<td><%= a.getPrenom()%></td>
+			<td>${sessionScope.UserConnecte.prenom}</td>
 		</tr>
 		<tr>
 			<td><b>Nom :</b></td>
-			<td><%= a.getNom()%></td>
+			<td>${sessionScope.UserConnecte.nom}</td>
 		</tr>
 		<tr>
 			<td><b>Pseudo :</b></td>
-			<td><%= a.getPseudo()%></td>
+			<td>${sessionScope.UserConnecte.pseudo}</td>
 		</tr>
 		<tr>
 			<td><b>Email :</b></td>
-			<td><%= a.getEmail()%></td>
+			<td>${sessionScope.UserConnecte.email}</td>
 		</tr>
 		<tr>
 			<td><b>Telephone :</b></td>
-			<td><%= a.getTelephone()%></td>
+			<td>${sessionScope.UserConnecte.telephone}</td>
 		</tr>
 		<tr>
 			<td><b>Rue :</b></td>
-			<td><%= a.getRue()%></td>
+			<td>${sessionScope.UserConnecte.rue}</td>
 		</tr>
 		<tr>
 			<td><b>Code Postal :</b></td>
-			<td><%= a.getCodePostal()%></td>
+			<td>${sessionScope.UserConnecte.codePostal}</td>
 		</tr>
 		<tr>
 			<td><b>Ville :</b></td>
-			<td><%= a.getVille()%></td>
+			<td>${sessionScope.UserConnecte.ville}</td>
 		</tr>
 	</table>
 	<div class="buttons">
-		<a href="<%=request.getContextPath()%>/updateProfil"><button>Modifier</button></a>
+		<a href="${pageContext.request.contextPath }/updateProfil"><button>Modifier</button></a>
 	</div>
 </div>
 
