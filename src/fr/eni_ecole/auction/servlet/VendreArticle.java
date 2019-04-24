@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +31,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 		maxFileSize = 1024 * 1024 * 5,
 		maxRequestSize = 1024 * 1024 * 5 * 5)
 
- public class VendreArticle extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+ public class VendreArticle extends HttpServlet {
    static final long serialVersionUID = 1L;
    
    private ArticleManager articleManager;

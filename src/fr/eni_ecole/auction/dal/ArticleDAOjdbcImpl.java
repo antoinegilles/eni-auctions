@@ -35,15 +35,18 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 
 	
 	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path FROM articles_vendus";
-	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo, rue, code_postal, ville, libelle \r\n" +
+	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo, rue, code_postal, ville, libelle, c.no_categorie \r\n" +
 			"FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur \r\n" + 
 			"INNER JOIN categories c ON c.no_categorie = av.no_categorie \r\n" + 
 			"WHERE no_article=?";
 	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur WHERE av.no_utilisateur = u.no_utilisateur AND no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
 	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, img_path) VALUES (?,?,?,?,?,?,?,?,?);";
-	private static final String SELECT_COUNT_USER_ARTICLE = "SELECT COUNT(av.no_article) AS 'count' FROM articles_vendus av INNER JOIN utilisateurs u ON u.no_utilisateur = av.no_utilisateur WHERE u.no_utilisateur = ? ;";
+    private static final String AJOUTER_ENCHERE="INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,GETDATE(),?);";
+    private static final String MAX_ENCHERE="select max(montant_enchere) from ENCHERES where no_article=?;";
+    private static final String SELECT_COUNT_USER_ARTICLE = "SELECT COUNT(av.no_article) AS 'count' FROM articles_vendus av INNER JOIN utilisateurs u ON u.no_utilisateur = av.no_utilisateur WHERE u.no_utilisateur = ? ;";
 
-
+	
+	
 	/**
 	 * Methode permettant d'obtenir une liste des formations
 	 * @return <font color="green">La liste peut �tre vide mais jamais <font color="red"><code>null</code></font></font>
@@ -73,7 +76,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 				listeArticlesVendus.add(article);
 			}
 		}catch (SQLException e){
-			throw new DALException("probleme methode lister()",e);
+			throw new DALException("probleme methode listerLesArticles()",e);
 		}finally{
 			AccesBase.seDeconnecter(stmt, cnx);
 		}
@@ -113,7 +116,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 					listeArticlesEncheresCours.add(unarticle);
 		}
 		}catch (SQLException e){
-			throw new DALException("probleme methode rechercher()",e);
+			throw new DALException("probleme methode listerLesEncheresEnCours()",e);
 		}finally{
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
@@ -145,16 +148,16 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			pstmt.setInt(7, 8); //utilisateur inconnu en base
 			pstmt.setString(8, categorie); //categorie
 			pstmt.setString(9, imagePath); //categorie
-			
+
 			pstmt.executeUpdate();
 			cnx.commit();
 		}catch(SQLException e){
 			try {
 				cnx.rollback();
 			} catch (SQLException e1) {
-				throw new DALException("probleme rollback methode ajouter()",e1);
+				throw new DALException("probleme rollback methode ajouterUnArticle()",e1);
 			}
-			throw new DALException("probleme methode ajouter()",e);
+			throw new DALException("probleme methode ajouterUnArticle()",e);
 		}finally{
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
@@ -204,7 +207,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 				return unArticle;
 		}
 		}catch (SQLException e){
-			throw new DALException("probleme methode rechercher()",e);
+			throw new DALException("probleme methode detailVente()",e);
 		}finally{
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
@@ -237,5 +240,65 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 		return -1;
+	}
+
+	/**
+	 * M�thode permettant d'ajouter une ench�re dans la table ENCHERE
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+
+		cnx=AccesBase.getConnection();
+		try{
+			cnx.setAutoCommit(false);
+			pstmt=cnx.prepareStatement(AJOUTER_ENCHERE);
+
+			pstmt.setInt(1, no_utilisateur); //no_utilisateur
+			pstmt.setInt(2, no_article); //no_article
+			pstmt.setInt(3, montant_enchere); //montant_enchere
+
+			pstmt.executeUpdate();
+			cnx.commit();
+		}catch(SQLException e){
+			try {
+				cnx.rollback();
+			} catch (SQLException e1) {
+				throw new DALException("probleme rollback methode ajouterUneEnchere()",e1);
+			}
+			throw new DALException("probleme methode ajouterUneEnchere()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+	}
+
+	/**
+	 * M�thode permettant de retrouner le montant max pour une ench�re d'un article
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public void maxUneEnchere(int no_article) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+
+		cnx=AccesBase.getConnection();
+		try{
+			cnx.setAutoCommit(false);
+			pstmt=cnx.prepareStatement(MAX_ENCHERE);
+
+			pstmt.setInt(1, no_article); //no_article
+
+			pstmt.executeUpdate();
+			cnx.commit();
+		}catch(SQLException e){
+			try {
+				cnx.rollback();
+			} catch (SQLException e1) {
+				throw new DALException("probleme rollback methode maxUneEnchere()",e1);
+			}
+			throw new DALException("probleme methode maxUneEnchere()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
 	}
 }
