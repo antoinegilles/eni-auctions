@@ -7,17 +7,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Détail de la Vente</title>
+<title>Remporter une vente</title>
 </head>
 <body>
-<h2>Détail vente</h2>
+<h2>Remporter une vente</h2>
 
  <%ArticleVendu unArticle = (ArticleVendu) request.getAttribute("detailArticle");  %>
           
-<form method="post" action="<%=request.getContextPath() %>/Encherir">
        
-		<%=unArticle.getNomArticle() %><br> 
-		Description : <%=unArticle.getDescription() %><br> 
+		<%=unArticle.getNomArticle() %><br>
+		 Description : <%=unArticle.getDescription() %><br> 
 		Catégorie : <%=unArticle.getCategorie().getLibelle() %><br> 
 		Meilleur offre : <br> 
 		Mise à prix: <%=unArticle.getMisAPrix() %> euros<br>
@@ -26,13 +25,10 @@
         	<%=unArticle.getUtilisateur().getCodePostal() %> <%=unArticle.getUtilisateur().getVille() %><br> 
         
         Vendeur : <%=unArticle.getUtilisateur().getPseudo() %> <br>
-        
-        Ma proposition : <input type="text" id="proposition" name="proposition"></div> <br> 
         <br> 
         <input value="<%=unArticle.getNoArticle() %>" type="text" id="numeroArticle" name="numeroArticle" style="visibility: hidden;">
-       <button type="submit">Enchérir</button>
-    </div>
-</form>
+       <button type="submit">Back</button>
+    </div> --%>
           
 </body>
 </html>
