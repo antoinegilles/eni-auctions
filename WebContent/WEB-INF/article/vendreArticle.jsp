@@ -47,7 +47,7 @@
 		</article>
 	</div>
 
-	<form method="post" class="titled" action="<%=request.getContextPath() %>/VendreArticle">
+	<form method="post" class="titled" action="<%=request.getContextPath() %>/VendreArticle" enctype="multipart/form-data">
 		<div class="title">
 			<p>Informations</p>
 		</div>

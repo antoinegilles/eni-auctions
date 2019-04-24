@@ -17,6 +17,8 @@ import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
+import fr.eni_ecole.auction.exceptions.FileException;
+import fr.eni_ecole.auction.util.ImageLoader;
 
 
 /**
@@ -38,12 +40,19 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 	
 				int id = Integer.parseInt(request.getParameter("id"));
 				
-				// Liste des articles enchères en cours
+				// Liste des articles enchï¿½res en cours
 				detailArticle = articleManager.detailVente(id);
 				
-				// Placer des articles enchères en cours dans le contexte de requete			
+				// Placer des articles enchï¿½res en cours dans le contexte de requete			
 				request.setAttribute("detailArticle", detailArticle);
-			
+
+				String imagePath = "theme/img/no-image.jpg";
+				if (detailArticle.getImagePath() != null && !detailArticle.getImagePath().equals("")) {
+					imagePath = "uploads?img=" + detailArticle.getImagePath();
+				}
+
+				request.setAttribute("image", imagePath);
+
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
 		
