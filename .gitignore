@@ -14,4 +14,4 @@ build/
 *.classpath
 
 # ignore eclipse settings
-*.settings/
+.settings/*
