@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +14,7 @@ import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.beans.Categorie;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.CategorieManager;
+import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
 
@@ -24,7 +26,7 @@ import fr.eni_ecole.auction.dal.DAOFactory;
  */
 @WebServlet("/DetailVente")
 
- public class DetailVente extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+ public class DetailVente extends HttpServlet {
    static final long serialVersionUID = 1L;
    
    	private ArticleManager articleManager;
@@ -49,6 +51,9 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 			request.setAttribute("erreur", e);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
 			dispatcher.forward(request,response);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

@@ -110,14 +110,3 @@
 	<% } %>
 </div>
 <%@include file="fragments/Bottom.jspf"%>
-
-
-
-
-
-
-
-
-
-
-

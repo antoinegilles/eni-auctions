@@ -104,8 +104,7 @@
     <servlet-name>updateProfil</servlet-name>
     <jsp-file>/WEB-INF/UserProfile/updateProfil.jsp</jsp-file>
   </servlet>
- 
- <servlet>
+  <servlet>
     <description>Update du Profil du user</description>
     <display-name>UpdateProfilUser</display-name>
     <servlet-name>UpdateProfilUser</servlet-name>
@@ -115,5 +114,4 @@
     <servlet-name>UpdateProfilUser</servlet-name>
     <url-pattern>/updateProfilUser</url-pattern>
   </servlet-mapping>
- 
 </web-app>
