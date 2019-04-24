@@ -213,8 +213,14 @@ body
         margin-left: 20px
         .filter-type-choice
           display: flex
-          .checkbox-list
-            margin-left: 10px
+          .radio-checkbox-filters
+            .checkbox-list
+              pointer-events: none
+              opacity: 0.6
+              margin-left: 10px
+            .active
+              pointer-events: all
+              opacity: 1
         .input-group
           padding: 5px 0
           margin: 5px 0
@@ -253,6 +259,10 @@ body
         border: 0 solid transparent
         border-radius: 6px
         box-shadow: 0 0 10px rgba(0,0,0,0.4)
+        cursor: pointer
+        transition: 0.2s ease-in-out
+        &:hover
+          box-shadow: 0 0 10px rgba(0,0,0,0.6)
         img
           width: 100%
           margin: 0

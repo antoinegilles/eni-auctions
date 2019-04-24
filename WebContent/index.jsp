@@ -9,6 +9,8 @@
     request.setAttribute("title", "Liste des enchères");
 %>
 <%@include file="fragments/Head.jspf" %>
+
+<% boolean isConnected = request.getSession().getAttribute("UserConnecte") != null; %>
 <form class="horizontal colorized sticky titled"  method="get" action="<%=request.getContextPath() %>/">
     <div class="search-filters">
         <div class="input-group search">
@@ -27,10 +29,11 @@
             </select>
         </div>
 
+        <% if (isConnected) { %>
         <div class="filter-type-choice">
             <div class="radio-checkbox-filters">
-                <input type="radio" name="radio-choice" id="radio-achats-choice"> <label for="radio-achats-choice">Achats</label>
-                <div class="checkbox-list">
+                <input type="radio" name="radio-choice" class="radio-choice" id="radio-achats-choice" value="achats" checked> <label for="radio-achats-choice">Achats</label>
+                <div class="checkbox-list active" id="achat-checkbox">
                     <div>
                         <input type="checkbox" id="achat-open" name="achats" value="open">
                         <label for="achat-open">enchères ouvertes</label>
@@ -46,8 +49,8 @@
                 </div>
             </div>
             <div class="radio-checkbox-filters">
-                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Ventes</label>
-                <div class="checkbox-list">
+                <input type="radio" name="radio-choice" id="radio-ventes-choice" value="ventes"> <label for="radio-ventes-choice">Ventes</label>
+                <div class="checkbox-list" id="vente-checkbox">
                     <div>
                         <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
                         <label for="sells-ongoing">mes ventes en cours</label>
@@ -63,19 +66,52 @@
                 </div>
             </div>
         </div>
-
+        <% } %>
     </div>
     <div class="submit-search">
         <button type="submit">Rechercher</button>
     </div>
 </form>
 
+<script>
+    var achatChoices = document.querySelector("#radio-achats-choice");
+    var achatsCheckbox = document.querySelector("#achat-checkbox");
+    var ventesChoices = document.querySelector("#radio-ventes-choice");
+    var ventesCheckbox = document.querySelector("#vente-checkbox");
+
+    achatChoices.addEventListener('change', function (event) {
+        achatsCheckbox.classList.add("active");
+        ventesCheckbox.classList.remove("active");
+        ventesCheckbox.childNodes.forEach(function (value) {
+            value.childNodes.forEach(function (input) {
+                if(input instanceof HTMLInputElement) {
+                    input.checked = false;
+                }
+            })
+        })
+    })
+
+    ventesChoices.addEventListener('change', function (event) {
+        ventesCheckbox.classList.add("active");
+        achatsCheckbox.classList.remove("active");
+        achatsCheckbox.childNodes.forEach(function (value) {
+            value.childNodes.forEach(function (input) {
+                if(input instanceof HTMLInputElement) {
+                    input.checked = false;
+                }
+            })
+        })
+    })
+</script>
+
 <div class="shop-view">
 
     <%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
 
-    for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
-        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
+    for(ArticleVendu unarticle : listeArticlesEncheresCours) {
+    String cardLink = (isConnected) ? "DetailVente?id=" + unarticle.getNoArticle() : "connexion";
+    %>
+        <article onclick="window.location.assign('<%=cardLink %>')">
             <% String img = "theme/img/no-image.jpg";
                 if(unarticle.getImagePath() != null && !unarticle.getImagePath().equals("")) {
                     img = "uploads?img=" + unarticle.getImagePath();
