@@ -130,7 +130,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	 * @return 
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, String imagePath) throws DALException {
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 
@@ -144,8 +144,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			pstmt.setDate(3, ManipDate.dateUtilVersSQL(debutEnchere)); //debutEnchere
 			pstmt.setDate(4, ManipDate.dateUtilVersSQL(finEnchere)); //finEnchere
 			pstmt.setInt(5, misePrix); //misePrix
-			pstmt.setInt(6, 0); //prixVente
-			pstmt.setInt(7, 8); //utilisateur inconnu en base
+			pstmt.setInt(6, misePrix); //prixVente
+			pstmt.setInt(7, noUtilisateur); //utilisateur inconnu en base
 			pstmt.setString(8, categorie); //categorie
 			pstmt.setString(9, imagePath); //categorie
 
