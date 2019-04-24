@@ -9,18 +9,20 @@
 <%@include file="../../fragments/Head.jspf"%>
 
 <%
-	if(request.getAttribute("erreur") != null) { %>
-<div class="error-box">
-	<p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
-</div>
-<% } %>
-
-<%
 	// rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
 	Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
-%>
 
-<form class="titled" action="<%=request.getContextPath() %>/Profil" method="post">
+%>
+<%
+	if(request.getAttribute("erreur") != null) { %>
+	<div class="error-box">
+		<p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
+	</div>
+		Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
+	
+<% } %>
+
+<form class="titled" action="<%=request.getContextPath() %>/updateProfilUser" method="get">
 	<p class="title">Modifier le profil</p>
 	<div class="divider">
 
@@ -30,11 +32,11 @@
 				<td><input value="<%= a.getPseudo()%>" type="text" id="pseudo" name="pseudo"></td>
 			</tr>
 			<tr class="input-group">
-				<td><label for="prenom">PrÃ©nom : </label>
+				<td><label for="prenom">Prénom : </label>
 				<td><input value="<%= a.getPrenom()%>" type="text" id="prenom" name="prenom"></td>
 			</tr>
 			<tr class="input-group ">
-				<td><label for="telephone">TÃ©lÃ©phone : </label></td>
+				<td><label for="telephone">Téléphone : </label></td>
 				<td><input value="<%= a.getTelephone() %>" type="text" id="telephone" name="telephone"></td>
 			</tr>
 			<tr class="input-group ">
@@ -42,12 +44,8 @@
 				<td><input value="<%= a.getCodePostal() %>" type="text" id="codePostal" name="codePostal"></td>
 			</tr>
 			<tr class="input-group ">
-				<td><label for="mdp">Mot de passe : </label></td>
-				<td><input value="" type="password" id="mdp" name="mdp"></td>
-			</tr>
-			<tr class="input-group ">
 				<td><label for="mdp">Nouveau mot de passe : </label></td>
-				<td><input value="" type="password" id="new-mdp" name="newmdp"></td>
+				<td><input value="<%= a.getMotDePasse()%>" type="password" id="mdp" name="mdp"></td>
 			</tr>
 		</table>
 		<table>
@@ -71,16 +69,12 @@
 				<td><label></label></td>
 				<td><input value="" type="text" ></td>
 			</tr>
-			<tr class="input-group">
-				<td><label for="confirmation">Confirmation : </label></td>
-				<td><input value="" type="password" id="confirmation" name="confirmation"></td>
-			</tr>
 		</table>
 	</div>
 	<div class="buttons">
 
 		<button  type="submit" class="btn btn-dark">Modifier</button>
-		<a href="<%=request.getContextPath() %>/removeaccount"><button type="button" class="red">Supprimer le compte</button></a>
+		<a href="<%=request.getContextPath() %>/suppression"><button type="button" class="red">Supprimer le compte</button></a>
 
 	</div>
 </form>

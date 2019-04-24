@@ -29,7 +29,11 @@
                 <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
 
             <% } else { 
-                 Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte"); %>
+                 Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
+     			request.getSession().getAttribute("UserConnecte");
+
+
+                 %>
 
                 <a href="<%=request.getContextPath() %>/">Enchères</a>
                 <a href="<%=request.getContextPath() %>/VendreArticle">Vendre</a>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.util.AccesBase;
 
 public class InscriptionDAOjdbclmpl implements InscriptionDAO  {
@@ -13,17 +14,19 @@ private static final String AJOUTER_USER="INSERT INTO UTILISATEURS (pseudo, nom,
 			"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
 
-public void inscrire(String pseudo, String nom, String prenom, String email, String telephone,
+public Utilisateur inscrire(String pseudo, String nom, String prenom, String email, String telephone,
 		String rue, String codePostal, String ville, String mdp, int Credit, boolean Administrateur) throws DALException{
 	Connection cnx=null;
 	PreparedStatement pstmt=null;
-
+	Utilisateur utilisateur;
 	
 	cnx=AccesBase.getConnection();
 	try{
+		utilisateur = new Utilisateur();
+
 		cnx.setAutoCommit(false);
 		pstmt=cnx.prepareStatement(AJOUTER_USER);
-		pstmt.setString(1, pseudo);
+		pstmt.setString(1,pseudo);
 		pstmt.setString(2,nom);
 		pstmt.setString(3,prenom);
 		pstmt.setString(4,email);
@@ -38,11 +41,8 @@ public void inscrire(String pseudo, String nom, String prenom, String email, Str
 		}else {
 			pstmt.setInt(11, 0);
 		}
-
-		System.out.println("je passe par la DAO");
 		pstmt.executeUpdate();
 		cnx.commit();
-		System.out.println("j'ai validé la DAO");
 	}catch(SQLException e){
 		try {
 			cnx.rollback();
@@ -53,5 +53,6 @@ public void inscrire(String pseudo, String nom, String prenom, String email, Str
 	}finally{
 		AccesBase.seDeconnecter(pstmt, cnx);
 	}
+	return utilisateur;
 }
 }
