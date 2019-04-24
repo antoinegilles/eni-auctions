@@ -45,7 +45,7 @@ public class Inscription extends HttpServlet {
 			String mdp = request.getParameter("mdp"); 
 			String confirmation = request.getParameter("confirmation");
 			InscriptionManager inscriptionManager = new InscriptionManager();
-			UserManager userManager = new UserManager() ;
+			UserManager userManager = new UserManager();
 
 
 
@@ -54,75 +54,74 @@ public class Inscription extends HttpServlet {
 			if ((request.getParameter("pseudo").length()== 0)  
 					|| (request.getParameter("pseudo").isEmpty())){
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "pseudo non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "pseudo non renseignï¿½. Veuillez le saisir ...");
 				//redirection vers la page de login
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			} else if ((request.getParameter("mdp").length() == 0) 
 					|| (request.getParameter("mdp").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "mot de passe non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "mot de passe non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			} else if ((request.getParameter("nom").length() == 0) 
 					|| (request.getParameter("nom").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "nom non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "nom non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("prenom").length() == 0) 
 					|| (request.getParameter("prenom").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "prenom non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "prenom non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("email").length() == 0) 
 					|| (request.getParameter("email").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "email non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "email non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("telephone").length() == 0) 
 					|| (request.getParameter("telephone").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "telephone non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "telephone non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("rue").length() == 0) 
 					|| (request.getParameter("rue").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "rue non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "rue non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("codePostal").length() == 0) 
 					|| (request.getParameter("codePostal").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "Code Postal non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "Code Postal non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("ville").length() == 0) 
 					|| (request.getParameter("ville").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "Ville non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "Ville non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if ((request.getParameter("confirmation").length() == 0) 
 					|| (request.getParameter("confirmation").isEmpty())) {
 				// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-				request.setAttribute("erreur", "Confirmation du mot de passe non renseigné. Veuillez le saisir ...");
+				request.setAttribute("erreur", "Confirmation du mot de passe non renseignï¿½. Veuillez le saisir ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}else if (userManager.selectPseudo(pseudo) != null) {
-				request.setAttribute("erreur", "le pseudo existe déja xD ...");
+				request.setAttribute("erreur", "le pseudo existe dÃ©ja xD ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}
 			else if (confirmation.equals(mdp)){
-				/* Création ou récupération de la session */
+				/* Crï¿½ation ou rï¿½cupï¿½ration de la session */
 				HttpSession session = request.getSession();
 
-				/* Mise en session d'une chaîne de caractères */
+				/* Mise en session d'une chaï¿½ne de caractï¿½res */
 				String exemple = "abc";
 				session.setAttribute( "chaine", exemple );
 
-				/* Récupération de l'objet depuis la session */
+				/* Rï¿½cupï¿½ration de l'objet depuis la session */
 				String chaine = (String) session.getAttribute( "chaine" );
 				System.out.println(session);
-				
 				
 				inscriptionManager.inscrire(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, true);
 				response.sendRedirect(request.getContextPath()+"/");
 			}else {
-				request.setAttribute("erreur", "les deux mot de passe ne sont pas renseignés. Veuillez les re-saisir :O ...");
+				request.setAttribute("erreur", "les deux mot de passe ne sont pas renseignï¿½s. Veuillez les re-saisir :O ...");
 				this.getServletContext().getRequestDispatcher("/inscription").forward(request, response);
 			}
 			

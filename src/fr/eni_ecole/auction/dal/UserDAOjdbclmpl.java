@@ -17,8 +17,14 @@ public class UserDAOjdbclmpl implements UserDAO {
 	private static final String GETPRENOM="SELECT prenom FROM UTILISATEURS where prenom=?;";
 	private static final String MODIFIER="UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?,"
 			+ "telephone = ?, rue = ?, code_postal = ?, ville = ?,mot_de_passe =? WHERE pseudo = ?;";
+
+	private static final String DELETE="UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?,"
+			+ "telephone = ?, rue = ?, code_postal = ?, ville = ?,mot_de_passe =?, credit = ? WHERE pseudo = ?;";
+
 	private static final String MODIFIER_CREDIT="UPDATE UTILISATEURS SET credit = ? WHERE no_utilisateur = ?;";
 
+
+	
 	public Utilisateur selectUser( String email, String password) throws DALException {
 		Connection cnx=null;
 		PreparedStatement stmt=null;
@@ -44,7 +50,7 @@ public class UserDAOjdbclmpl implements UserDAO {
 				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
 				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
-				utilisateur.setCredit(rs.getInt("credit"));
+        utilisateur.setCredit(rs.getInt("credit"));						
 			}
 		}catch (SQLException e){
 			throw new DALException("probleme methode lister()",e);
@@ -101,25 +107,28 @@ public class UserDAOjdbclmpl implements UserDAO {
 		return utilisateur;
 	}
 
-	public void updateUser(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+	public Utilisateur updateUser(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String mdp) throws DALException {
 			Connection cnx=null;
 			PreparedStatement pstmt=null;
+    	Utilisateur utilisateur;
+
 
 			cnx=AccesBase.getConnection();
 			try{
+				utilisateur = new Utilisateur();
 				cnx.setAutoCommit(false);
 				pstmt=cnx.prepareStatement(MODIFIER);
-				pstmt.setString(1, pseudo);
+				pstmt.setString(1,pseudo);
 				pstmt.setString(2,nom);
 				pstmt.setString(3,prenom);
 				pstmt.setString(4,email);
 				pstmt.setString(5,telephone);
 				pstmt.setString(6,rue);
-				pstmt.setString(7, codePostal);
+				pstmt.setString(7,codePostal);
 				pstmt.setString(8,ville );
 				pstmt.setString(9, mdp);
-				pstmt.setString(10, pseudo);
+				pstmt.setString(10,pseudo);
 				pstmt.executeUpdate();
 				cnx.commit();
 			}catch(SQLException e){
@@ -132,6 +141,45 @@ public class UserDAOjdbclmpl implements UserDAO {
 			}finally{
 				AccesBase.seDeconnecter(pstmt, cnx);
 			}
+
+			return utilisateur;
+		}
+
+	public Utilisateur deleteUser(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String mdp, int credit)  throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+		Utilisateur utilisateur;
+
+		cnx=AccesBase.getConnection();
+		try{
+			utilisateur = new Utilisateur();
+			cnx.setAutoCommit(false);
+			pstmt=cnx.prepareStatement(DELETE);
+			pstmt.setString(1, "");
+			pstmt.setString(2,"");
+			pstmt.setString(3,"");
+			pstmt.setString(4,"");
+			pstmt.setString(5,"");
+			pstmt.setString(6,"");
+			pstmt.setString(7, "");
+			pstmt.setString(8,"" );
+			pstmt.setString(9, "");
+			pstmt.setInt(10, 0);
+			pstmt.setString(11, pseudo);
+			pstmt.executeUpdate();
+			cnx.commit();
+		}catch(SQLException e){
+			try {
+				cnx.rollback();
+			} catch (SQLException e1) {
+				throw new DALException("probleme rollback methode updateUser()",e1);
+			}
+			throw new DALException("probleme methode UpdateUser()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		  }
+		  return utilisateur;	
 		}
 	
 	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException {
@@ -158,5 +206,6 @@ public class UserDAOjdbclmpl implements UserDAO {
 				AccesBase.seDeconnecter(pstmt, cnx);
 			}
 		}
+
 
 }

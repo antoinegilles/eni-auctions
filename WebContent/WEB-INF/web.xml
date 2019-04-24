@@ -114,4 +114,15 @@
     <servlet-name>UpdateProfilUser</servlet-name>
     <url-pattern>/updateProfilUser</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>Delete du Profil </description>
+    <display-name>Suppression</display-name>
+    <servlet-name>Suppression</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.Suppression</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Suppression</servlet-name>
+    <url-pattern>/suppression</url-pattern>
+  </servlet-mapping>
+
 </web-app>

@@ -18,6 +18,8 @@
 <%
 	// rï¿½cuperer l'attribut animateur placï¿½s dans le contexte de session
 	Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
+	request.getSession().getAttribute("UserConnecte");
+
 %>
 
 <div class="centered titled infos">
@@ -58,7 +60,7 @@
 		</tr>
 	</table>
 	<div class="buttons">
-		<a href="<%=request.getContextPath()%>/updateProfilUser"><button>Modifier</button></a>
+		<a href="<%=request.getContextPath()%>/updateProfil"><button>Modifier</button></a>
 	</div>
 </div>
 

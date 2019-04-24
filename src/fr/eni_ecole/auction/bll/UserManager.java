@@ -23,13 +23,21 @@ private UserDAO userDAO;
 	public  Utilisateur selectPrenom( String prenom) throws DALException{
 		return userDAO.selectPrenom(prenom);
 	};
-	public void updateUser(String pseudo, String nom, String prenom, String email, String telephone,
+	public Utilisateur updateUser(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String mdp) throws DALException{
-		return;
+		return userDAO.updateUser(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 	};
+
+	public Utilisateur deleteUser(String pseudo, String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp,int credit)throws DALException {
+		return userDAO.deleteUser(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit)  ;
+
+	};
+
+
 	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException{
 		userDAO.updateUserCredit(unUtilisateur);
 		
 	};
+
 
 }

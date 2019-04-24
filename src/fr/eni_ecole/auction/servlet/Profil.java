@@ -27,7 +27,7 @@ public class Profil extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	request.getSession().getAttribute("UserConnecte");
 	request.getRequestDispatcher("/accesUser").forward(request, response);
 	
 	}
