@@ -32,16 +32,21 @@ import fr.eni_ecole.auction.dal.DAOFactory;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+		
 		try{
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticle = null;
 	
 				int id = Integer.parseInt(request.getParameter("id"));
 				
-				// Liste des articles enchères en cours
+				// Liste des articles enchï¿½res en cours
 				detailArticle = articleManager.detailVente(id);
 				
-				// Placer des articles enchères en cours dans le contexte de requete			
+				// Placer des articles enchï¿½res en cours dans le contexte de requete			
 				request.setAttribute("detailArticle", detailArticle);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
@@ -56,6 +61,7 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 			e.printStackTrace();
 		}
 		
+	}
 	}
 	
 	

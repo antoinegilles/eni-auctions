@@ -32,7 +32,10 @@ import fr.eni_ecole.auction.util.ManipDate;
    private CategorieManager categorieManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		// lister les categories
 					try {
 						categorieManager = new CategorieManager();
@@ -47,10 +50,14 @@ import fr.eni_ecole.auction.util.ManipDate;
 		dispatcher.forward(request,response);
 		
 	}
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		try{ 
 			articleManager = new ArticleManager();
 			String nomArticle = request.getParameter("nomArticle");
@@ -75,7 +82,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 			e.printStackTrace();
 		}
 	} 
-	
+	}
 	
 
 }

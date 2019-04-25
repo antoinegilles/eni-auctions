@@ -32,21 +32,25 @@ import fr.eni_ecole.auction.dal.DALException;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		try{
 			categorieManager = new CategorieManager();
 			articleManager = new ArticleManager();
 			
-			// Lister les catégories dans la page d'accueil
+			// Lister les catï¿½gories dans la page d'accueil
 				List<Categorie> listeCategories =  categorieManager.listerLesCategories();
 				request.setAttribute("liste", listeCategories);
 				
 				String categorie = (request.getParameter("categorie") == null)? "%%" : "%" + request.getParameter("categorie") + "%";
 				String article = (request.getParameter("article") == null)? "%%" : "%" + request.getParameter("article") + "%";
 				
-			// Liste des articles enchères en cours
+			// Liste des articles enchï¿½res en cours
 				List<ArticleVendu> listeArticlesEncheresCours = articleManager.listerLesArticlesEncheresEnCours(categorie, article);
 				
-			// Placer des articles enchères en cours dans le contexte de requete			
+			// Placer des articles enchï¿½res en cours dans le contexte de requete			
 				request.setAttribute("listeArticlesEncheresCours", listeArticlesEncheresCours);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
@@ -62,4 +66,5 @@ import fr.eni_ecole.auction.dal.DALException;
 		}
 		
 	} 
+	}
  }

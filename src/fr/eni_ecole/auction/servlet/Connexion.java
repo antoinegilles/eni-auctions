@@ -3,6 +3,7 @@ package fr.eni_ecole.auction.servlet;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +25,37 @@ public class Connexion extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/ListerArticles").forward(request, response);
+		Cookie[] cookies = null;
+		Cookie unCookie = null;
+		boolean trouve = false;
 
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("yo")) {
+					unCookie = cookies[i];
+					trouve = true;
+					System.out.println("j'ai trouvé le cookie ");
+
+				}
+			}
+		}
+
+		if (!trouve) {
+			// genere un identifiant unique pour chaque poste client
+			unCookie = new Cookie("yo", "yo");
+			unCookie.setMaxAge(60*10); // temps en secondes de la durÃ©e de vie du cookie
+
+			// Ajouter le cookie Ã  l'entÃªte de la reponse
+			response.addCookie(unCookie);
+			System.out.println(cookies);
+
+		}
+		if(trouve) {
+			System.out.println("cookie trouve");
+			request.getSession().getAttribute("UserConnecte");
+			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +63,8 @@ public class Connexion extends HttpServlet {
 		String mail = null;
 		String motdepasse = null;
 		UserManager userManager;
+	
+		
 		
 		// Controle des informations en recup�ration :
 		// si tous les champs ne sont pas renseign�s, revenir sur la page du formulaire
@@ -45,7 +77,7 @@ public class Connexion extends HttpServlet {
 		} else if ((request.getParameter("motdepasse").length() == 0) 
 				|| (request.getParameter("motdepasse").isEmpty())) {
 			// place l'erreur dans le contexte de requete pour pouvoir afficher le message d'erreur sur la page login
-			request.setAttribute("erreur", "mot de passe non renseign�. Veuillez le saisir ...");
+			request.setAttribute("erreur", "mot de passe non renseigné. Veuillez le saisir ...");
 			this.getServletContext().getRequestDispatcher("/connexion").forward(request, response);
 
 		} else {
