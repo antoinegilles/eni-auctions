@@ -84,6 +84,18 @@
     <servlet-name>detailVente</servlet-name>
     <url-pattern>/detailVente</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <description>Permet de chercher les images en local</description>
+    <display-name>Uploads</display-name>
+    <servlet-name>Uploads</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.Uploads</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Uploads</servlet-name>
+    <url-pattern>/uploads</url-pattern>
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>

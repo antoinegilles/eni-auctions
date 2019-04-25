@@ -17,6 +17,8 @@ import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
+import fr.eni_ecole.auction.exceptions.FileException;
+import fr.eni_ecole.auction.util.ImageLoader;
 
 
 /**
@@ -48,7 +50,14 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 				
 				// Placer des articles ench�res en cours dans le contexte de requete			
 				request.setAttribute("detailArticle", detailArticle);
-			
+
+				String imagePath = "theme/img/no-image.jpg";
+				if (detailArticle.getImagePath() != null && !detailArticle.getImagePath().equals("")) {
+					imagePath = "uploads?img=" + detailArticle.getImagePath();
+				}
+
+				request.setAttribute("image", imagePath);
+
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
 		

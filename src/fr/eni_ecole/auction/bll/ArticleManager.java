@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.dal.ArticleDAO;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
@@ -26,29 +27,32 @@ public class ArticleManager {
 		return articleDAO.listerLesEncheresEnCours(categorie, article);
 	}
 	
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException, BusinessException
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException, BusinessException
 	{
-		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
+		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, noUtilisateur, imagePath);
 	}
 	
 	public ArticleVendu detailVente(int detailVente) throws DALException, BusinessException
 	{
 		return articleDAO.detailVente(detailVente);
 	}
-	
+
+
 	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException, BusinessException
 	{
-		
-		//Enchère sur un article si je propose un prix (en points) supérieur au tarif actuel
+
+		//Enchï¿½re sur un article si je propose un prix (en points) supï¿½rieur au tarif actuel
 				//if(proposition >= detailArticleEncheri.getMisAPrix()) {
-					//si mon compte de points ne devient pas négatif.
-					//if(si mon compte de points ne devient pas négatif.)
-					
-		//Si l’enchère est possible, mon crédit de points est débité du montant proposé. 
-		//Le meilleur enchérisseur précédent si il existe est re-crédité de son offre.
+					//si mon compte de points ne devient pas nï¿½gatif.
+					//if(si mon compte de points ne devient pas nï¿½gatif.)
+
+		//Si lï¿½enchï¿½re est possible, mon crï¿½dit de points est dï¿½bitï¿½ du montant proposï¿½.
+		//Le meilleur enchï¿½risseur prï¿½cï¿½dent si il existe est re-crï¿½ditï¿½ de son offre.
 		articleDAO.ajouterUneEnchere(no_utilisateur, no_article, montant_enchere);
 	}
-	
 
-	
+
+	public int countArticlesForUser(Utilisateur user) throws DALException {
+		return articleDAO.countArticlesForUser(user);
+	}
 }

@@ -69,27 +69,6 @@
         <button type="submit">Rechercher</button>
     </div>
 </form>
-<%-- 
-<div class="input-group">
-       
-     
-        <%List<ArticleVendu> listeDesArticles = (ArrayList<ArticleVendu>) request.getAttribute("listeDesArticles");
-          for(ArticleVendu unarticle : listeDesArticles) { %>
-        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
-           <img src="theme/img/llama.jpg" alt="image article">
-
-            <div class="article-body">
-                <p class="article-title">Nom de l'aticle : <%=unarticle.getNomArticle() %></p>
-                <p class="article-seller">Vendeur : Jojo45</p>
-                <p>Prix : <%=unarticle.getMisAPrix() %></p>
-                <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
-                <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
-            </div>
-        </article>
-	<% } %> 
-            
-        </div> --%>
-
 
 <div class="shop-view">
 
@@ -97,7 +76,11 @@
 
     for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
         <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
-           <img src="theme/img/llama.jpg" alt="image article">
+            <% String img = "theme/img/no-image.jpg";
+                if(unarticle.getImagePath() != null && !unarticle.getImagePath().equals("")) {
+                    img = "uploads?img=" + unarticle.getImagePath();
+                } %>
+                <img src="<%=img%>" alt="image article">
 
             <div class="article-body">
                 <p class="article-title">Nom de l'aticle : <%=unarticle.getNomArticle() %></p>

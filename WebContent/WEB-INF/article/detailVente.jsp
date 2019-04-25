@@ -34,7 +34,7 @@
     <div class="shop-view detail-image">
         <article>
             <div class="preview-img" id="preview-img">
-                <img src="theme/img/no-image.jpg">
+                <img src="<%=request.getAttribute("image")%>">
             </div>
         </article>
     </div>
