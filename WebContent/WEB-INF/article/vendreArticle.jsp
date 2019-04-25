@@ -4,10 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 
-<%
-	request.setAttribute("title", "Nouvelle vente");
-%>
-
 <%@include file="../../fragments/Head.jspf"%>
 
 <script>
@@ -66,10 +62,9 @@
 			<tr class="input-group">
 				<td><label for="categorie"> Catégories : </label></td>
 				<td><select class="custom-dropdown__select custom-dropdown__select--white" id="categorie" name="categorie">
-					<% 	List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("liste");
-						for(Categorie categorie : listeCategories) { %>
-					<option value="<%=categorie.getNoCategorie() %>" ><%=categorie.getLibelle() %></option>
-					<% } %>
+					<c:forEach var="categorie" items="${liste}">
+					<option value="${categorie.noCategorie}">${categorie.libelle}</option>
+					</c:forEach>
 				</select></td>
 			</tr>
 
@@ -102,7 +97,7 @@
 
 		<div class="buttons">
 			<button type="submit">Enregistrer</button>
-			<a href="<%=request.getContextPath()%>/"><button type="button">Annuler</button></a>
+			<a href="${pageContext.request.contextPath}/"><button type="button">Annuler</button></a>
 		</div>
 	</form>
 </div>

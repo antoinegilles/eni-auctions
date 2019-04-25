@@ -1,31 +1,36 @@
 <%@page import="fr.eni_ecole.auction.beans.ArticleVendu"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@page import="fr.eni_ecole.auction.beans.Utilisateur"%>
 
 <%@page import="fr.eni_ecole.auction.beans.Categorie"%>
-<%@ page import ="java.util.*, java.text.*" %>
+<%@ page import="java.util.*, java.text.*"%>
+
 <%
     request.setAttribute("title", "Liste des enchères");
 %>
-<%@include file="fragments/Head.jspf" %>
-<form class="horizontal colorized sticky titled"  method="get" action="<%=request.getContextPath() %>/">
-    <div class="search-filters">
-        <div class="input-group search">
-            <div>
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="article" name="article" placeholder="Le nom de l'article contient" ></div>
-        </div>
-        <div class="input-group">
-        <%List<Categorie> listeCategories = (ArrayList<Categorie>) request.getAttribute("liste");%>
-            <label for="categorie">Catégorie :</label>
-            <select placeholder="Le nom de l'article contient" id="categorie" name="categorie">
-                <option value="">TOUTES</option>
-                <% for (Categorie categorie : listeCategories) { %>
-                    <option value="<%=categorie.getNoCategorie() %>" ><%=categorie.getLibelle() %></option>
-                <% } %>
-            </select>
-        </div>
+
+<%@include file="fragments/Head.jspf"%>
+<form class="horizontal colorized sticky titled" method="get"
+	action="${pageContext.request.contextPath}/">
+	<div class="search-filters">
+		<div class="input-group search">
+			<div>
+				<i class="fas fa-search search-icon"></i> <input type="text"
+					id="article" name="article"
+					placeholder="Le nom de l'article contient">
+			</div>
+		</div>
+		<div class="input-group">
+			<label for="categorie">Catégorie :</label> <select
+				placeholder="Le nom de l'article contient" id="categorie"
+				name="categorie">
+				<option value="">TOUTES</option>
+				<c:forEach var="categorie" items="${liste}">
+					<option value="${categorie.noCategorie}">${categorie.libelle}</option>
+				</c:forEach>
+			</select>
+		</div>
 
         <div class="filter-type-choice">
             <div class="radio-checkbox-filters">
@@ -64,32 +69,35 @@
             </div>
         </div>
 
-    </div>
-    <div class="submit-search">
-        <button type="submit">Rechercher</button>
-    </div>
+	</div>
+	<div class="submit-search">
+		<button type="submit">Rechercher</button>
+	</div>
 </form>
 
 <div class="shop-view">
 
-    <%List<ArticleVendu> listeArticlesEncheresCours = (ArrayList<ArticleVendu>) request.getAttribute("listeArticlesEncheresCours");
+    <c:forEach var="unarticle" items="${listeArticlesEncheresCours}">
+        <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
+        
+        <c:choose>
+            <c:when test="unarticle.getImagePath() != null">
+                <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">
+            </c:when>
+            <c:otherwise>
+                <img src="theme/img/no-image.jpg" alt="image article">
+            </c:otherwise>
+        </c:choose>
 
-    for(ArticleVendu unarticle : listeArticlesEncheresCours) { %>
-        <article onclick="window.location.assign('DetailVente?id=<%=unarticle.getNoArticle() %>')">
-            <% String img = "theme/img/no-image.jpg";
-                if(unarticle.getImagePath() != null && !unarticle.getImagePath().equals("")) {
-                    img = "uploads?img=" + unarticle.getImagePath();
-                } %>
-                <img src="<%=img%>" alt="image article">
-
-            <div class="article-body">
-                <p class="article-title">Nom de l'aticle : <%=unarticle.getNomArticle() %></p>
-                <p class="article-seller">Vendeur : Jojo45</p>
-                <p>Prix : <%=unarticle.getMisAPrix() %></p>
-                <p>Début de l'enchere : <%=unarticle.getDateDebutEncheres() %></p>
-                <p>Fin de l'enchere : <%=unarticle.getDateFinEncheres() %></p>
-            </div>
-        </article>
-	<% } %>
+		<div class="article-body">
+			<p class="article-title"> Nom de l'aticle : ${unarticle.nomArticle} </p>
+			<p class="article-seller">Vendeur : Jojo45</p>
+			<p> Prix : ${unarticle.misAPrix}</p>
+			<p> Catégorie : ${unarticle.categorie.libelle}</p>
+			<p> Début de l'enchere : ${unarticle.dateDebutEncheres}</p>
+			<p> Fin de l'enchere : ${unarticle.dateFinEncheres}</p>
+		</div>
+	</article>
+	</c:forEach>
 </div>
 <%@include file="fragments/Bottom.jspf"%>
