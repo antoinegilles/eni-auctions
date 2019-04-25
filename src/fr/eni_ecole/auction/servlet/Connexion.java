@@ -38,6 +38,7 @@ public class Connexion extends HttpServlet {
 		UserManager userManager;
 		Cookie[] cookies = null;
 		Cookie unCookie = null;
+		Cookie unCookie2 = null;
 		boolean trouve = false;
 
 		cookies = request.getCookies();
@@ -87,11 +88,15 @@ public class Connexion extends HttpServlet {
 					
 					if (!trouve) {
 						// genere un identifiant unique pour chaque poste client
-						unCookie = new Cookie("yo",user.getPseudo());
-						unCookie.setMaxAge(60*10); // temps en secondes de la durÃ©e de vie du cookie
+						unCookie = new Cookie("email",user.getEmail());
+						unCookie2 = new Cookie("password",user.getMotDePasse());
+						unCookie.setMaxAge(60*10);
+						unCookie2.setMaxAge(60*10);// temps en secondes de la durÃ©e de vie du cookie
 
 						// Ajouter le cookie Ã  l'entÃªte de la reponse
 						response.addCookie(unCookie);
+						response.addCookie(unCookie2);
+
 
 					}
 					if(trouve) {

@@ -45,6 +45,7 @@ import fr.eni_ecole.auction.dal.DALException;
 
 		Cookie[] cookies = null;
 		Cookie unCookie = null;
+		Cookie unCookie2 = null;
 		boolean trouve = false;
 		UserManager userManager;
 
@@ -52,19 +53,26 @@ import fr.eni_ecole.auction.dal.DALException;
 		cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("yo")) {
-					unCookie = cookies[i];
-					trouve = true;
-					System.out.println("j'ai trouvé le cookie ");
-
+				
+					
+				
+					if (cookies[i].getName().equals("email")) {
+						unCookie = cookies[i];
+						trouve = true;
+	
+					}
+					else if(cookies[i].getName().equals("password")) {
+						unCookie2 = cookies[i];
+						trouve = true;
+	
+					}
 				}
-			}
 		}
 
 		if(trouve) {
 			try {
 				userManager = new UserManager();
-				Utilisateur utilisateur = userManager.selectPseudo(unCookie.getValue());
+				Utilisateur utilisateur = userManager.selectUser(unCookie.getValue(), unCookie2.getValue());
 				request.getSession().setAttribute("UserConnecte", utilisateur);
 
 			} catch (DALException e) {

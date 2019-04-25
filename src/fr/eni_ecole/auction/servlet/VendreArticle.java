@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import fr.eni_ecole.auction.beans.Categorie;
 import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.CategorieManager;
+import fr.eni_ecole.auction.bll.UserManager;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.util.ImageLoader;
 import fr.eni_ecole.auction.util.ManipDate;
@@ -60,10 +62,45 @@ import fr.eni_ecole.auction.util.ManipDate;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("UserConnecte")==null) {
-			request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath()+"/connexion");
-		}else {
+		Cookie[] cookies = null;
+		Cookie unCookie = null;
+		Cookie unCookie2 = null;
+		boolean trouve = false;
+		UserManager userManager2;
+
+
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				
+					
+				
+					if (cookies[i].getName().equals("email")) {
+						unCookie = cookies[i];
+						trouve = true;
+	
+					}
+					else if(cookies[i].getName().equals("password")) {
+						unCookie2 = cookies[i];
+						trouve = true;
+	
+					}
+				}
+		}
+
+		if(trouve) {
+			try {
+				userManager2 = new UserManager();
+				Utilisateur utilisateur = userManager2.selectUser(unCookie.getValue(), unCookie2.getValue());
+				request.getSession().setAttribute("UserConnecte", utilisateur);
+
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+
 
 		try{
 			Utilisateur connectedUser = (Utilisateur) request.getSession().getAttribute("UserConnecte");
@@ -96,7 +133,7 @@ import fr.eni_ecole.auction.util.ManipDate;
 			e.printStackTrace();
 		}
 	} 
-	}
+	
 	
 
 }
