@@ -17,6 +17,8 @@ import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
+import fr.eni_ecole.auction.exceptions.FileException;
+import fr.eni_ecole.auction.util.ImageLoader;
 
 
 /**
@@ -32,6 +34,11 @@ import fr.eni_ecole.auction.dal.DAOFactory;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+
 		try{
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticle = null;
@@ -43,11 +50,20 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 				
 				int minPrice = ( detailArticle.getMisAPrix() > detailArticle.getPrixVente())? detailArticle.getMisAPrix() : detailArticle.getPrixVente();
 				  minPrice++;
-				
-				// Placer des articles ench�res en cours dans le contexte de requete			
+
+				// Placer des articles ench�res en cours dans le contexte de requete
 				  request.setAttribute("minPrice", minPrice);
 				  request.setAttribute("detailArticle", detailArticle);
 			
+				request.setAttribute("detailArticle", detailArticle);
+
+				String imagePath = "theme/img/no-image.jpg";
+				if (detailArticle.getImagePath() != null && !detailArticle.getImagePath().equals("")) {
+					imagePath = "uploads?img=" + detailArticle.getImagePath();
+				}
+
+				request.setAttribute("image", imagePath);
+
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
 		
@@ -61,6 +77,7 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 		}
 		
 	}
-	
+	}
+
 	
  }

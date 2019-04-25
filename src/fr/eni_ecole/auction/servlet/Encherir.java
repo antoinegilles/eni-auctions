@@ -32,6 +32,11 @@ public class Encherir extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		try {
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticleEncheri = null;
@@ -85,5 +90,5 @@ public class Encherir extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	}
 }

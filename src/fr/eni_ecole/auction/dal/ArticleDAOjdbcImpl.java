@@ -34,24 +34,24 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 //		et les modalit�s du retrait : adresse (par d�faut celle du vendeur).
 
 	
-	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial FROM articles_vendus";
-	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo, rue, code_postal, ville, libelle, c.no_categorie \r\n" + 
+	private static final String LISTER="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path FROM articles_vendus";
+	private static final String SELECT_BY_ID_ARTICLE="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo, rue, code_postal, ville, libelle, c.no_categorie \r\n" +
 			"FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur \r\n" + 
 			"INNER JOIN categories c ON c.no_categorie = av.no_categorie \r\n" + 
 			"WHERE no_article=?";
-	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, pseudo, libelle FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur INNER JOIN categories c ON c.no_categorie = av.no_categorie WHERE av.no_utilisateur = u.no_utilisateur AND c.no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
-	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?);";
-	private static final String AJOUTER_ENCHERE="INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,GETDATE(),?);";
-	private static final String MAX_ENCHERE="select max(montant_enchere) from ENCHERES where no_article=?;";
-	
-	private static final String LISTER_ENCHERES="Select no_encheres,av.no_article,date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, montant_enchere, nom_article, description,libelle,pseudo,rue,ville,code_postal\r\n" + 
-			"from ENCHERES e INNER JOIN articles_vendus av ON av.no_article = e.no_article\r\n" + 
-			"INNER JOIN categories c ON c.no_categorie = av.no_categorie\r\n" + 
-			"INNER JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur";
-	
-	private static final String LISTER_ARTICLES_VENDUS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, libelle\r\n" + 
-			"FROM articles_vendus av\r\n" + 
-			"INNER JOIN categories c ON c.no_categorie = av.no_categorie";
+	private static final String LISTER_ENCHERES_COURS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, img_path, pseudo, libelle FROM articles_vendus av LEFT JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur INNER JOIN categories c ON c.no_categorie = av.no_categorie WHERE av.no_utilisateur = u.no_utilisateur AND c.no_categorie LIKE ? AND nom_article LIKE ? AND GETDATE() > date_debut_encheres;";
+	private static final String AJOUTER_ARTICLE="INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, img_path) VALUES (?,?,?,?,?,?,?,?,?);";
+    private static final String AJOUTER_ENCHERE="INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,GETDATE(),?);";
+    private static final String MAX_ENCHERE="select max(montant_enchere) from ENCHERES where no_article=?;";
+    private static final String SELECT_COUNT_USER_ARTICLE = "SELECT COUNT(av.no_article) AS 'count' FROM articles_vendus av INNER JOIN utilisateurs u ON u.no_utilisateur = av.no_utilisateur WHERE u.no_utilisateur = ? ;";
+    private static final String LISTER_ENCHERES="Select no_encheres,av.no_article,date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, montant_enchere, nom_article, description,libelle,pseudo,rue,ville,code_postal\r\n" +
+            "from ENCHERES e INNER JOIN articles_vendus av ON av.no_article = e.no_article\r\n" +
+            "INNER JOIN categories c ON c.no_categorie = av.no_categorie\r\n" +
+            "INNER JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur";
+
+    private static final String LISTER_ARTICLES_VENDUS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, libelle\r\n" +
+            "FROM articles_vendus av\r\n" +
+            "INNER JOIN categories c ON c.no_categorie = av.no_categorie";
 
 	
 	
@@ -78,7 +78,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 									rs.getString("description"),
 									rs.getDate("date_debut_encheres"),
 									rs.getDate("date_fin_encheres"),
-									rs.getInt("prix_initial")
+									rs.getInt("prix_initial"),
+									rs.getString("img_path")
 						);
 				listeArticlesVendus.add(article);
 			}
@@ -107,26 +108,29 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			pstmt=cnx.prepareStatement(LISTER_ENCHERES_COURS);
 			ArticleVendu unarticle;
 			Categorie uneCategorie;
-			
+
 			pstmt.setString(1, categorie);
 			pstmt.setString(2, article);
 			rs=pstmt.executeQuery();
-			while (rs.next()){
+			while (rs.next()) {
+
 				unarticle = new ArticleVendu(
 						rs.getInt("no_article"),
 						rs.getString("nom_article"),
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial"));
-				
+						rs.getInt("prix_initial"),
+						rs.getString("img_path")
+						
+				);
 				uneCategorie = new Categorie(
 						rs.getString("libelle"));
-				
+
 				unarticle.setCategorie(uneCategorie);
-				
+
 				listerLesEncheresEnCours.add(unarticle);
-		}
+			}
 		}catch (SQLException e){
 			throw new DALException("probleme methode listerLesEncheresEnCours()",e);
 		}finally{
@@ -138,11 +142,11 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 	
 	/**
 	 * M�thode permettant d'ajouter une article
-	 * @param articleVendu : un objet de type ArticleVendu
+	 * @param  : un objet de type ArticleVendu
 	 * @return 
 	 * @throws DALException : propage une exception de type DALException
 	 */
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere) throws DALException {
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException {
 		Connection cnx=null;
 		PreparedStatement pstmt=null;
 
@@ -156,10 +160,11 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			pstmt.setDate(3, ManipDate.dateUtilVersSQL(debutEnchere)); //debutEnchere
 			pstmt.setDate(4, ManipDate.dateUtilVersSQL(finEnchere)); //finEnchere
 			pstmt.setInt(5, misePrix); //misePrix
-			pstmt.setInt(6, 0); //prixVente
-			pstmt.setInt(7, 8); //utilisateur inconnu en base
+			pstmt.setInt(6, misePrix); //prixVente
+			pstmt.setInt(7, noUtilisateur); //utilisateur inconnu en base
 			pstmt.setString(8, categorie); //categorie
-			
+			pstmt.setString(9, imagePath); //categorie
+
 			pstmt.executeUpdate();
 			cnx.commit();
 		}catch(SQLException e){
@@ -201,7 +206,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 						rs.getString("description"),
 						rs.getDate("date_debut_encheres"),
 						rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial"));
+						rs.getInt("prix_initial"),
+						rs.getString("img_path"));
 						
 				unUtilisateur = new Utilisateur(
 						rs.getString("pseudo"),
@@ -223,7 +229,35 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		}
 		return null;
 	}
-	
+
+
+	/**
+	 * Methode permettant d'obtenir le nombre d'article pour un utilisateur
+	 * @return nombre d'articles détenus par un utilisateur
+	 * @throws DALException : propage une exception de type DALException
+	 */
+	public int countArticlesForUser(Utilisateur user) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+
+		cnx=AccesBase.getConnection();
+		try{
+			pstmt=cnx.prepareStatement(SELECT_COUNT_USER_ARTICLE);
+
+			pstmt.setInt(1, user.getNoUtilisateur());
+			rs=pstmt.executeQuery();
+			while (rs.next()){
+				return rs.getInt("count");
+			}
+		}catch (SQLException e){
+			throw new DALException("probleme methode rechercher()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+		return -1;
+	}
+
 	/**
 	 * M�thode permettant d'ajouter une ench�re dans la table ENCHERE
 	 * @throws DALException : propage une exception de type DALException
@@ -236,11 +270,11 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		try{
 			cnx.setAutoCommit(false);
 			pstmt=cnx.prepareStatement(AJOUTER_ENCHERE);
-			
+
 			pstmt.setInt(1, no_utilisateur); //no_utilisateur
 			pstmt.setInt(2, no_article); //no_article
 			pstmt.setInt(3, montant_enchere); //montant_enchere
-			
+
 			pstmt.executeUpdate();
 			cnx.commit();
 		}catch(SQLException e){
@@ -254,7 +288,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 	}
-	
+
 	/**
 	 * M�thode permettant de retrouner le montant max pour une ench�re d'un article
 	 * @throws DALException : propage une exception de type DALException
@@ -267,9 +301,9 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		try{
 			cnx.setAutoCommit(false);
 			pstmt=cnx.prepareStatement(MAX_ENCHERE);
-			
+
 			pstmt.setInt(1, no_article); //no_article
-			
+
 			pstmt.executeUpdate();
 			cnx.commit();
 		}catch(SQLException e){
@@ -283,7 +317,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
 	}
-	
+
 	/**
 	 * Methode permettant d'obtenir une liste des formations
 	 * @return <font color="green">La liste peut �tre vide mais jamais <font color="red"><code>null</code></font></font>
@@ -299,29 +333,29 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		try{
 			StringBuilder where = new StringBuilder();
 			where.append(" WHERE 1=1");
-				
+
 				// mes enchères ouvertes "open"
 				if(open != null) {
 					where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? ");
-					
+
 				}
-				
+
 				// mes enchères en cours
 				if(ongoing != null){
 					where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? AND e.no_utilisateur="+unUtilisateur.getNoUtilisateur());
 				}
-				
+
 				// mes enchères remportées
 				if(won != null)  {
 					where.append(" AND date_fin_encheres > GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? AND e.no_utilisateur="+unUtilisateur.getNoUtilisateur());
 				}
-			
+
 			pstmt=cnx.prepareStatement(LISTER_ENCHERES + where);
 			ArticleVendu unArticle;
 			Utilisateur unUtilisateurR;
 			Categorie uneCategorie;
-			
-			
+
+
 			rs=pstmt.executeQuery();
 			while (rs.next()) {
 				unArticle = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"),
@@ -343,10 +377,10 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		}finally{
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
-		
+
 		return listeEncheres;
 	}
-	
+
 	/**
 	 * Methode permettant d'obtenir une liste des formations
 	 * @return <font color="green">La liste peut �tre vide mais jamais <font color="red"><code>null</code></font></font>
@@ -362,27 +396,27 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		try{
 			StringBuilder where = new StringBuilder();
 			where.append(" WHERE 1=1");
-				
+
 				// mes ventes en cours "sells-ongoing"
 				if(sellsOngoing != null) {
 					where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? AND e.no_utilisateur="+unUtilisateur.getNoUtilisateur());
 				}
-				
+
 				// enchères non débutés "sells-open"
 				if(sellsOpen != null){
 					where.append(" AND date_debut_encheres >= GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? AND e.no_utilisateur="+unUtilisateur.getNoUtilisateur());
 				}
-				
+
 				// mes ventes terminées "sells-won"
 				if(sellsWon != null)  {
 					where.append(" AND date_fin_encheres <= GETDATE() AND c.no_categorie LIKE ? AND av.nom_article LIKE ? AND e.no_utilisateur="+unUtilisateur.getNoUtilisateur());
 				}
-			
+
 			pstmt=cnx.prepareStatement(LISTER_ARTICLES_VENDUS + where);
 			ArticleVendu unArticle;
 			Categorie uneCategorie;
-			
-			
+
+
 			rs=pstmt.executeQuery();
 			while (rs.next()) {
 				unArticle = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"),
@@ -401,7 +435,7 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 		}finally{
 			AccesBase.seDeconnecter(pstmt, cnx);
 		}
-		
+
 		return listeArticleVendus;
 	}
 }

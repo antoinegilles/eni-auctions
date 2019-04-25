@@ -32,48 +32,42 @@
 			</select>
 		</div>
 
-		<div class="filter-type-choice">
-			<div class="radio-checkbox-filters">
-				<input type="radio" name="radio-achats-choice" id="radio-achats-choice">
-				<label for="radio-achats-choice">Achats</label>
-				<div class="checkbox-list">
-					<div>
-						<input type="checkbox" id="achat-open" name="open" value="open">
-						<label for="achat-open">enchères ouvertes</label>
-					</div>
-					<div>
-						<input type="checkbox" id="achat-ongoing" name="ongoing"
-							value="ongoing"> <label for="achat-ongoing">mes
-							enchères en cours</label>
-					</div>
-					<div>
-						<input type="checkbox" id="achat-won" name="won" value="won">
-						<label for="achat-won">mes enchères remportées</label>
-					</div>
-				</div>
-			</div>
-			<div class="radio-checkbox-filters">
-				<input type="radio" name="radio-sells-choice" id="radio-sells-choice">
-				<label for="radio-sells-choice">Ventes</label>
-				<div class="checkbox-list">
-					<div>
-						<input type="checkbox" id="sells-ongoing" name="sells-ongoing"
-							value="ongoing"> <label for="sells-ongoing">mes
-							ventes en cours</label>
-					</div>
-					<div>
-						<input type="checkbox" id="sells-open" name="sells-open"
-							value="waiting"> <label for="sells-open">enchères
-							non débutés</label>
-					</div>
-					<div>
-						<input type="checkbox" id="sells-won" name="sells-won"
-							value="finished"> <label for="sells-won">mes
-							ventes terminées</label>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="filter-type-choice">
+            <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" id="radio-achats-choice"> <label for="radio-achats-choice">Achats</label>
+                <div class="checkbox-list">
+                    <div>
+                        <input type="checkbox" id="achat-open" name="achats" value="open">
+                        <label for="achat-open">enchères ouvertes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="achat-ongoing" name="achats" value="ongoing">
+                        <label for="achat-ongoing">mes enchères en cours</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="achat-won" name="achats" value="won">
+                        <label for="achat-won">mes enchères remportées</label>
+                    </div>
+                </div>
+            </div>
+            <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Ventes</label>
+                <div class="checkbox-list">
+                    <div>
+                        <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
+                        <label for="sells-ongoing">mes ventes en cours</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="sells-open" name="ventes" value="waiting">
+                        <label for="sells-open">enchères non débutés</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="sells-won" name="ventes" value="finished">
+                        <label for="sells-won">mes ventes terminées</label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 	</div>
 	<div class="submit-search">
@@ -82,11 +76,18 @@
 </form>
 
 <div class="shop-view">
-	
-		<c:forEach var="unarticle" items="${listeArticlesEncheresCours}">
-	<article
-		onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
-		<img src="theme/img/llama.jpg" alt="image article">
+
+    <c:forEach var="unarticle" items="${listeArticlesEncheresCours}">
+        <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
+        
+        <c:choose>
+            <c:when test="unarticle.getImagePath() != null">
+                <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">
+            </c:when>
+            <c:otherwise>
+                <img src="theme/img/no-image.jpg" alt="image article">
+            </c:otherwise>
+        </c:choose>
 
 		<div class="article-body">
 			<p class="article-title"> Nom de l'aticle : ${unarticle.nomArticle} </p>

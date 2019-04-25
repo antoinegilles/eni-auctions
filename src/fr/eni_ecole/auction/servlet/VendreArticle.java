@@ -6,15 +6,18 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni_ecole.auction.beans.Categorie;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.DALException;
+import fr.eni_ecole.auction.util.ImageLoader;
 import fr.eni_ecole.auction.util.ManipDate;
 
 
@@ -24,6 +27,9 @@ import fr.eni_ecole.auction.util.ManipDate;
  *
  */
 @WebServlet("/VendreArticle")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+		maxFileSize = 1024 * 1024 * 5,
+		maxRequestSize = 1024 * 1024 * 5 * 5)
 
  public class VendreArticle extends HttpServlet {
    static final long serialVersionUID = 1L;
@@ -32,7 +38,10 @@ import fr.eni_ecole.auction.util.ManipDate;
    private CategorieManager categorieManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		// lister les categories
 					try {
 						categorieManager = new CategorieManager();
@@ -47,21 +56,34 @@ import fr.eni_ecole.auction.util.ManipDate;
 		dispatcher.forward(request,response);
 		
 	}
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		try{ 
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+
+		try{
+			Utilisateur connectedUser = (Utilisateur) request.getSession().getAttribute("UserConnecte");
+			String fileName = "art-" + connectedUser.getNoUtilisateur() + '-';
 			articleManager = new ArticleManager();
 			String nomArticle = request.getParameter("nomArticle");
 			String description = request.getParameter("description");
-			String categorie = request.getParameter("categorie"); 
-			int misePrix = Integer.parseInt(request.getParameter("misePrix")); 
-			Date debutEnchere = ManipDate.stringVersUtil(request.getParameter("debutEnchere")); 
+			String categorie = request.getParameter("categorie");
+			int misePrix = 12; //Integer.parseInt(request.getParameter("misePrix"));
+			Date debutEnchere = ManipDate.stringVersUtil(request.getParameter("debutEnchere"));
 			Date finEnchere = ManipDate.stringVersUtil(request.getParameter("finEnchere"));
+
+			fileName += Integer.toString(articleManager.countArticlesForUser(connectedUser) + 1);
+
+			ImageLoader imgLoader = new ImageLoader(fileName, getServletContext());
+			String imagePath = imgLoader.saveFile(request.getPart("photoArticle"));
+
 			
 			// Ajoute un article
-			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere);
+			articleManager.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, connectedUser.getNoUtilisateur(), imagePath);
 			
 			
 			response.sendRedirect(request.getContextPath() + "/");
@@ -71,11 +93,10 @@ import fr.eni_ecole.auction.util.ManipDate;
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
 			dispatcher.forward(request,response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	} 
-	
+	}
 	
 
 }

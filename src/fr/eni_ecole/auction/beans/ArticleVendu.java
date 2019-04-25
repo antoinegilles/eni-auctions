@@ -15,7 +15,8 @@ public class ArticleVendu {
 	public Utilisateur utilisateur;
 	public Categorie categorie;
 	public Retrait retrait;
-	
+	public String imagePath;
+
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
 			Date dateFinEncheres, Utilisateur utilisateur) {
 		super();
@@ -28,7 +29,7 @@ public class ArticleVendu {
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int misAPrix) {
+			Date dateFinEncheres, int misAPrix, String imgPath) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -36,6 +37,7 @@ public class ArticleVendu {
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.misAPrix = misAPrix;
+		this.imagePath = imgPath;
 	}
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
@@ -141,5 +143,6 @@ public class ArticleVendu {
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
-	
+
+    public String getImagePath() {return this.imagePath; }
 }

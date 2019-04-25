@@ -28,7 +28,12 @@ public class Suppression extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 UserManager userManager;
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+		
+			UserManager userManager;
 			Utilisateur user = null;
 			Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 
@@ -53,6 +58,7 @@ public class Suppression extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
 	}
 
 }

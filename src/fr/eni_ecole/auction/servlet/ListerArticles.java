@@ -22,22 +22,21 @@ import fr.eni_ecole.auction.dal.DALException;
 
 /**
  * Lister les articles - l'affichage gerer dans la servlet
- * 
+ *
  * @author moujdari2018
  *
  */
 @WebServlet("/ListerArticles")
 
-public class ListerArticles extends HttpServlet {
-	static final long serialVersionUID = 1L;
-
-	private CategorieManager categorieManager;
-	private ArticleManager articleManager;
-	private UserManager userManager;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+ public class ListerArticles extends HttpServlet {
+   static final long serialVersionUID = 1L;
+   
+   	private CategorieManager categorieManager;
+   	private ArticleManager articleManager;
+    private UserManager userManager;
+   
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
 			categorieManager = new CategorieManager();
 			articleManager = new ArticleManager();
 			userManager = new UserManager();
@@ -116,4 +115,4 @@ public class ListerArticles extends HttpServlet {
 		}
 
 	}
-}
+ }

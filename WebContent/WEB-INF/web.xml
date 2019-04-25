@@ -84,6 +84,18 @@
     <servlet-name>detailVente</servlet-name>
     <url-pattern>/detailVente</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <description>Permet de chercher les images en local</description>
+    <display-name>Uploads</display-name>
+    <servlet-name>Uploads</servlet-name>
+    <servlet-class>fr.eni_ecole.auction.servlet.Uploads</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Uploads</servlet-name>
+    <url-pattern>/uploads</url-pattern>
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
@@ -99,6 +111,14 @@
   <servlet-mapping>
     <servlet-name>updateProfil</servlet-name>
     <url-pattern>/updateProfil</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>erreurPage</servlet-name>
+    <jsp-file>/WEB-INF/erreur/erreur.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>erreurPage</servlet-name>
+    <url-pattern>/erreurPage</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>updateProfil</servlet-name>
@@ -124,4 +144,7 @@
     <servlet-name>Suppression</servlet-name>
     <url-pattern>/suppression</url-pattern>
   </servlet-mapping>
+  <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
 </web-app>

@@ -27,6 +27,11 @@ public class RemporterUneVente extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+
 		articleManager = new ArticleManager();
 		ArticleVendu detailArticle = null;
 		
@@ -40,10 +45,11 @@ public class RemporterUneVente extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		// Placer des articles enchères en cours dans le contexte de requete			
+		// Placer des articles enchères en cours dans le contexte de requete
 		request.setAttribute("detailArticle", detailArticle);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article/remporterUneVente.jsp");
 		dispatcher.forward(request,response);
+	}
 	}
 }

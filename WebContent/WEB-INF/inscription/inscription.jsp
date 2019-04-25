@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <%
 	request.setAttribute("title", "Inscription");
@@ -7,12 +8,11 @@
 
 <%@include file="../../fragments/Head.jspf"%>
 
-<%
-	if(request.getAttribute("erreur") != null) { %>
+<c:if test="${requestScope['erreur'] != null }">
 	<div class="error-box">
-		<p><i class="fas fa-exclamation-circle"></i> <%=request.getAttribute("erreur").toString() %></p>
+		<p><i class="fas fa-exclamation-circle"></i> ${requestScope['erreur'].toString()}</p>
 	</div>
-<% } %>
+</c:if>
 
 <form class="titled" action="<%=request.getContextPath() %>/Inscription" method="post">
 	<p class="title">S'inscrire</p>
