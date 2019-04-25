@@ -23,7 +23,12 @@ public class UpdateProfilUser extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   	 UserManager userManager;
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else { 
+		
+		UserManager userManager;
 		Utilisateur user = null;
 		Utilisateur utilisateurSansModification = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 		String pseudoOriginal = utilisateurSansModification.getPseudo();
@@ -37,6 +42,7 @@ public class UpdateProfilUser extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String email = request.getParameter("email");
 		String mdp = request.getParameter("mdp");
+		
 		
 	   	 try {
 		   	userManager = new UserManager();
@@ -75,6 +81,7 @@ public class UpdateProfilUser extends HttpServlet {
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			}
 		}
 
 		

@@ -9,6 +9,7 @@
 
 <%@include file="../../fragments/Head.jspf"%>
 
+
 <c:if test="${requestScope['erreur'] != null }">
 	<div class="error-box">
 		<p><i class="fas fa-exclamation-circle"></i> ${requestScope['erreur'].toString()}</p>
@@ -34,5 +35,7 @@
 		<a href="<%=request.getContextPath()%>/"><button type="button" class="btn btn-default">annuler</button></a>
 	</div>
 </form>
+
+
 	
 <%@include file="../../fragments/Bottom.jspf"%>

@@ -34,6 +34,11 @@ import fr.eni_ecole.auction.util.ImageLoader;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+		
 		try{
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticle = null;
@@ -65,6 +70,7 @@ import fr.eni_ecole.auction.util.ImageLoader;
 			e.printStackTrace();
 		}
 		
+	}
 	}
 	
 	

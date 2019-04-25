@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="theme/css/style.css">
     </head>
 <body>
+
     <header>
         <div class="main-title">
             <a href="<%=request.getContextPath()%>/"><h3>ENI-Enchères</h3></a>
