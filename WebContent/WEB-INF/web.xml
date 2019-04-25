@@ -124,5 +124,4 @@
     <servlet-name>Suppression</servlet-name>
     <url-pattern>/suppression</url-pattern>
   </servlet-mapping>
-
 </web-app>

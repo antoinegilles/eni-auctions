@@ -32,7 +32,7 @@ public class RemporterUneVente extends HttpServlet {
 		
 		int numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 		
-		// Liste des articles enchères en cours
+		// Liste des articles enchÃ¨res en cours
 		try {
 			detailArticle = articleManager.detailVente(numeroArticle);
 		} catch (DALException | BusinessException e) {
@@ -40,7 +40,7 @@ public class RemporterUneVente extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		// Placer des articles enchères en cours dans le contexte de requete			
+		// Placer des articles enchÃ¨res en cours dans le contexte de requete			
 		request.setAttribute("detailArticle", detailArticle);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article/remporterUneVente.jsp");

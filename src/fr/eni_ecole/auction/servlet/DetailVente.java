@@ -38,11 +38,15 @@ import fr.eni_ecole.auction.dal.DAOFactory;
 	
 				int id = Integer.parseInt(request.getParameter("id"));
 				
-				// Liste des articles enchères en cours
+				// Liste des articles enchï¿½res en cours
 				detailArticle = articleManager.detailVente(id);
 				
-				// Placer des articles enchères en cours dans le contexte de requete			
-				request.setAttribute("detailArticle", detailArticle);
+				int minPrice = ( detailArticle.getMisAPrix() > detailArticle.getPrixVente())? detailArticle.getMisAPrix() : detailArticle.getPrixVente();
+				  minPrice++;
+				
+				// Placer des articles enchï¿½res en cours dans le contexte de requete			
+				  request.setAttribute("minPrice", minPrice);
+				  request.setAttribute("detailArticle", detailArticle);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
