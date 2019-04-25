@@ -34,6 +34,11 @@ import fr.eni_ecole.auction.util.ImageLoader;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
+
 		try{
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticle = null;
@@ -43,7 +48,13 @@ import fr.eni_ecole.auction.util.ImageLoader;
 				// Liste des articles ench�res en cours
 				detailArticle = articleManager.detailVente(id);
 				
-				// Placer des articles ench�res en cours dans le contexte de requete			
+				int minPrice = ( detailArticle.getMisAPrix() > detailArticle.getPrixVente())? detailArticle.getMisAPrix() : detailArticle.getPrixVente();
+				  minPrice++;
+
+				// Placer des articles ench�res en cours dans le contexte de requete
+				  request.setAttribute("minPrice", minPrice);
+				  request.setAttribute("detailArticle", detailArticle);
+			
 				request.setAttribute("detailArticle", detailArticle);
 
 				String imagePath = "theme/img/no-image.jpg";
@@ -66,6 +77,7 @@ import fr.eni_ecole.auction.util.ImageLoader;
 		}
 		
 	}
-	
+	}
+
 	
  }

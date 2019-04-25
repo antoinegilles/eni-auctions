@@ -25,7 +25,6 @@ public class ArticleVendu {
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
-		this.misAPrix = misAPrix;
 	}
 	
 	
@@ -40,14 +39,17 @@ public class ArticleVendu {
 		this.misAPrix = misAPrix;
 		this.imagePath = imgPath;
 	}
-
-
-	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
-			int misAPrix, String pseudo) {
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int misAPrix, int prixVente) {
+		super();
+		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
+		this.misAPrix = misAPrix;
+		this.prixVente = prixVente;
 	}
 	
 	

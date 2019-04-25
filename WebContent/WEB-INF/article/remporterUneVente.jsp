@@ -17,31 +17,21 @@
 </div>
 <% } %>
 
-<%
-    // récuperer l'attribut animateur placés dans le contexte de session
-    Utilisateur uc = (Utilisateur) request.getSession().getAttribute("UserConnecte");
-    ArticleVendu article = (ArticleVendu) request.getAttribute("detailArticle");
-
-
-    if (uc != article.get) {
-%>
 <h2>Remporter une vente</h2>
-          
-       
-		<%=unArticle.getNomArticle() %><br>
-		 Description : <%=unArticle.getDescription() %><br> 
-		Catégorie : <%=unArticle.getCategorie().getLibelle() %><br> 
-		Meilleur offre : <br> 
-		Mise à prix: <%=unArticle.getMisAPrix() %> euros<br>
-        Fin de l'enchère : <%=unArticle.getDateFinEncheres() %><br> <br> 
-        Retrait : <%=unArticle.getUtilisateur().getRue() %><br>
-        	<%=unArticle.getUtilisateur().getCodePostal() %> <%=unArticle.getUtilisateur().getVille() %><br> 
-        
-        Vendeur : <%=unArticle.getUtilisateur().getPseudo() %> <br>
-        <br> 
-        <input value="<%=unArticle.getNoArticle() %>" type="text" id="numeroArticle" name="numeroArticle" style="visibility: hidden;">
-       <button type="submit">Back</button>
-    </div> --%>
+
+    Nom : ${detailArticle.nomArticle}<br>
+    Description : ${detailArticle.description}<br>
+    Cat�gorie : ${detailArticle.categorie.libelle}<br>
+    Meilleur offre : <br>
+    Mise � prix: ${detailArticle.misAPrix} euros<br>
+    Fin de l'ench�re : ${detailArticle.dateFinEncheres}<br> <br>
+    Retrait : ${detailArticle.utilisateur.rue},<br>
+    ${detailArticle.utilisateur.codePostal}<br>
+
+    Vendeur : ${detailArticle.utilisateur.pseudo}<br>
+    <br>
+    <a href="${pageContext.request.contextPath}/"><button type="submit">Retour � l'accueil</button></a>
+
 
 
 <%@include file="../../fragments/Bottom.jspf"%>

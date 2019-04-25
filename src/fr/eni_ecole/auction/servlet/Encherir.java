@@ -32,6 +32,11 @@ public class Encherir extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else {
 		try {
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticleEncheri = null;
@@ -49,23 +54,23 @@ public class Encherir extends HttpServlet {
 			int proposition = Integer.parseInt(request.getParameter("proposition"));
 			int numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 
-			// Liste de l'articles de l'enchères choisi
+			// Liste de l'articles de l'enchï¿½res choisi
 			detailArticleEncheri = articleManager.detailVente(numeroArticle);
 
-			// Si le prix (en points) est supérieur au tarif actuel
+			// Si le prix (en points) est supï¿½rieur au tarif actuel
 			if (proposition >= detailArticleEncheri.getMisAPrix()) {
 
-				// Si le compte de points ne devient pas négatif
+				// Si le compte de points ne devient pas nï¿½gatif
 				if (unUtilisateurRecherche.getCredit() >= proposition) {
 
-					// Si l’enchère est possible, mon crédit de points est débité du montant
-					// proposé.
+					// Si lï¿½enchï¿½re est possible, mon crï¿½dit de points est dï¿½bitï¿½ du montant
+					// proposï¿½.
 					//unUtilisateurRecherche.setCredit(unUtilisateurRecherche.getCredit() - proposition);
 					int creditRestant = unUtilisateurRecherche.getCredit() - proposition;
 					unUtilisateurRecherche.setCredit(creditRestant);
 							userManager.updateUserCredit(unUtilisateurRecherche);
 					
-					// TODO Le meilleur enchérisseur précédent si il existe est re-crédité de son
+					// TODO Le meilleur enchï¿½risseur prï¿½cï¿½dent si il existe est re-crï¿½ditï¿½ de son
 					// offre.
 
 					articleManager.ajouterUneEnchere(unUtilisateurRecherche.getNoUtilisateur(), numeroArticle,
@@ -73,7 +78,7 @@ public class Encherir extends HttpServlet {
 					
 					request.getSession().setAttribute("UserConnecte", unUtilisateurRecherche);
 					
-					response.sendRedirect(request.getContextPath() + "/RemporterUneVente?numeroArticle="+numeroArticle);
+					response.sendRedirect(request.getContextPath() + "/");
 				}
 			}
 		} catch (DALException e) {
@@ -85,5 +90,5 @@ public class Encherir extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	}
 }

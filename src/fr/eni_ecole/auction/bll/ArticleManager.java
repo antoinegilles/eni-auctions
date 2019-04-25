@@ -22,7 +22,7 @@ public class ArticleManager {
 		return articleDAO.listerLesArticles();
 	}
 
-	public List<ArticleVendu> listerLesArticlesEncheresEnCours(String categorie, String article) throws DALException, BusinessException
+	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException, BusinessException
 	{
 		return articleDAO.listerLesEncheresEnCours(categorie, article);
 	}
@@ -37,6 +37,10 @@ public class ArticleManager {
 		return articleDAO.detailVente(detailVente);
 	}
 
+	public List<ArticleVendu> listeEncheres(String categorie, String article, String open, String ongoing, String won, Utilisateur unUtilisateur) throws DALException, BusinessException
+	{
+		return articleDAO.listeEncheres(categorie, article, open, ongoing, won, unUtilisateur);
+	}
 
 	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException, BusinessException
 	{
@@ -49,6 +53,11 @@ public class ArticleManager {
 		//Si l�ench�re est possible, mon cr�dit de points est d�bit� du montant propos�.
 		//Le meilleur ench�risseur pr�c�dent si il existe est re-cr�dit� de son offre.
 		articleDAO.ajouterUneEnchere(no_utilisateur, no_article, montant_enchere);
+	}
+
+	public List<ArticleVendu> listeArticleVendus(String categorie, String article, String sellsOngoing, String sellsOpen, String sellsWon, Utilisateur unUtilisateur) throws DALException, BusinessException
+	{
+		return articleDAO.listeArticleVendus(categorie, article, sellsOngoing, sellsOpen, sellsWon, unUtilisateur);
 	}
 
 

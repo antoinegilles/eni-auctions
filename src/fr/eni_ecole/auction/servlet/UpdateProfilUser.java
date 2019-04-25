@@ -6,10 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni_ecole.auction.beans.Utilisateur;
-import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.UserManager;
 import fr.eni_ecole.auction.dal.DALException;
 
@@ -25,7 +23,12 @@ public class UpdateProfilUser extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   	 UserManager userManager;
+		if (request.getSession().getAttribute("UserConnecte")==null) {
+			request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/connexion");
+		}else { 
+		
+		UserManager userManager;
 		Utilisateur user = null;
 		Utilisateur utilisateurSansModification = (Utilisateur) request.getSession().getAttribute("UserConnecte");
 		String pseudoOriginal = utilisateurSansModification.getPseudo();
@@ -39,6 +42,7 @@ public class UpdateProfilUser extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String email = request.getParameter("email");
 		String mdp = request.getParameter("mdp");
+		
 		
 	   	 try {
 		   	userManager = new UserManager();
@@ -63,7 +67,7 @@ public class UpdateProfilUser extends HttpServlet {
 				}else {
 					System.out.println("pseudo existe deja");
 					request.setAttribute("erreur", "Le pseudo existe deja xD ! Change le :O");
-					//this.getServletContext().getRequestDispatcher("/updateProfilUser").forward(request, response);
+					this.getServletContext().getRequestDispatcher("/updateProfil").forward(request, response);
 
 					}
 				}else {
@@ -77,6 +81,7 @@ public class UpdateProfilUser extends HttpServlet {
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			}
 		}
 
 		
