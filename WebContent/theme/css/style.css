@@ -249,8 +249,14 @@ body main form .search-filters, body main .infos .search-filters {
 body main form .search-filters .filter-type-choice, body main .infos .search-filters .filter-type-choice {
   display: flex;
 }
-body main form .search-filters .filter-type-choice .checkbox-list, body main .infos .search-filters .filter-type-choice .checkbox-list {
+body main form .search-filters .filter-type-choice .radio-checkbox-filters .checkbox-list, body main .infos .search-filters .filter-type-choice .radio-checkbox-filters .checkbox-list {
+  pointer-events: none;
+  opacity: 0.6;
   margin-left: 10px;
+}
+body main form .search-filters .filter-type-choice .radio-checkbox-filters .active, body main .infos .search-filters .filter-type-choice .radio-checkbox-filters .active {
+  pointer-events: all;
+  opacity: 1;
 }
 body main form .search-filters .input-group, body main .infos .search-filters .input-group {
   padding: 5px 0;
@@ -297,6 +303,12 @@ body main .shop-view article {
   border: 0 solid transparent;
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+body main .shop-view article:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  opacity: 0.5;
 }
 body main .shop-view article img {
   width: 100%;

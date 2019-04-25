@@ -32,42 +32,44 @@
 			</select>
 		</div>
 
-        <div class="filter-type-choice">
-            <div class="radio-checkbox-filters">
-                <input type="radio" name="radio-choice" id="radio-achats-choice"> <label for="radio-achats-choice">Achats</label>
-                <div class="checkbox-list">
-                    <div>
-                        <input type="checkbox" id="achat-open" name="achats" value="open">
-                        <label for="achat-open">enchères ouvertes</label>
+        <c:if test="request.getSession().getAttribute(\"UserConnecte\") != null;">
+             <div class="filter-type-choice">
+                <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" class="radio-choice" id="radio-achats-choice" value="achats" checked> <label for="radio-achats-choice">Achats</label>
+                <div class="checkbox-list active" id="achat-checkbox">
+                        <div>
+                            <input type="checkbox" id="achat-open" name="achats" value="open">
+                            <label for="achat-open">enchères ouvertes</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="achat-ongoing" name="achats" value="ongoing">
+                            <label for="achat-ongoing">mes enchères en cours</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="achat-won" name="achats" value="won">
+                            <label for="achat-won">mes enchères remportées</label>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" id="achat-ongoing" name="achats" value="ongoing">
-                        <label for="achat-ongoing">mes enchères en cours</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="achat-won" name="achats" value="won">
-                        <label for="achat-won">mes enchères remportées</label>
+                </div>
+                <div class="radio-checkbox-filters">
+                <input type="radio" name="radio-choice" id="radio-ventes-choice" value="ventes"> <label for="radio-ventes-choice">Ventes</label>
+                <div class="checkbox-list" id="vente-checkbox">
+                        <div>
+                            <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
+                            <label for="sells-ongoing">mes ventes en cours</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="sells-open" name="ventes" value="waiting">
+                            <label for="sells-open">enchères non débutés</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="sells-won" name="ventes" value="finished">
+                            <label for="sells-won">mes ventes terminées</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="radio-checkbox-filters">
-                <input type="radio" name="radio-choice" id="radio-sells-choice"> <label for="radio-sells-choice">Ventes</label>
-                <div class="checkbox-list">
-                    <div>
-                        <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
-                        <label for="sells-ongoing">mes ventes en cours</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="sells-open" name="ventes" value="waiting">
-                        <label for="sells-open">enchères non débutés</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="sells-won" name="ventes" value="finished">
-                        <label for="sells-won">mes ventes terminées</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </c:if>
 
 	</div>
 	<div class="submit-search">
@@ -75,11 +77,42 @@
 	</div>
 </form>
 
+<script>
+    var achatChoices = document.querySelector("#radio-achats-choice");
+    var achatsCheckbox = document.querySelector("#achat-checkbox");
+    var ventesChoices = document.querySelector("#radio-ventes-choice");
+    var ventesCheckbox = document.querySelector("#vente-checkbox");
+
+    achatChoices.addEventListener('change', function (event) {
+        achatsCheckbox.classList.add("active");
+        ventesCheckbox.classList.remove("active");
+        ventesCheckbox.childNodes.forEach(function (value) {
+            value.childNodes.forEach(function (input) {
+                if(input instanceof HTMLInputElement) {
+                    input.checked = false;
+                }
+            })
+        })
+    })
+
+    ventesChoices.addEventListener('change', function (event) {
+        ventesCheckbox.classList.add("active");
+        achatsCheckbox.classList.remove("active");
+        achatsCheckbox.childNodes.forEach(function (value) {
+            value.childNodes.forEach(function (input) {
+                if(input instanceof HTMLInputElement) {
+                    input.checked = false;
+                }
+            })
+        })
+    })
+</script>
+
 <div class="shop-view">
 
     <c:forEach var="unarticle" items="${listeArticlesEncheresCours}">
         <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
-        
+
         <c:choose>
             <c:when test="unarticle.getImagePath() != null">
                 <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">

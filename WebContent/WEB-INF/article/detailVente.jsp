@@ -19,7 +19,7 @@
 	</div>
 </c:if>
 
- 
+
 <%
 	ArticleVendu unArticle = (ArticleVendu) request.getAttribute("detailArticle");
 	int minPrice = (int) request.getAttribute("minPrice");
@@ -76,7 +76,7 @@
         <table>
             <tr>
                 <td><input type="number" id="proposition" name="proposition" min="${minPrice}" value="${minPrice}" required></td>
-                <td><button type="submit">Enchèrir</button></td>
+                <td><button type="submit">Enchérir</button></td>
             </tr>
         </table>
                 <input value="${detailArticle.noArticle}" type="text" id="numeroArticle" name="numeroArticle" style="visibility: hidden;">
