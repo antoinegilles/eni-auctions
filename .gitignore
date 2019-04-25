@@ -2,7 +2,8 @@
 .idea/
 
 # ignore local libs
-lib/
+./lib/*
+./lib
 
 # ignore local builds
 build/

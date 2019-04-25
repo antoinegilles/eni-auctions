@@ -78,7 +78,7 @@ public class Encherir extends HttpServlet {
 					
 					request.getSession().setAttribute("UserConnecte", unUtilisateurRecherche);
 					
-					response.sendRedirect(request.getContextPath() + "/RemporterUneVente?numeroArticle="+numeroArticle);
+					response.sendRedirect(request.getContextPath() + "/");
 				}
 			}
 		} catch (DALException e) {

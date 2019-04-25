@@ -113,6 +113,14 @@
     <url-pattern>/updateProfil</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>erreurPage</servlet-name>
+    <jsp-file>/WEB-INF/erreur/erreur.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>erreurPage</servlet-name>
+    <url-pattern>/erreurPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>updateProfil</servlet-name>
     <jsp-file>/WEB-INF/UserProfile/updateProfil.jsp</jsp-file>
   </servlet>
