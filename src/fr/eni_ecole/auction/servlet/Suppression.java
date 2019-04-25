@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,44 @@ public class Suppression extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cookie[] cookies = null;
+		Cookie unCookie = null;
+		Cookie unCookie2 = null;
+		boolean trouve = false;
+		UserManager userManager2;
+
+
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				
+					
+				
+					if (cookies[i].getName().equals("email")) {
+						unCookie = cookies[i];
+						trouve = true;
+	
+					}
+					else if(cookies[i].getName().equals("password")) {
+						unCookie2 = cookies[i];
+						trouve = true;
+	
+					}
+				}
+		}
+
+		if(trouve) {
+			try {
+				userManager2 = new UserManager();
+				Utilisateur utilisateur = userManager2.selectUser(unCookie.getValue(), unCookie2.getValue());
+				request.getSession().setAttribute("UserConnecte", utilisateur);
+
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		if (request.getSession().getAttribute("UserConnecte")==null) {
 			request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath()+"/connexion");
