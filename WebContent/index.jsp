@@ -32,21 +32,21 @@
 			</select>
 		</div>
 
-        <c:if test="request.getSession().getAttribute(\"UserConnecte\") != null;">
+        <c:if test="${sessionScope.UserConnecte != null}">
              <div class="filter-type-choice">
                 <div class="radio-checkbox-filters">
                 <input type="radio" name="radio-choice" class="radio-choice" id="radio-achats-choice" value="achats" checked> <label for="radio-achats-choice">Achats</label>
                 <div class="checkbox-list active" id="achat-checkbox">
                         <div>
-                            <input type="checkbox" id="achat-open" name="achats" value="open">
+                            <input type="checkbox" id="achat-open" name="open" value="open">
                             <label for="achat-open">enchères ouvertes</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="achat-ongoing" name="achats" value="ongoing">
+                            <input type="checkbox" id="achat-ongoing" name="ongoing" value="ongoing">
                             <label for="achat-ongoing">mes enchères en cours</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="achat-won" name="achats" value="won">
+                            <input type="checkbox" id="achat-won" name="won" value="won">
                             <label for="achat-won">mes enchères remportées</label>
                         </div>
                     </div>
@@ -55,15 +55,15 @@
                 <input type="radio" name="radio-choice" id="radio-ventes-choice" value="ventes"> <label for="radio-ventes-choice">Ventes</label>
                 <div class="checkbox-list" id="vente-checkbox">
                         <div>
-                            <input type="checkbox" id="sells-ongoing" name="ventes" value="ongoing">
+                            <input type="checkbox" id="sells-ongoing" name="ongoing" value="ongoing">
                             <label for="sells-ongoing">mes ventes en cours</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="sells-open" name="ventes" value="waiting">
+                            <input type="checkbox" id="sells-open" name="open" value="open">
                             <label for="sells-open">enchères non débutés</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="sells-won" name="ventes" value="finished">
+                            <input type="checkbox" id="sells-won" name="won" value="won">
                             <label for="sells-won">mes ventes terminées</label>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
         <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
 
         <c:choose>
-            <c:when test="unarticle.getImagePath() != null">
+            <c:when test="${unarticle.getImagePath() != null}">
                 <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">
             </c:when>
             <c:otherwise>
