@@ -6,14 +6,17 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.beans.Categorie;
+import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.CategorieManager;
+import fr.eni_ecole.auction.bll.UserManager;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
 
@@ -32,10 +35,37 @@ import fr.eni_ecole.auction.dal.DALException;
    	private ArticleManager articleManager;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		if (request.getSession().getAttribute("UserConnecte")==null) {
-			request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath()+"/connexion");
-		}else {
+
+		Cookie[] cookies = null;
+		Cookie unCookie = null;
+		boolean trouve = false;
+		UserManager userManager;
+
+
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("yo")) {
+					unCookie = cookies[i];
+					trouve = true;
+					System.out.println("j'ai trouvé le cookie ");
+
+				}
+			}
+		}
+
+		if(trouve) {
+			try {
+				userManager = new UserManager();
+				Utilisateur utilisateur = userManager.selectPseudo(unCookie.getValue());
+				request.getSession().setAttribute("UserConnecte", utilisateur);
+
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		try{
 			categorieManager = new CategorieManager();
 			articleManager = new ArticleManager();
@@ -65,6 +95,6 @@ import fr.eni_ecole.auction.dal.DALException;
 			e.printStackTrace();
 		}
 		
-	} 
+	
 	}
- }
+}

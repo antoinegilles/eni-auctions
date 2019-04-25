@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.bll.UserManager;
@@ -24,7 +26,16 @@ public class Connexion extends HttpServlet {
     }
 
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utilisateur user = null;
+		String mail = null;
+		String motdepasse = null;
+		UserManager userManager;
 		Cookie[] cookies = null;
 		Cookie unCookie = null;
 		boolean trouve = false;
@@ -41,29 +52,8 @@ public class Connexion extends HttpServlet {
 			}
 		}
 
-		if (!trouve) {
-			// genere un identifiant unique pour chaque poste client
-			unCookie = new Cookie("yo", "yo");
-			unCookie.setMaxAge(60*10); // temps en secondes de la durÃ©e de vie du cookie
-
-			// Ajouter le cookie Ã  l'entÃªte de la reponse
-			response.addCookie(unCookie);
-			System.out.println(cookies);
-
-		}
-		if(trouve) {
-			System.out.println("cookie trouve");
-			request.getSession().getAttribute("UserConnecte");
-			request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utilisateur user = null;
-		String mail = null;
-		String motdepasse = null;
-		UserManager userManager;
-	
+		
+		
 		
 		
 		// Controle des informations en recup�ration :
@@ -94,6 +84,19 @@ public class Connexion extends HttpServlet {
 					// request.getSession().invalidate();
 					// Placer le bean dans le contexte de session
 					request.getSession().setAttribute("UserConnecte", user);
+					
+					if (!trouve) {
+						// genere un identifiant unique pour chaque poste client
+						unCookie = new Cookie("yo",user.getPseudo());
+						unCookie.setMaxAge(60*10); // temps en secondes de la durÃ©e de vie du cookie
+
+						// Ajouter le cookie Ã  l'entÃªte de la reponse
+						response.addCookie(unCookie);
+
+					}
+					if(trouve) {
+						System.out.println("cookie trouve");
+					}
 					//redirection vers l'espace animateur
 					response.sendRedirect(request.getContextPath()+"/");
 				}
