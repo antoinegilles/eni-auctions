@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.bll.ArticleManager;
 import fr.eni_ecole.auction.dal.BusinessException;
-import fr.eni_ecole.auction.dal.DALException;
+import fr.eni_ecole.auction.dal.DALException;                                                                                                
 
 /**
  * Servlet implementation class RemporterUneVente
@@ -32,7 +32,7 @@ public class RemporterUneVente extends HttpServlet {
 		
 		int numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 		
-		// Liste des articles enchères en cours
+		// Liste des articles enchï¿½res en cours
 		try {
 			detailArticle = articleManager.detailVente(numeroArticle);
 		} catch (DALException | BusinessException e) {
@@ -40,7 +40,7 @@ public class RemporterUneVente extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		// Placer des articles enchères en cours dans le contexte de requete			
+		// Placer des articles enchï¿½res en cours dans le contexte de requete			
 		request.setAttribute("detailArticle", detailArticle);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/article/remporterUneVente.jsp");

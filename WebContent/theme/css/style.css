@@ -308,6 +308,7 @@ body main .shop-view article {
 }
 body main .shop-view article:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  opacity: 0.5;
 }
 body main .shop-view article img {
   width: 100%;
