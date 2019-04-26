@@ -44,12 +44,12 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
     private static final String AJOUTER_ENCHERE="INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,GETDATE(),?);";
     private static final String MAX_ENCHERE="select max(montant_enchere) from ENCHERES where no_article=?;";
     private static final String SELECT_COUNT_USER_ARTICLE = "SELECT COUNT(av.no_article) AS 'count' FROM articles_vendus av INNER JOIN utilisateurs u ON u.no_utilisateur = av.no_utilisateur WHERE u.no_utilisateur = ? ;";
-    private static final String LISTER_ENCHERES="Select no_encheres,av.no_article,date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, montant_enchere, nom_article, description,libelle,pseudo,rue,ville,code_postal\r\n" +
+    private static final String LISTER_ENCHERES="Select no_encheres,av.no_article,date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, montant_enchere, nom_article, description,libelle,pseudo,rue,ville,code_postal, img_path\r\n" +
             "from ENCHERES e INNER JOIN articles_vendus av ON av.no_article = e.no_article\r\n" +
             "INNER JOIN categories c ON c.no_categorie = av.no_categorie\r\n" +
             "INNER JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur";
 
-    private static final String LISTER_ARTICLES_VENDUS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, libelle, pseudo, rue,ville,code_postal, av.no_utilisateur\r\n" +
+    private static final String LISTER_ARTICLES_VENDUS="SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, libelle, pseudo, rue,ville,code_postal, av.no_utilisateur, img_path\r\n" +
             "FROM articles_vendus av\r\n" +
             "INNER JOIN categories c ON c.no_categorie = av.no_categorie\r\n" +
             "INNER JOIN utilisateurs u ON av.no_utilisateur = u.no_utilisateur";
@@ -373,9 +373,16 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 
 			rs=pstmt.executeQuery();
 			while (rs.next()) {
-				unArticle = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"),
-						rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial"), rs.getInt("prix_vente"));
+				unArticle = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"),
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"),
+						rs.getDate("date_fin_encheres"),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getString("img_path")
+				);
 
 				unUtilisateurR = new Utilisateur(rs.getString("pseudo"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"));
@@ -445,7 +452,8 @@ public class ArticleDAOjdbcImpl implements ArticleDAO {
 			while (rs.next()) {
 				unArticle = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"),
-						rs.getInt("prix_initial"), rs.getInt("prix_vente"));
+						rs.getInt("prix_initial"), rs.getInt("prix_vente"),
+						rs.getString("img_path"));
 
 				uneCategorie = new Categorie(rs.getString("libelle"));
 				

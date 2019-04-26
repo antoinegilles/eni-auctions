@@ -114,8 +114,8 @@
         <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
 
         <c:choose>
-            <c:when test="${unarticle.getImagePath() != null}">
-                <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">
+            <c:when test="${unarticle.imagePath != null}">
+                <img src="uploads?img=${unarticle.imagePath}" alt="image article">
             </c:when>
             <c:otherwise>
                 <img src="theme/img/no-image.jpg" alt="image article">

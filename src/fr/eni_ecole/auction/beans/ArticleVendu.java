@@ -41,7 +41,7 @@ public class ArticleVendu {
 	}
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int misAPrix, int prixVente) {
+			Date dateFinEncheres, int misAPrix, int prixVente, String imgPath) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -50,6 +50,7 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.misAPrix = misAPrix;
 		this.prixVente = prixVente;
+		this.imagePath = imgPath;
 	}
 	
 	

@@ -25,33 +25,28 @@ public class Uploads extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         File image = ImageLoader.getImg(request.getParameter("img"));
-        System.out.println(request.getQueryString());
-        if (image == null) {
-            request.setAttribute("erreur", new Exception("L'image n'existe pas"));
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
-            dispatcher.forward(request,response);
-            return;
-        }
+        if (image == null || !image.exists()) {
+            response.sendRedirect(request.getContextPath() + "/theme/img/no-image.jpg");
+        } else {
+            try {
+                response.setContentType(getFileType(request.getQueryString()));
+                OutputStream out = response.getOutputStream();
+                FileInputStream in = new FileInputStream(image);
 
-        try {
-            response.setContentType(getFileType(request.getQueryString()));
-            OutputStream out = response.getOutputStream();
-            FileInputStream in = new FileInputStream(image);
+                // Copy the contents of the file to the output stream
+                byte[] buf = new byte[1024];
+                int count = 0;
+                while ((count = in.read(buf)) >= 0) {
+                    out.write(buf, 0, count);
+                }
+                in.close();
+                out.close();
 
-            // Copy the contents of the file to the output stream
-            byte[] buf = new byte[1024];
-            int count = 0;
-            while ((count = in.read(buf)) >= 0) {
-                out.write(buf, 0, count);
+            } catch (Exception e) {
+                request.setAttribute("erreur", e);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
+                dispatcher.forward(request, response);
             }
-            in.close();
-            out.close();
-
-        } catch (Exception e) {
-            request.setAttribute("erreur", e);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
-            dispatcher.forward(request,response);
-            return;
         }
     }
 
