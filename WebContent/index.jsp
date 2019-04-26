@@ -38,15 +38,15 @@
                 <input type="radio" name="radio-choice" class="radio-choice" id="radio-achats-choice" value="achats" checked> <label for="radio-achats-choice">Achats</label>
                 <div class="checkbox-list active" id="achat-checkbox">
                         <div>
-                            <input type="checkbox" id="achat-open" name="open" value="open">
+                            <input type="checkbox" id="open" name="open" value="open">
                             <label for="achat-open">enchères ouvertes</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="achat-ongoing" name="ongoing" value="ongoing">
+                            <input type="checkbox" id="ongoing" name="ongoing" value="ongoing">
                             <label for="achat-ongoing">mes enchères en cours</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="achat-won" name="won" value="won">
+                            <input type="checkbox" id="won" name="won" value="won">
                             <label for="achat-won">mes enchères remportées</label>
                         </div>
                     </div>
@@ -55,15 +55,15 @@
                 <input type="radio" name="radio-choice" id="radio-ventes-choice" value="ventes"> <label for="radio-ventes-choice">Ventes</label>
                 <div class="checkbox-list" id="vente-checkbox">
                         <div>
-                            <input type="checkbox" id="sells-ongoing" name="ongoing" value="ongoing">
+                            <input type="checkbox" id="sellsOngoing" name="sellsOngoing" value="ongoing">
                             <label for="sells-ongoing">mes ventes en cours</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="sells-open" name="open" value="open">
+                            <input type="checkbox" id="sellsOpen" name="sellsOpen" value="open">
                             <label for="sells-open">enchères non débutés</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="sells-won" name="won" value="won">
+                            <input type="checkbox" id="sellsWon" name="sellsWon" value="won">
                             <label for="sells-won">mes ventes terminées</label>
                         </div>
                     </div>
@@ -114,8 +114,8 @@
         <article onclick="window.location.assign('DetailVente?id=${unarticle.noArticle}')">
 
         <c:choose>
-            <c:when test="${unarticle.getImagePath() != null}">
-                <img src="uploads?img=${unarticle.getImagePath()}" alt="image article">
+            <c:when test="${unarticle.imagePath != null}">
+                <img src="uploads?img=${unarticle.imagePath}" alt="image article">
             </c:when>
             <c:otherwise>
                 <img src="theme/img/no-image.jpg" alt="image article">
@@ -124,7 +124,7 @@
 
 		<div class="article-body">
 			<p class="article-title"> Nom de l'aticle : ${unarticle.nomArticle} </p>
-			<p class="article-seller">Vendeur : Jojo45</p>
+			<p class="article-seller">Vendeur : ${unarticle.utilisateur.pseudo}</p>
 			<p> Prix : ${unarticle.misAPrix}</p>
 			<p> Catégorie : ${unarticle.categorie.libelle}</p>
 			<p> Début de l'enchere : ${unarticle.dateDebutEncheres}</p>

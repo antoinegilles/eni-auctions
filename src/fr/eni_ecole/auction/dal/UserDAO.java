@@ -1,5 +1,6 @@
 package fr.eni_ecole.auction.dal;
 
+import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.beans.Utilisateur;
 
 public interface UserDAO {
@@ -13,6 +14,8 @@ public interface UserDAO {
 	public Utilisateur deleteUser(String pseudo, String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp,int credit)  throws DALException ;
 
 	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException;
+	
+	public void updateUserDebit(ArticleVendu detailArticleEncheri) throws DALException;
 
 
 

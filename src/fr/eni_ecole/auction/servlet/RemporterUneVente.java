@@ -40,7 +40,7 @@ public class RemporterUneVente extends HttpServlet {
 		// Liste des articles enchères en cours
 		try {
 			detailArticle = articleManager.detailVente(numeroArticle);
-		} catch (DALException | BusinessException e) {
+		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

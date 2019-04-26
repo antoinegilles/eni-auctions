@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.util.AccesBase;
 import fr.eni_ecole.auction.dal.DALException;
@@ -22,6 +23,7 @@ public class UserDAOjdbclmpl implements UserDAO {
 			+ "telephone = ?, rue = ?, code_postal = ?, ville = ?,mot_de_passe =?, credit = ? WHERE pseudo = ?;";
 
 	private static final String MODIFIER_CREDIT="UPDATE UTILISATEURS SET credit = ? WHERE no_utilisateur = ?;";
+	private static final String MODIFIER_DEBIT="UPDATE UTILISATEURS SET credit = ? WHERE pseudo = ?;";
 
 
 	
@@ -206,6 +208,29 @@ public class UserDAOjdbclmpl implements UserDAO {
 				AccesBase.seDeconnecter(pstmt, cnx);
 			}
 		}
+	
+	public void updateUserDebit(ArticleVendu detailArticleEncheri) throws DALException {
+		Connection cnx=null;
+		PreparedStatement pstmt=null;
 
+		cnx=AccesBase.getConnection();
+		try{
+			cnx.setAutoCommit(false);
+			pstmt=cnx.prepareStatement(MODIFIER_DEBIT);
+			pstmt.setInt(1, detailArticleEncheri.getUtilisateur().getCredit());
+			pstmt.setString(2, detailArticleEncheri.getUtilisateur().getPseudo());
 
+			pstmt.executeUpdate();
+			cnx.commit();
+		}catch(SQLException e){
+			try {
+				cnx.rollback();
+			} catch (SQLException e1) {
+				throw new DALException("probleme rollback methode updateUserCredit()",e1);
+			}
+			throw new DALException("probleme methode updateUserCredit()",e);
+		}finally{
+			AccesBase.seDeconnecter(pstmt, cnx);
+		}
+	}
 }

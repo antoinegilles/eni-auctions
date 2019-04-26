@@ -17,32 +17,32 @@ public class ArticleManager {
 		articleDAO = DAOFactory.getArticleDAO();
 	}
 	
-	public List<ArticleVendu> listerLesArticles() throws DALException, BusinessException
+	public List<ArticleVendu> listerLesArticles() throws DALException
 	{
 		return articleDAO.listerLesArticles();
 	}
 
-	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException, BusinessException
+	public List<ArticleVendu> listerLesEncheresEnCours(String categorie, String article) throws DALException
 	{
 		return articleDAO.listerLesEncheresEnCours(categorie, article);
 	}
 	
-	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException, BusinessException
+	public void ajouterUnArticle(String nomArticle, String description, String categorie, int misePrix, Date debutEnchere, Date finEnchere, int noUtilisateur, String imagePath) throws DALException
 	{
 		articleDAO.ajouterUnArticle(nomArticle, description, categorie, misePrix, debutEnchere, finEnchere, noUtilisateur, imagePath);
 	}
 	
-	public ArticleVendu detailVente(int detailVente) throws DALException, BusinessException
+	public ArticleVendu detailVente(int detailVente) throws DALException
 	{
 		return articleDAO.detailVente(detailVente);
 	}
 
-	public List<ArticleVendu> listeEncheres(String categorie, String article, String open, String ongoing, String won, Utilisateur unUtilisateur) throws DALException, BusinessException
+	public List<ArticleVendu> listeEncheres(String categorie, String article, String open, String ongoing, String won, String radioChoice, Utilisateur unUtilisateur) throws DALException
 	{
-		return articleDAO.listeEncheres(categorie, article, open, ongoing, won, unUtilisateur);
+		return articleDAO.listeEncheres(categorie, article, open, ongoing, won, radioChoice, unUtilisateur);
 	}
 
-	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException, BusinessException
+	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException
 	{
 
 		//Ench�re sur un article si je propose un prix (en points) sup�rieur au tarif actuel
@@ -55,9 +55,9 @@ public class ArticleManager {
 		articleDAO.ajouterUneEnchere(no_utilisateur, no_article, montant_enchere);
 	}
 
-	public List<ArticleVendu> listeArticleVendus(String categorie, String article, String sellsOngoing, String sellsOpen, String sellsWon, Utilisateur unUtilisateur) throws DALException, BusinessException
+	public List<ArticleVendu> listeArticleVendus(String categorie, String article, String sellsOngoing, String sellsOpen, String sellsWon, String radioChoice, Utilisateur unUtilisateur) throws DALException, BusinessException
 	{
-		return articleDAO.listeArticleVendus(categorie, article, sellsOngoing, sellsOpen, sellsWon, unUtilisateur);
+		return articleDAO.listeArticleVendus(categorie, article, sellsOngoing, sellsOpen, sellsWon, radioChoice, unUtilisateur);
 	}
 
 

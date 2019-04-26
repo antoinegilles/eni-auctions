@@ -21,6 +21,19 @@ public class Utilisateur {
 	
 	public Utilisateur() {
 	}
+	
+	
+
+	public Utilisateur(String pseudo, String rue, String codePostal, String ville, int credit) {
+		super();
+		this.pseudo = pseudo;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.credit = credit;
+	}
+
+
 
 	public Utilisateur(String pseudo, String rue, String codePostal, String ville) {
 		super();
@@ -29,6 +42,8 @@ public class Utilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 	}
+	
+	
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, String administrateur) {

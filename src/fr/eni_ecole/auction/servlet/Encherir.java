@@ -1,6 +1,7 @@
 package fr.eni_ecole.auction.servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,10 +38,10 @@ public class Encherir extends HttpServlet {
 			request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath()+"/connexion");
 		}else {
-		try {
+		
+			try {
 			articleManager = new ArticleManager();
 			ArticleVendu detailArticleEncheri = null;
-			ArticleVendu detailArticle = null;
 
 			userManager = new UserManager();
 
@@ -57,27 +58,43 @@ public class Encherir extends HttpServlet {
 			// Liste de l'articles de l'ench�res choisi
 			detailArticleEncheri = articleManager.detailVente(numeroArticle);
 
-			// Si le prix (en points) est sup�rieur au tarif actuel
+			// Si le prix (en points) est supèrieur au tarif actuel
+			// TODO ET que la date de début d'enchères est inférieure à la date du jour
+			// ET que la date de fin d'enchères est toujours en cours
 			if (proposition >= detailArticleEncheri.getMisAPrix()) {
 
-				// Si le compte de points ne devient pas n�gatif
+				// Si le compte de points ne devient pas négatif
 				if (unUtilisateurRecherche.getCredit() >= proposition) {
 
-					// Si l�ench�re est possible, mon cr�dit de points est d�bit� du montant
-					// propos�.
-					//unUtilisateurRecherche.setCredit(unUtilisateurRecherche.getCredit() - proposition);
+					// Si l'enchère est possible, mon crédit de points est débité du montant
+					// proposé. [CREDIT]
 					int creditRestant = unUtilisateurRecherche.getCredit() - proposition;
 					unUtilisateurRecherche.setCredit(creditRestant);
-							userManager.updateUserCredit(unUtilisateurRecherche);
 					
-					// TODO Le meilleur ench�risseur pr�c�dent si il existe est re-cr�dit� de son
+					userManager.updateUserCredit(unUtilisateurRecherche);
+					
+					// TODO Débiter la somme au vendeur de l'enchère [DEBIT]
+					
+					int debit = detailArticleEncheri.getUtilisateur().getCredit() + proposition;
+					
+					detailArticleEncheri.getUtilisateur()
+							.setCredit(debit);
+					
+					
+					userManager.updateUserDebit(detailArticleEncheri);
+
+					
+					// TODO Le meilleur enchèrisseur précèdent si il existe est re-crédité de son
 					// offre.
 
+					
 					articleManager.ajouterUneEnchere(unUtilisateurRecherche.getNoUtilisateur(), numeroArticle,
 							proposition);
+
+					request.setAttribute("proposition", proposition);
 					
 					request.getSession().setAttribute("UserConnecte", unUtilisateurRecherche);
-					
+
 					response.sendRedirect(request.getContextPath() + "/");
 				}
 			}
@@ -85,9 +102,6 @@ public class Encherir extends HttpServlet {
 			request.setAttribute("erreur", e);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
 			dispatcher.forward(request, response);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	}

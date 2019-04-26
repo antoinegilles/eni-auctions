@@ -13,6 +13,6 @@ public interface ArticleDAO {
 	public ArticleVendu detailVente(int detailVente) throws DALException;
 	public int countArticlesForUser(Utilisateur user) throws DALException;
 	public void ajouterUneEnchere(int no_utilisateur, int no_article, int montant_enchere) throws DALException;
-	public List<ArticleVendu> listeEncheres(String categorie, String article, String open, String ongoing, String won, Utilisateur unUtilisateur) throws DALException;
-	public List<ArticleVendu> listeArticleVendus(String categorie, String article, String sellsOngoing, String sellsOpen, String sellsWon, Utilisateur unUtilisateur) throws DALException;
+	public List<ArticleVendu> listeEncheres(String categorie, String article, String open, String ongoing, String won, String radioChoice, Utilisateur unUtilisateur) throws DALException;
+	public List<ArticleVendu> listeArticleVendus(String categorie, String article, String sellsOngoing, String sellsOpen, String sellsWon, String radioChoice, Utilisateur unUtilisateur) throws DALException;
 }

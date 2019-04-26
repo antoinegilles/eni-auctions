@@ -108,8 +108,9 @@ import fr.eni_ecole.auction.dal.DALException;
 						unUtilisateur.getMotDePasse());
 
 				String radioChoice = request.getParameter("radio-choice");
+				//String radioVentesChoice = request.getParameter("radio-ventes-choice");
 
-				if (radioChoice == "achats") {
+				if ("achats".equals(radioChoice)) {
 					// Bouton Achats
 					String open = request.getParameter("open");
 
@@ -118,17 +119,19 @@ import fr.eni_ecole.auction.dal.DALException;
 					String won = request.getParameter("won");
 
 					// Lister les enchères (Achats)
-					ListerEncheres = articleManager.listeEncheres(categorie, article, open, ongoing, won, unUtilisateurRecherche);
-				} else if (radioChoice == "ventes") {
+					ListerEncheres = articleManager.listeEncheres(categorie, article, open, ongoing, won, radioChoice, unUtilisateurRecherche);
+				} 
+				
+				else if ("ventes".equals(radioChoice)) {
 					// Bouton Ventes
-					String sellsOngoing = request.getParameter("ongoing");
+					String sellsOngoing = request.getParameter("sellsOngoing");
 
-					String sellsOpen = request.getParameter("open");
+					String sellsOpen = request.getParameter("sellsOpen");
 
-					String sellsWon = request.getParameter("won");
+					String sellsWon = request.getParameter("sellsWon");
 
 					// Lister les ventes (Ventes)
-					ListerEncheres = articleManager.listeArticleVendus(categorie, article, sellsOngoing, sellsOpen, sellsWon,
+					ListerEncheres = articleManager.listeArticleVendus(categorie, article, sellsOngoing, sellsOpen, sellsWon, radioChoice,
 							unUtilisateurRecherche);
 				} else {
 					// Liste des articles enchères en cours
