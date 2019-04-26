@@ -1,7 +1,13 @@
 package fr.eni_ecole.auction.servlet;
 
 import java.io.IOException;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,15 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.jni.Local;
+
 import fr.eni_ecole.auction.beans.ArticleVendu;
-import fr.eni_ecole.auction.beans.Categorie;
 import fr.eni_ecole.auction.bll.ArticleManager;
-import fr.eni_ecole.auction.bll.CategorieManager;
 import fr.eni_ecole.auction.dal.BusinessException;
 import fr.eni_ecole.auction.dal.DALException;
-import fr.eni_ecole.auction.dal.DAOFactory;
-import fr.eni_ecole.auction.exceptions.FileException;
-import fr.eni_ecole.auction.util.ImageLoader;
+import fr.eni_ecole.auction.util.ManipDate;
 
 
 /**
@@ -45,13 +49,18 @@ import fr.eni_ecole.auction.util.ImageLoader;
 	
 				int id = Integer.parseInt(request.getParameter("id"));
 				
-				// Liste des articles ench�res en cours
+				// Liste des articles enchères en cours
 				detailArticle = articleManager.detailVente(id);
 				
 				int minPrice = ( detailArticle.getMisAPrix() > detailArticle.getPrixVente())? detailArticle.getMisAPrix() : detailArticle.getPrixVente();
 				  minPrice++;
 
-				// Placer des articles ench�res en cours dans le contexte de requete
+				  // Date du Jour
+				  Date dateDuJour = new Date();
+				  
+				  if (detailArticle.getDateFinEncheres().after(dateDuJour)) {
+				  
+				// Placer des articles enchères en cours dans le contexte de requete
 				  request.setAttribute("minPrice", minPrice);
 				  request.setAttribute("detailArticle", detailArticle);
 			
@@ -66,16 +75,21 @@ import fr.eni_ecole.auction.util.ImageLoader;
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/detailVente");
 			dispatcher.forward(request,response);
-		
+				  }
+				  else {
+					// Liste des articles enchères en cours
+						detailArticle = articleManager.detailVente(id);
+						
+						request.setAttribute("detailArticle", detailArticle);
+						
+					  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/remporterUneVente");
+						dispatcher.forward(request, response);
+				  }
 		}catch (DALException e){
 			request.setAttribute("erreur", e);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erreurPage");
 			dispatcher.forward(request,response);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		}		
 	}
 	}
 

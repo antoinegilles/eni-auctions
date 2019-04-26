@@ -21,16 +21,16 @@
 
     Nom : ${detailArticle.nomArticle}<br>
     Description : ${detailArticle.description}<br>
-    Cat�gorie : ${detailArticle.categorie.libelle}<br>
+    Catégorie : ${detailArticle.categorie.libelle}<br>
     Meilleur offre : <br>
-    Mise � prix: ${detailArticle.misAPrix} euros<br>
-    Fin de l'ench�re : ${detailArticle.dateFinEncheres}<br> <br>
+    Mise à prix: ${detailArticle.misAPrix} euros<br>
+    Fin de l'enchère : ${detailArticle.dateFinEncheres}<br> <br>
     Retrait : ${detailArticle.utilisateur.rue},<br>
     ${detailArticle.utilisateur.codePostal}<br>
 
     Vendeur : ${detailArticle.utilisateur.pseudo}<br>
     <br>
-    <a href="${pageContext.request.contextPath}/"><button type="submit">Retour � l'accueil</button></a>
+    <a href="${pageContext.request.contextPath}/"><button type="submit">Retour  à  l'accueil</button></a>
 
 
 

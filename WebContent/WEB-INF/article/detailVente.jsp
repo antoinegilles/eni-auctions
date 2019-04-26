@@ -72,14 +72,17 @@
                 <td>${detailArticle.utilisateur.pseudo}</td>
             </tr>
         </table>
+        <c:if test="${sessionScope.UserConnecte.pseudo !=  detailArticle.utilisateur.pseudo }">
         <p class="title">Ma proposition</p>
         <table>
-            <tr>
+			<tr>
                 <td><input type="number" id="proposition" name="proposition" min="${minPrice}" value="${minPrice}" required></td>
                 <td><button type="submit">Enchérir</button></td>
             </tr>
         </table>
-                <input value="${detailArticle.noArticle}" type="text" id="numeroArticle" name="numeroArticle" style="visibility: hidden;">
+		</c:if>
+            
+                        <input value="${detailArticle.noArticle}" type="text" id="numeroArticle" name="numeroArticle" style="visibility: hidden;">
     </form>
 </div>
 

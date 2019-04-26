@@ -1,5 +1,6 @@
 package fr.eni_ecole.auction.bll;
 
+import fr.eni_ecole.auction.beans.ArticleVendu;
 import fr.eni_ecole.auction.beans.Utilisateur;
 import fr.eni_ecole.auction.dal.DALException;
 import fr.eni_ecole.auction.dal.DAOFactory;
@@ -33,9 +34,12 @@ private UserDAO userDAO;
 
 	};
 
-
 	public void updateUserCredit(Utilisateur unUtilisateur) throws DALException{
 		userDAO.updateUserCredit(unUtilisateur);
+	};
+	
+	public void updateUserDebit(ArticleVendu detailArticleEncheri) throws DALException{
+		userDAO.updateUserDebit(detailArticleEncheri);
 		
 	};
 

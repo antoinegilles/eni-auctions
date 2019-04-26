@@ -2,12 +2,12 @@ package fr.eni_ecole.auction.dal;
 
 public abstract class DAOFactory {
 	
-	private static ArticleDAOjdbcImpl articleDAO;
-	private static CategorieDAOjdbcImpl categorieDAO;
-	private static UserDAOjdbclmpl userDAO;
-	private static InscriptionDAOjdbclmpl inscriptionDAO;
+	private static ArticleDAO articleDAO;
+	private static CategorieDAO categorieDAO;
+	private static UserDAO userDAO;
+	private static InscriptionDAO inscriptionDAO;
 	
-	public static ArticleDAOjdbcImpl getArticleDAO()
+	public static ArticleDAO getArticleDAO()
 	{
 		if(articleDAO == null) {
 		articleDAO =  new ArticleDAOjdbcImpl();
@@ -15,7 +15,7 @@ public abstract class DAOFactory {
 		return articleDAO;
 	}
 	
-	public static CategorieDAOjdbcImpl getCategorieDAO()
+	public static CategorieDAO getCategorieDAO()
 	{
 		if(categorieDAO == null) {
 			categorieDAO =  new CategorieDAOjdbcImpl();
@@ -23,14 +23,14 @@ public abstract class DAOFactory {
 		return categorieDAO;
 	}
 	
-	public static UserDAOjdbclmpl getUserDAO()
+	public static UserDAO getUserDAO()
 	{
 		if(userDAO == null) {
 			userDAO =  new UserDAOjdbclmpl();
 		}
 		return userDAO;
 	}
-	public static InscriptionDAOjdbclmpl getInscriptionDAO()
+	public static InscriptionDAO getInscriptionDAO()
 	{
 		if(inscriptionDAO == null) {
 			inscriptionDAO =  new InscriptionDAOjdbclmpl();
