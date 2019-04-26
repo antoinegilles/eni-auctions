@@ -32,11 +32,17 @@ body .false-info {
   border: transparent;
   border-radius: 5px;
 }
+@media screen and (max-width: 1000px) {
+  body .false-info {
+    margin: 5px;
+  }
+}
 body header {
   height: 80px;
   background-color: #26A69A;
   display: flex;
   justify-content: space-between;
+  z-index: 10;
 }
 body header .main-title {
   padding: 10px 0 0 10px;
@@ -58,12 +64,12 @@ body header .page-title {
 body header .page-title h1 {
   color: white;
 }
-body header .trigger-menu-navigation {
-  display: none;
-}
 body header .navigation {
   display: flex;
   justify-content: flex-end;
+}
+body header .navigation .trigger-menu-navigation {
+  display: none;
 }
 body header .navigation .user-head-infos {
   display: flex;
@@ -84,6 +90,10 @@ body header .navigation .user-head-infos p {
   color: white;
   margin: 0;
 }
+body header .navigation .normal-links {
+  display: flex;
+  justify-content: flex-end;
+}
 body header .navigation a {
   width: 110px;
   text-align: center;
@@ -98,64 +108,58 @@ body header .navigation a:hover {
   background-color: #4DB6AC;
   color: white;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   body header .main-title {
     font-size: 2vw;
   }
-  body header .page-title {
-    font-size: 2.8vw;
-    line-height: 0.1;
+  body header .page-title h1 {
+    font-size: 30px;
+    line-height: 1.3;
+    margin: 0;
   }
   body header .navigation {
+    display: flex;
+  }
+  body header .navigation .normal-links {
     display: none;
   }
-  body header .trigger-menu-navigation {
+  body header .navigation .trigger-menu-navigation {
     display: block;
-    width: 110px;
-    text-align: center;
-    text-decoration: none;
-    color: #E0F2F1;
-    font-weight: 500;
-    line-height: 5;
-    transition: ease-in-out 0.2s;
-  }
-  body header .trigger-menu-navigation:hover {
-    cursor: pointer;
-    background-color: #4DB6AC;
-    color: white;
   }
 }
-body nav .menu-navigation {
-  visibility: hidden;
-  background-color: #00897B;
+body nav.menu-navigation {
+  z-index: 1;
+  display: none;
+  overflow: hidden;
+  background-color: #4DB6AC;
   transition: 0.3s ease-in-out;
   color: white;
 }
-body nav .menu-navigation a {
+body nav.menu-navigation a {
   width: 100%;
   text-align: center;
   text-decoration: none;
-  color: #E0F2F1;
+  color: white;
   font-weight: 500;
   line-height: 5;
   transition: ease-in-out 0.2s;
 }
-body nav .menu-navigation a:hover {
+body nav.menu-navigation a:hover {
   cursor: pointer;
-  background-color: #4DB6AC;
+  background-color: #009688;
   color: white;
 }
 @media screen and (max-width: 1000px) {
-  body nav .menu-navigation {
+  body nav.menu-navigation {
     display: flex;
     flex-direction: column;
-    visibility: collapse;
     width: 100%;
     height: 0;
-    overflow: hidden;
+    max-height: fit-content;
+    transition: 0.3s ease-in-out;
   }
-  body nav .menu-navigation .active {
-    visibility: visible;
+  body nav.menu-navigation.active {
+    height: auto;
   }
 }
 body main .error-box {
@@ -204,6 +208,11 @@ body main form.colorized, body main .infos.colorized {
 }
 body main form.horizontal, body main .infos.horizontal {
   flex-direction: row;
+}
+@media screen and (max-width: 1000px) {
+  body main form.horizontal, body main .infos.horizontal {
+    flex-direction: column;
+  }
 }
 body main form.sticky, body main .infos.sticky {
   margin: 0 0 20px 0;
@@ -303,6 +312,17 @@ body main form .buttons button, body main .infos .buttons button {
 body main form .buttons button.red, body main .infos .buttons button.red {
   background-color: #EF5350;
 }
+@media screen and (max-width: 1000px) {
+  body main form, body main .infos {
+    text-align: center;
+  }
+  body main form .input-group, body main .infos .input-group {
+    width: 100%;
+  }
+  body main form input, body main .infos input {
+    width: 100%;
+  }
+}
 body main form .search-filters, body main .infos .search-filters {
   flex: 0 0 50%;
   display: flex;
@@ -320,6 +340,17 @@ body main form .search-filters .filter-type-choice .radio-checkbox-filters .chec
 body main form .search-filters .filter-type-choice .radio-checkbox-filters .active, body main .infos .search-filters .filter-type-choice .radio-checkbox-filters .active {
   pointer-events: all;
   opacity: 1;
+}
+@media screen and (max-width: 1000px) {
+  body main form .search-filters .filter-type-choice, body main .infos .search-filters .filter-type-choice {
+    justify-content: space-evenly;
+  }
+  body main form .search-filters .filter-type-choice .radio-checkbox-filters, body main .infos .search-filters .filter-type-choice .radio-checkbox-filters {
+    text-align: start;
+  }
+  body main form .search-filters .filter-type-choice .radio-checkbox-filters input, body main .infos .search-filters .filter-type-choice .radio-checkbox-filters input {
+    width: auto;
+  }
 }
 body main form .search-filters .input-group, body main .infos .search-filters .input-group {
   padding: 5px 0;
@@ -353,6 +384,15 @@ body main form .search-filters .input-group.search input, body main .infos .sear
 }
 body main form .search-filters .input-group.search input:focus, body main .infos .search-filters .input-group.search input:focus {
   padding-bottom: 5px;
+}
+@media screen and (max-width: 1000px) {
+  body main form .search-filters .input-group.search, body main .infos .search-filters .input-group.search {
+    width: 100%;
+  }
+  body main form .search-filters .input-group.search.search input, body main .infos .search-filters .input-group.search.search input {
+    height: 50px;
+    width: 70vw;
+  }
 }
 body main .shop-view {
   display: flex;
@@ -402,7 +442,16 @@ body main .shop-view article .article-body .article-seller {
     justify-content: center;
   }
   body main .shop-view article {
-    width: 90%;
+    width: 70%;
+  }
+  body main .shop-view article .article-body {
+    font-size: 12px;
+  }
+  body main .shop-view article .article-body p {
+    margin: 0;
+  }
+  body main .shop-view article .article-body .article-title {
+    font-size: 20px;
   }
 }
 body main .divider {
@@ -420,6 +469,12 @@ body main .detail-image {
   width: 26%;
   flex-direction: column;
   justify-content: center;
+}
+@media screen and (max-width: 1000px) {
+  body main .detail-image {
+    width: 70%;
+    margin: 0 auto;
+  }
 }
 body main .detail-image Article {
   width: 100%;
