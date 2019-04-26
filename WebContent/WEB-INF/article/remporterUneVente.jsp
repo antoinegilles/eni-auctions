@@ -32,7 +32,7 @@
             </div>
         </article>
     </div>
-    <div class="info titled">
+    <div class="infos titled">
         <p class="title">Remporter une vente</p>
         <table>
 

@@ -46,7 +46,7 @@
                 <div class="user-head-infos">
                     <img src="theme/img/Anonym.jpg" class="profile-picture">
                     <p>${sessionScope.UserConnecte.pseudo}</p>
-                    <p>${sessionScope.UserConnecte.credit}<i class="fas fa-coins"></i></p>
+                    <p><i class="fas fa-coins"></i> ${sessionScope.UserConnecte.credit}</p>
                 </div>
             </c:if>
 

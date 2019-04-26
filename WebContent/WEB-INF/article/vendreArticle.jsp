@@ -65,7 +65,7 @@
 			</tr>
 
 			<tr class="input-group">
-				<td><label for="categorie"> Catégories : </label></td>
+				<td><label for="categorie"> Catégorie : </label></td>
 				<td><select class="custom-dropdown__select custom-dropdown__select--white" id="categorie" name="categorie">
 					<c:forEach var="categorie" items="${liste}">
 					<option value="${categorie.noCategorie}">${categorie.libelle}</option>
@@ -84,7 +84,7 @@
 
 			<tr class="input-group">
 				<td><label for="misePrix">Mise à prix :</label></td>
-				<td><input type="text" id="misePrix" name="misePrix" required></td>
+				<td><input type="number" id="misePrix" name="misePrix" required></td>
 			</tr>
 
 			<tr class="input-group">

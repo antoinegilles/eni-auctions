@@ -31,8 +31,8 @@
         <article>
             <div class="preview-img" id="preview-img">
                 <c:choose>
-                    <c:when test="${detailArticle.getImagePath() != null}">
-                        <img src="uploads?img=${detailArticle.getImagePath()}" alt="image article">
+                    <c:when test="${detailArticle.imagePath != null}">
+                        <img src="uploads?img=${detailArticle.imagePath}" alt="image article">
                     </c:when>
                     <c:otherwise>
                         <img src="theme/img/no-image.jpg" alt="image article">
