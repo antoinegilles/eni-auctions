@@ -27,29 +27,57 @@
         </div>
 
         <div class="navigation">
-            <% if (request.getSession().getAttribute("UserConnecte") == null) { %>
+            <div class="normal-links">
+                <c:choose>
+                    <c:when test="${sessionScope.UserConnecte == null}">
+                        <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
+                        <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="<%=request.getContextPath() %>/">Enchères</a>
+                        <a href="<%=request.getContextPath() %>/VendreArticle">Vendre</a>
+                        <a href="<%=request.getContextPath() %>/profil">Mon profil</a>
+                        <a href="<%=request.getContextPath() %>/deconnexion">Déconnexion</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+            <c:if test="${sessionScope.UserConnecte != null}">
+                <div class="user-head-infos">
+                    <img src="theme/img/Anonym.jpg" class="profile-picture">
+                    <p>${sessionScope.UserConnecte.pseudo}</p>
+                    <p>${sessionScope.UserConnecte.credit}<i class="fas fa-coins"></i></p>
+                </div>
+            </c:if>
+
+            <a class="trigger-menu-navigation" id="trigger-nav"><i class="fas fa-bars"></i></a>
+
+        </div>
+    </header>
+    <nav class="menu-navigation" id="menu-navigation">
+        <c:choose>
+            <c:when test="${sessionScope.UserConnecte == null}">
                 <a href="<%=request.getContextPath() %>/inscription">S'inscrire</a>
                 <a href="<%=request.getContextPath() %>/connexion">Se connecter</a>
-
-            <% } else { 
-                 Utilisateur a = (Utilisateur) request.getSession().getAttribute("UserConnecte");
-     			request.getSession().getAttribute("UserConnecte");
-
-
-                 %>
-
+            </c:when>
+            <c:otherwise>
                 <a href="<%=request.getContextPath() %>/">Enchères</a>
                 <a href="<%=request.getContextPath() %>/VendreArticle">Vendre</a>
                 <a href="<%=request.getContextPath() %>/profil">Mon profil</a>
                 <a href="<%=request.getContextPath() %>/deconnexion">Déconnexion</a>
+            </c:otherwise>
+        </c:choose>
+    </nav>
 
+    <script type="application/javascript">
+        document.querySelector("#trigger-nav").addEventListener("click", function (ev) {
+            var nav = document.querySelector("#menu-navigation");
+            if(nav.classList.contains("active")) {
+                nav.classList.remove("active");
+            } else {
+                nav.classList.add("active");
+            }
+        })
+    </script>
 
-                <div class="user-head-infos">
-                    <img src="theme/img/Anonym.jpg" class="profile-picture">
-                    <p><%= a.getPseudo()%></p>
-                    <p><%= a.getCredit()%> <i class="fas fa-coins"></i></p>
-                </div>
-            <% } %>
-        </div>
-    </header>
     <main>
