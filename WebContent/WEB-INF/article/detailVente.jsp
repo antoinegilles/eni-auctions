@@ -30,7 +30,14 @@
     <div class="shop-view detail-image">
         <article>
             <div class="preview-img" id="preview-img">
-                <img src="<%=request.getAttribute("image")%>">
+                <c:choose>
+                    <c:when test="${detailArticle.getImagePath() != null}">
+                        <img src="uploads?img=${detailArticle.getImagePath()}" alt="image article">
+                    </c:when>
+                    <c:otherwise>
+                        <img src="theme/img/no-image.jpg" alt="image article">
+                    </c:otherwise>
+                </c:choose>
             </div>
         </article>
     </div>

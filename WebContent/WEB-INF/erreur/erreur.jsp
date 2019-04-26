@@ -23,7 +23,7 @@
 
 		<tr>
 			<td><p>Détail : </p></td>
-			<td><p>${e.getStackTrace()[0].getClassName() }+ " - "+${e.getStackTrace()[0].getMethodName() }+ " - "+${e.getStackTrace()[0].getLineNumber() }</p></td>
+			<td><p>${e.getStackTrace()[0].getClassName() } - ${e.getStackTrace()[0].getMethodName() } - ${e.getStackTrace()[0].getLineNumber() }</p></td>
 		</tr>
 	</table>
 	<p>${e.getLocalizedMessage()}</p>

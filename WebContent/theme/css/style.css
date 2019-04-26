@@ -58,6 +58,9 @@ body header .page-title {
 body header .page-title h1 {
   color: white;
 }
+body header .trigger-menu-navigation {
+  display: none;
+}
 body header .navigation {
   display: flex;
   justify-content: flex-end;
@@ -94,6 +97,66 @@ body header .navigation a:hover {
   cursor: pointer;
   background-color: #4DB6AC;
   color: white;
+}
+@media screen and (max-width: 800px) {
+  body header .main-title {
+    font-size: 2vw;
+  }
+  body header .page-title {
+    font-size: 2.8vw;
+    line-height: 0.1;
+  }
+  body header .navigation {
+    display: none;
+  }
+  body header .trigger-menu-navigation {
+    display: block;
+    width: 110px;
+    text-align: center;
+    text-decoration: none;
+    color: #E0F2F1;
+    font-weight: 500;
+    line-height: 5;
+    transition: ease-in-out 0.2s;
+  }
+  body header .trigger-menu-navigation:hover {
+    cursor: pointer;
+    background-color: #4DB6AC;
+    color: white;
+  }
+}
+body nav .menu-navigation {
+  visibility: hidden;
+  background-color: #00897B;
+  transition: 0.3s ease-in-out;
+  color: white;
+}
+body nav .menu-navigation a {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: #E0F2F1;
+  font-weight: 500;
+  line-height: 5;
+  transition: ease-in-out 0.2s;
+}
+body nav .menu-navigation a:hover {
+  cursor: pointer;
+  background-color: #4DB6AC;
+  color: white;
+}
+@media screen and (max-width: 1000px) {
+  body nav .menu-navigation {
+    display: flex;
+    flex-direction: column;
+    visibility: collapse;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
+  body nav .menu-navigation .active {
+    visibility: visible;
+  }
 }
 body main .error-box {
   width: 100%;
@@ -320,7 +383,7 @@ body main .shop-view article img {
   min-height: 40px;
 }
 body main .shop-view article .article-body {
-  padding: 5px;
+  padding: 5px 5px 5px 15px;
   font-size: 12px;
 }
 body main .shop-view article .article-body .article-seller .article-title {
@@ -334,10 +397,24 @@ body main .shop-view article .article-body .article-title {
 body main .shop-view article .article-body .article-seller {
   margin-top: 0;
 }
+@media screen and (max-width: 1000px) {
+  body main .shop-view {
+    justify-content: center;
+  }
+  body main .shop-view article {
+    width: 90%;
+  }
+}
 body main .divider {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+@media screen and (max-width: 1000px) {
+  body main .divider {
+    flex-direction: column;
+    justify-content: start;
+  }
 }
 body main .detail-image {
   width: 26%;

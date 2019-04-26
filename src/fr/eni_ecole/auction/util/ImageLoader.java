@@ -70,7 +70,8 @@ public class ImageLoader {
     }
 
     private String getFileName(Part part) throws FileException {
-        if(part == null) {
+        System.out.println(part.getName());
+        if(part.getContentType().equals("application/octet-stream")) {
             return "no-image.jpg";
         }
 
@@ -90,7 +91,7 @@ public class ImageLoader {
     public static File getImg(String path) {
         File image = new File(LOCAL_UPLOAD_PATH + File.separator + path);
         if(!image.exists()) {
-            image = new File(LOCAL_UPLOAD_PATH + File.separator + "no-image.jpg");
+            image = null;
         }
 
         return image;
